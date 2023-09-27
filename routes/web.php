@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DiscoveryController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -29,6 +32,8 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+//END AUTHENTICATION
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -38,3 +43,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+// SITE
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/discovery', [DiscoveryController::class, 'show'])->name('discovery');
+    Route::get('/discovery+settings', [DiscoveryController::class, 'settings'])->name('discovery.settings');
+    Route::get('/user', [UserController::class, 'show'])->name('user.show');
+});
+//END SIE
