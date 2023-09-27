@@ -10,7 +10,9 @@
 <body>
     <!-- NAV -->
     <x-app-layout>
-         @yield('content')
+    <div class="form-container">
+        @yield('content')
+    </div>
     </x-app-layout>
     <!-- END NAV -->
     <!-- PAGE -->

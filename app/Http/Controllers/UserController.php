@@ -9,7 +9,8 @@ class UserController extends Controller
     //Show profile Page
     public function show()
     {
-        return view('site.user');
+        $user = auth()->user();
+        return view('site.user', ['user' => $user]);
     }
 
 }

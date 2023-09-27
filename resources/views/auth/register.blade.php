@@ -4,21 +4,39 @@
 
         <!--Last Name -->
         <div>
-            <x-input-label for="name" :value="__('Last Name')" />
+            <x-input-label for="name" :value="__('Last Name (Child)')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!--First Name -->
         <div class="mt-4">
-            <x-input-label for="firstname" :value="__('First Name')" />
+            <x-input-label for="firstname" :value="__('First Name (Child)')" />
             <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
+        </div>
+
+        <!-- Gender -->
+        <div class="mt-4">
+            <x-input-label for="gender" :value="__('Gender (Child)')" />
+            <x-select-input id="gender" class="block mt-1 w-full" name="gender" required >
+                <option value="" disabled selected hidden>...</option>
+                <option value="boy">Boy</option>
+                <option value="girl">Girl</option>
+            </x-select-input>
+            <x-input-error :messages="$errors->get('gender')" class="mt-2" />
+        </div>
+
+        <!--Date of Birth-->
+        <div class="mt-4">
+            <x-input-label for="birthdate" :value="__('Date of Birth (Child)')" />
+            <x-text-input id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" :value="old('birthdate')" required autofocus autocomplete="date" />
             <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
+            <x-input-label for="email" :value="__('Email (Parent)')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>

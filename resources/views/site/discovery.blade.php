@@ -1,1 +1,1 @@
-@extends('layouts.site')
+@extends('layouts.discovery')

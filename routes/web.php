@@ -49,5 +49,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/discovery', [DiscoveryController::class, 'show'])->name('discovery');
     Route::get('/discovery+settings', [DiscoveryController::class, 'settings'])->name('discovery.settings');
     Route::get('/user', [UserController::class, 'show'])->name('user.show');
+    Route::post('/user', [UserController::class, 'update'])->name('user.update');
 });
 //END SIE

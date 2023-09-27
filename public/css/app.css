@@ -13,7 +13,8 @@ body{
 
 /* FORM CONTAINER */
 .form-container{
-    width: 375px;
+    width: 41.975svh;
+    height: 85svh;
     margin: 20px auto;
     background-color: #FFF;
     padding: 20px;
