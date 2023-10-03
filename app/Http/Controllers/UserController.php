@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\User_Info;
+use App\Models\Hobby;
+use App\Models\Residence;
+use App\Models\Pet;
+use App\Models\Language;
+
 
 class UserController extends Controller
 {
@@ -26,13 +34,27 @@ class UserController extends Controller
             'food' => ['string', 'max:255'],
         ]);
 
+        $pet = Pet::create([
+            'pet' => $request->pet,
+        ]);
+
+        $residence = Residence::create([
+            'residence' => $request->residence,
+        ]);
+
+        $hobby = Hobby::create([
+            'hobby' => $request->hobby,
+        ]);
+
+        $language = Language::create([
+            'language' => $request->language,
+        ]);
+
         $user = User::create([
-            'name' => $request->name,
-            'firstname' => $request->firstname,
-            'gender' => $request->gender,
-            'birthdate' => $request->birthdate,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'bio' => $request->bio,
+            'interest' => $request->interest,
+            'toy' => $request->toy,
+            'food' => $request->food,
         ]);
     }
 }

@@ -35,8 +35,8 @@ Route::post('/email/verification-notification', function (Request $request) {
 //END AUTHENTICATION
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('site.discovery');
+})->middleware(['auth', 'verified']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
