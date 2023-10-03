@@ -7,8 +7,6 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl">
-                <form method="POST" action="{{ route('user.update') }}">
-                    @csrf
                     <section>
                         <header>
                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -24,9 +22,8 @@
                             @csrf
                         </form>
                     
-                        <form method="post" action="{{ route('user.update') }}" class="mt-6 space-y-6">
+                        <form method="POST" action="{{ route('user.update') }}" class="mt-6 space-y-6">
                             @csrf
-                            @method('patch')
 
                             <div>
                                 <x-input-label for="pictures" :value="__('Pictures')" />
@@ -36,49 +33,49 @@
                         
                             <div>
                                 <x-input-label for="bio" :value="__('Bio')" />
-                                <x-textarea id="bio" name="bio" type="text" class="mt-1 block w-full" :value="old('bio')" required autofocus autocomplete="text" />
+                                <x-textarea id="bio" name="bio" type="text" class="mt-1 block w-full" :value="old('bio')" required autofocus autocomplete="text"></x-textarea>
                                 <x-input-error class="mt-2" :messages="$errors->get('bio')" />
                             </div>
+
+                            <div>
+                                <x-input-label for="residence" :value="__('City')" />
+                                <x-text-input id="residence" name="residence" type="text" class="mt-1 block w-full" :value="old('residence')" required autofocus autocomplete="text" />
+                                <x-input-error class="mt-2" :messages="$errors->get('residence')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="language" :value="__('Speaks Languages')" />
+                                <x-text-input id="language" name="language" type="text" class="mt-1 block w-full" :value="old('language')" required autofocus autocomplete="text" />
+                                <x-input-error class="mt-2" :messages="$errors->get('language')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="pet" :value="__('Has Pets')" />
+                                <x-text-input id="pet" name="pet" type="text" class="mt-1 block w-full" :value="old('pet')" autofocus autocomplete="text" />
+                                <x-input-error class="mt-2" :messages="$errors->get('pet')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="hobby" :value="__('Hobbies')" />
+                                <x-text-input id="hobby" name="hobby" type="text" class="mt-1 block w-full" :value="old('hobby')" autofocus autocomplete="text" />
+                                <x-input-error class="mt-2" :messages="$errors->get('hobby')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="interest" :value="__('Interests')" />
+                                <x-text-input id="interest" name="interest" type="text" class="mt-1 block w-full" :value="old('interest')" autofocus autocomplete="text" />
+                                <x-input-error class="mt-2" :messages="$errors->get('interest')" />
+                            </div>
                         
                             <div>
-                                <x-input-label for="city" :value="__('Lives In')" />
-                                <x-text-input id="city" name="city" type="text" class="mt-1 block w-full" :value="old('city')" required autofocus autocomplete="city" />
-                                <x-input-error class="mt-2" :messages="$errors->get('city')" />
-                            </div>
-
-                            <div>
-                                <x-input-label for="languages" :value="__('Speaks Languages')" />
-                                <x-text-input id="languages" name="languages" type="text" class="mt-1 block w-full" :value="old('languages')" required autofocus autocomplete="text" />
-                                <x-input-error class="mt-2" :messages="$errors->get('languages')" />
-                            </div>
-
-                            <div>
-                                <x-input-label for="pets" :value="__('Has Pets')" />
-                                <x-text-input id="pets" name="pets" type="text" class="mt-1 block w-full" :value="old('pets')" required autofocus autocomplete="text" />
-                                <x-input-error class="mt-2" :messages="$errors->get('pets')" />
-                            </div>
-
-                            <div>
-                                <x-input-label for="hobbies" :value="__('Hobbies')" />
-                                <x-text-input id="hobbies" name="hobbies" type="text" class="mt-1 block w-full" :value="old('hobbies')" required autofocus autocomplete="text" />
-                                <x-input-error class="mt-2" :messages="$errors->get('hobbies')" />
-                            </div>
-
-                            <div>
-                                <x-input-label for="interests" :value="__('Interests')" />
-                                <x-text-input id="interests" name="interests" type="text" class="mt-1 block w-full" :value="old('interests')" required autofocus autocomplete="text" />
-                                <x-input-error class="mt-2" :messages="$errors->get('interests')" />
-                            </div>
-                        
-                            <div>
-                                <x-input-label for="toys" :value="__('Favourite Toy')" />
-                                <x-text-input id="toys" name="toys" type="text" class="mt-1 block w-full" :value="old('toys')" required autofocus autocomplete="text" />
-                                <x-input-error class="mt-2" :messages="$errors->get('toys')" />
+                                <x-input-label for="toy" :value="__('Favourite Toy')" />
+                                <x-text-input id="toy" name="toy" type="text" class="mt-1 block w-full" :value="old('toy')" autofocus autocomplete="text" />
+                                <x-input-error class="mt-2" :messages="$errors->get('toy')" />
                             </div>
                         
                             <div>
                                 <x-input-label for="food" :value="__('Favourite food')" />
-                                <x-text-input id="food" name="food" type="text" class="mt-1 block w-full" :value="old('food')" required autofocus autocomplete="text" />
+                                <x-text-input id="food" name="food" type="text" class="mt-1 block w-full" :value="old('food')" autofocus autocomplete="text" />
                                 <x-input-error class="mt-2" :messages="$errors->get('food')" />
                             </div>
                         
@@ -97,7 +94,6 @@
                             </div>
                         </form>
                     </section>
-                </form>
             </div>
         </div>
     </div>

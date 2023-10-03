@@ -21,34 +21,60 @@ class UserController extends Controller
         return view('site.user', ['user' => $user]);
     }
 
-    public function update()
+    public function update(Request $request)
     {
         $request->validate([
-            'bio' => ['required', 'string', 'max:1000'],
-            'residence' => ['required', 'string', 'max:85'],
+            'bio' => ['required', 'max:1000'],
+            'residence' => ['required', 'max:85'],
             'language' => ['required', 'max:50'],
-            'pet' => ['string', 'max:42'],
-            'hobby' => ['string', 'max:50'],
-            'interest' => ['string', 'max:255'],
-            'toy' => ['string', 'max:255'],
-            'food' => ['string', 'max:255'],
+            'pet' => ['max:42'],
+            'hobby' => ['max:50'],
+            'interest' => ['max:255'],
+            'toy' => ['max:255'],
+            'food' => ['max:255'],
         ]);
 
-        $pet = Pet::create([
-            'pet' => $request->pet,
-        ]);
+        if($request->pet){
+            $get_pet = Pet::where('pet', $pet)->first();
+            
+            if($get_pet){
+                $pet = $get_pet
+            }
+            else{
+                $pet = Pet::create([
+                    'pet' => $request->pet,
+                ]);
+            }
+        };
 
-        $residence = Residence::create([
-            'residence' => $request->residence,
-        ]);
+        if($request->residence){
+            $residence = Residence::create([
+                'residence' => $request->residence,
+            ]);
 
-        $hobby = Hobby::create([
-            'hobby' => $request->hobby,
-        ]);
+            $get_residence = Residence::where('residence', $residence)->first();
+            
+            if($get_residence){
+                $residence = $get_residence
+            }
+            else{
+                $residence = Pet::create([
+                    'pet' => $request->pet,
+                ]);
+            }
+        };
 
-        $language = Language::create([
-            'language' => $request->language,
-        ]);
+        if($request->hobby){
+            $hobby = Hobby::create([
+                'hobby' => $request->hobby,
+            ]);
+        };
+
+        if($request->language){
+            $language = Language::create([
+                'language' => $request->language,
+            ]);
+        };
 
         $user = User::create([
             'bio' => $request->bio,
