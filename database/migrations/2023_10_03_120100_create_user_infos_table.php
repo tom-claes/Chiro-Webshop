@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('food')->nullable();
             
             $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('hobby')->references('hobby')->on('hobbies')->onDelete('cascade');
-            $table->foreign('pet')->references('pet')->on('pets')->onDelete('cascade');
-            $table->foreign('language')->references('language')->on('languages')->onDelete('cascade');
-            $table->foreign('residence')->references('residence')->on('residences')->onDelete('cascade');
+            $table->foreign('hobby')->references('hobby')->on('hobbies');
+            $table->foreign('pet')->references('pet')->on('pets');
+            $table->foreign('language')->references('language')->on('languages');
+            $table->foreign('residence')->references('residence')->on('residences');
         });
     }
 

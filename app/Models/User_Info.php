@@ -9,7 +9,12 @@ class User_Info extends Model
 {
     use HasFactory;
 
+    protected $table = 'user_infos';
+
+    public $timestamps = false;
+
     protected $fillable = [
+        'id',
         'bio',
         'residence',
         'language',
@@ -19,4 +24,9 @@ class User_Info extends Model
         'toy',
         'food',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
