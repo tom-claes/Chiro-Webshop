@@ -41,7 +41,6 @@ class UserController extends Controller
         $hobby = null;
         $language = null;
 
-
         // IF FIELDS ARE NOT EMPTY
         if($request->pet){
             $get_pet = Pet::where('pet', $request->pet)->first();
@@ -104,7 +103,6 @@ class UserController extends Controller
         $has_user_info = User_Info::where('id', $userID)->exists();
 
 
-
         // als de user al user info heeft => updaten
         if($has_user_info){
             $has_user_info->bio = $request->bio;
@@ -115,12 +113,11 @@ class UserController extends Controller
             $has_user_info->hobby = $hobby;
             $has_user_info->residence = $residence;
             $has_user_info->language = $language;
-
         }
         // als de user nog geen info heeft => maak user_info aan
         else{
             $user_info = User_Info::create([
-                'id' => auth()->user()->id,
+                'user_id' => auth()->user()->id,
                 'bio' => $request->bio,
                 'interest' => $request->interest,
                 'toy' => $request->toy,
@@ -128,7 +125,7 @@ class UserController extends Controller
                 'pet' => $pet,
                 'hobby' => $hobby,
                 'residence' => $residence,
-                'language' => $language
+                'language' => $language,
             ]);
         }
 

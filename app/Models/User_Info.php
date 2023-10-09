@@ -14,7 +14,7 @@ class User_Info extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
+        'user_id',
         'bio',
         'residence',
         'language',

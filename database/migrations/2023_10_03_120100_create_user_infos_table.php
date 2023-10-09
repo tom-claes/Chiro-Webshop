@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_infos', function (Blueprint $table) {
-            $table->id('id');
+            $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->text('bio');
             $table->string('hobby')->nullable();
             $table->string('pet')->nullable();
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->string('toy')->nullable();
             $table->string('food')->nullable();
             
-            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('hobby')->references('hobby')->on('hobbies');
             $table->foreign('pet')->references('pet')->on('pets');
             $table->foreign('language')->references('language')->on('languages');
