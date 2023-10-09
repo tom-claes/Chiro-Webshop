@@ -36,25 +36,30 @@ class UserController extends Controller
             'food' => ['max:255'],
         ]);
 
-
-        $residence = Residence::firstOrCreate(['residence' => $request->residence]);
-        $language = Language::firstOrCreate(['language' => $request->language]);
-        
-        if($request->pet != null){
-            $pet = Pet::firstOrCreate(['pet' => $request->pet]);
-        }
-
-        if($request->hobby != null){
-            $hobby = Hobby::firstOrCreate(['hobby' => $request->hobby]);
-        }
-
-        // MAKING USER_INFO
-
         // haal authenticatiegegevens van user op
         $user = auth()->user();
 
         // kijk of deze user al user_info heeft => geeft boolean terug
         $user_info = User_Info::where('id', $user->id)->first();
+
+
+        if ($user_info) {
+            $residence = Residence::firstOrCreate(['residence' => $request->residence]);
+            $user_info->residence()->sync([$residence->residence]);
+
+            $language = Language::firstOrCreate(['language' => $request->language]);
+            $user_info->language()->sync([$language->language]);
+            
+            if($request->pet != null){
+                $pet = Pet::firstOrCreate(['pet' => $request->pet]);
+                $user_info->pet()->sync([$pet->pet]);
+            }
+
+            if($request->hobby != null){
+                $hobby = Hobby::firstOrCreate(['hobby' => $request->hobby]);
+                $user_info->hobby()->sync([$hobby->hobby]);
+            }
+        }
 
         
         // als de user al user info heeft => updaten

@@ -17,6 +17,6 @@ class Hobby extends Model
 
     public function user_info()
     {
-        return $this->belongsToMany(User_Info::class);
+        return $this->belongsToMany(User_Info::class, 'pivot_hobbies', 'hobby', 'user_id');
     }
 }

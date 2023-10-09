@@ -17,6 +17,6 @@ class Language extends Model
 
     public function user_info()
     {
-        return $this->belongsToMany(User_Info::class);
+        return $this->belongsToMany(User_Info::class, 'pivot_languages', 'language', 'user_id');
     }
 }

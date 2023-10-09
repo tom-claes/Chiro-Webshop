@@ -17,6 +17,6 @@ class Residence extends Model
 
     public function user_info()
     {
-        return $this->belongsToMany(User_Info::class);
+        return $this->belongsToMany(User_Info::class, 'pivot_residences', 'residence', 'user_id');
     }
 }

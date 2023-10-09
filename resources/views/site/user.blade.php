@@ -30,17 +30,16 @@
 
                                 <x-input-error class="mt-2" :messages="$errors->get('pictures')" />
                             </div>
-                        
+                            
                             <div>
                                 <x-input-label for="bio" :value="__('Bio')" />
-                                <x-textarea id="bio" name="bio" type="text" class="mt-1 block w-full"  required autofocus autocomplete="text"></x-textarea>
+                                <x-textarea id="bio" name="bio" type="text" class="mt-1 block w-full" required autofocus autocomplete="text">{{old('bio', $user_info->bio ?? '')}}</x-textarea>
                                 <x-input-error class="mt-2" :messages="$errors->get('bio')" />
                             </div>
-                            {{$user_info->bio}}
 
                             <div>
                                 <x-input-label for="residence" :value="__('City')" />
-                                <x-text-input id="residence" name="residence" type="text" class="mt-1 block w-full" :value="old('residence')" required autofocus autocomplete="text" />
+                                <x-text-input id="residence" name="residence" type="text" class="mt-1 block w-full" :value="old('residence', )" required autofocus autocomplete="text" />
                                 <x-input-error class="mt-2" :messages="$errors->get('residence')" />
                             </div>
 
@@ -64,19 +63,19 @@
 
                             <div>
                                 <x-input-label for="interest" :value="__('Interests')" />
-                                <x-text-input id="interest" name="interest" type="text" class="mt-1 block w-full" :value="old('interest')" autofocus autocomplete="text" />
+                                <x-text-input id="interest" name="interest" type="text" class="mt-1 block w-full" :value="old('interest', $user_info->interest ?? '')" autofocus autocomplete="text" />
                                 <x-input-error class="mt-2" :messages="$errors->get('interest')" />
                             </div>
                         
                             <div>
                                 <x-input-label for="toy" :value="__('Favourite Toy')" />
-                                <x-text-input id="toy" name="toy" type="text" class="mt-1 block w-full" :value="old('toy')" autofocus autocomplete="text" />
+                                <x-text-input id="toy" name="toy" type="text" class="mt-1 block w-full" :value="old('toy', $user_info->toy ?? '')" autofocus autocomplete="text" />
                                 <x-input-error class="mt-2" :messages="$errors->get('toy')" />
                             </div>
                         
                             <div>
                                 <x-input-label for="food" :value="__('Favourite food')" />
-                                <x-text-input id="food" name="food" type="text" class="mt-1 block w-full" :value="old('food')" autofocus autocomplete="text" />
+                                <x-text-input id="food" name="food" type="text" class="mt-1 block w-full" :value="old('food', $user_info->food ?? '')" autofocus autocomplete="text" />
                                 <x-input-error class="mt-2" :messages="$errors->get('food')" />
                             </div>
                         
@@ -99,6 +98,6 @@
         </div>
     </div>
 </div>
-
+<script src="{{ asset('js/app.js') }}"></script>
 
 @endsection
