@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_infos', function (Blueprint $table) {
+        Schema::create('pivot_pets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->text('bio');
-            $table->string('interest')->nullable();
-            $table->string('toy')->nullable();
-            $table->string('food')->nullable();
-            
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('pet');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('user_id')->on('user_infos');
+            $table->foreign('pet')->references('pet')->on('pets');
         });
     }
 
@@ -28,7 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_infos');
+        Schema::dropIfExists('pivot_pets');
     }
 };
-

@@ -33,9 +33,10 @@
                         
                             <div>
                                 <x-input-label for="bio" :value="__('Bio')" />
-                                <x-textarea id="bio" name="bio" type="text" class="mt-1 block w-full" :value="old('bio')" required autofocus autocomplete="text"></x-textarea>
+                                <x-textarea id="bio" name="bio" type="text" class="mt-1 block w-full"  required autofocus autocomplete="text"></x-textarea>
                                 <x-input-error class="mt-2" :messages="$errors->get('bio')" />
                             </div>
+                            {{$user_info->bio}}
 
                             <div>
                                 <x-input-label for="residence" :value="__('City')" />

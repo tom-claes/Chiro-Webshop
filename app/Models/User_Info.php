@@ -16,10 +16,6 @@ class User_Info extends Model
     protected $fillable = [
         'user_id',
         'bio',
-        'residence',
-        'language',
-        'pet',
-        'hobby',
         'interest',
         'toy',
         'food',
@@ -28,5 +24,25 @@ class User_Info extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function residence()
+    {
+        return $this->belongsToMany(Residence::class);
+    }
+
+    public function hobby()
+    {
+        return $this->belongsToMany(Hobby::class);
+    }
+
+    public function language()
+    {
+        return $this->belongsToMany(Language::class);
+    }
+
+    public function pet()
+    {
+        return $this->belongsToMany(Pet::class);
     }
 }

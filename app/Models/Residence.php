@@ -14,4 +14,9 @@ class Residence extends Model
     protected $fillable = [ 
         'residence',
     ];
+
+    public function user_info()
+    {
+        return $this->belongsToMany(User_Info::class);
+    }
 }

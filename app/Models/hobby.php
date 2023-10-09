@@ -14,4 +14,9 @@ class Hobby extends Model
     protected $fillable = [ 
         'hobby',
     ];
+
+    public function user_info()
+    {
+        return $this->belongsToMany(User_Info::class);
+    }
 }

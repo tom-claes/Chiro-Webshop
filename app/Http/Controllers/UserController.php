@@ -18,7 +18,9 @@ class UserController extends Controller
     public function show()
     {
         $user = auth()->user();
-        return view('site.user', ['user' => $user]);
+        $user_info = User_Info::where('user_id', $user->id)->first();
+        return view('site.user', ['user' => $user, 'user_info' => $user_info]);
+
     }
 
     public function update(Request $request)
@@ -35,84 +37,34 @@ class UserController extends Controller
         ]);
 
 
-        // MAKING VARIABLES ACCESIBLE OUTSIDE IF
-        $pet = null;
-        $residence = null;
-        $hobby = null;
-        $language = null;
+        $residence = Residence::firstOrCreate(['residence' => $request->residence]);
+        $language = Language::firstOrCreate(['language' => $request->language]);
+        
+        if($request->pet != null){
+            $pet = Pet::firstOrCreate(['pet' => $request->pet]);
+        }
 
-        // IF FIELDS ARE NOT EMPTY
-        if($request->pet){
-            $get_pet = Pet::where('pet', $request->pet)->first();
-            
-            if($get_pet){
-                $pet = $get_pet;
-            }
-            else{
-                $pet = Pet::create([
-                    'pet' => $request->pet,
-                ]);
-            }
-        };
-
-        if($request->residence){
-            $get_residence = Residence::where('residence', $request->residence)->first();
-            
-            if($get_residence){
-                $residence = $get_residence;
-            }
-            else{
-                $residence = Residence::create([
-                    'residence' => $request->residence,
-                ]);
-            }
-        };
-
-        if($request->hobby){
-            $get_hobby = Hobby::where('hobby', $request->hobby)->first();
-            
-            if($get_hobby){
-                $hobby = $get_hobby;
-            }
-            else{
-                $hobby = Hobby::create([
-                    'hobby' => $request->hobby,
-                ]);
-            }
-        };
-
-        if($request->language){
-            $get_language = Language::where('language', $request->language)->first();
-            
-            if($get_language){
-                $language = $get_language;
-            }
-            else{
-                $language = Language::create([
-                    'language' => $request->language,
-                ]);
-            }
-        };
+        if($request->hobby != null){
+            $hobby = Hobby::firstOrCreate(['hobby' => $request->hobby]);
+        }
 
         // MAKING USER_INFO
 
         // haal authenticatiegegevens van user op
-        $userID = auth()->user()->id;
+        $user = auth()->user();
 
         // kijk of deze user al user_info heeft => geeft boolean terug
-        $has_user_info = User_Info::where('id', $userID)->exists();
+        $user_info = User_Info::where('id', $user->id)->first();
 
-
+        
         // als de user al user info heeft => updaten
-        if($has_user_info){
-            $has_user_info->bio = $request->bio;
-            $has_user_info->interest = $request->interest;
-            $has_user_info->toy = $request->toy;
-            $has_user_info->food = $request->food;
-            $has_user_info->pet = $pet;
-            $has_user_info->hobby = $hobby;
-            $has_user_info->residence = $residence;
-            $has_user_info->language = $language;
+        if($user_info){
+            $user_info->update([
+                'bio' => $request->bio,
+                'interest' => $request->interest,
+                'toy' => $request->toy,
+                'food' => $request->food,
+            ]);
         }
         // als de user nog geen info heeft => maak user_info aan
         else{
@@ -122,10 +74,6 @@ class UserController extends Controller
                 'interest' => $request->interest,
                 'toy' => $request->toy,
                 'food' => $request->food,
-                'pet' => $pet,
-                'hobby' => $hobby,
-                'residence' => $residence,
-                'language' => $language,
             ]);
         }
 

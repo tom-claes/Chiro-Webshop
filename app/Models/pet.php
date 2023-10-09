@@ -14,4 +14,9 @@ class Pet extends Model
     protected $fillable = [ 
         'pet',
     ];
+
+    public function user_info()
+    {
+        return $this->belongsToMany(User_Info::class);
+    }
 }
