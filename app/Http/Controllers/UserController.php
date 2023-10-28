@@ -19,7 +19,13 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $user_info = User_Info::where('user_id', $user->id)->first();
-        return view('site.user', ['user' => $user, 'user_info' => $user_info]);
+        
+        $languages = $user_info->languages;
+        $hobbies = $user_info->hobbies;
+        $pets = $user_info->pets;
+        $residences = $user_info->residences;
+
+        return view('site.user', ['user' => $user, 'user_info' => $user_info, 'residences' => $residences, 'pets' => $pets, 'hobbies' => $hobbies, 'languages' => $languages]);
 
     }
 
@@ -43,7 +49,6 @@ class UserController extends Controller
         $user_info = User_Info::where('id', $user->id)->first();
 
 
-        if ($user_info) {
             $residence = Residence::firstOrCreate(['residence' => $request->residence]);
             $user_info->residence()->sync([$residence->residence]);
 
@@ -59,7 +64,6 @@ class UserController extends Controller
                 $hobby = Hobby::firstOrCreate(['hobby' => $request->hobby]);
                 $user_info->hobby()->sync([$hobby->hobby]);
             }
-        }
 
         
         // als de user al user info heeft => updaten

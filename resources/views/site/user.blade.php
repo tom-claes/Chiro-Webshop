@@ -43,11 +43,30 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('residence')" />
                             </div>
 
+                            <div class="attribute">
+                                @forelse ($residences as $residence)
+                                    {{$residence->pivot->residence}}
+                                    <form style="margin: 0;" method="post" action="{{route('attribute.delete')}}">
+                                        @csrf
+                                        <button style="color: red;" type="submit">X</button>
+                                    </form>
+                                @empty
+                                @endforelse
+                            </div>
+
                             <div>
                                 <x-input-label for="language" :value="__('Speaks Languages')" />
                                 <x-text-input id="language" name="language" type="text" class="mt-1 block w-full" :value="old('language')" required autofocus autocomplete="text" />
                                 <x-input-error class="mt-2" :messages="$errors->get('language')" />
                             </div>
+
+                            <div class="attribute">
+                                @forelse ($languages as $language)
+                                    {{ $language->pivot->language }}
+                                    @empty
+                                @endforelse
+                            </div>
+                            
 
                             <div>
                                 <x-input-label for="pet" :value="__('Has Pets')" />
@@ -55,10 +74,25 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('pet')" />
                             </div>
 
+                            <div class="attribute">
+                                @forelse ($pets as $pet)
+                                    {{$pet->pivot->pet}}
+            
+                                    @empty
+                                @endforelse
+                            </div>
+
                             <div>
                                 <x-input-label for="hobby" :value="__('Hobbies')" />
                                 <x-text-input id="hobby" name="hobby" type="text" class="mt-1 block w-full" :value="old('hobby')" autofocus autocomplete="text" />
                                 <x-input-error class="mt-2" :messages="$errors->get('hobby')" />
+                            </div>
+
+                            <div class="attribute">
+                                @forelse ($hobbies as $hobby)
+                                    {{$hobby->pivot->hobby}}
+                                    @empty
+                                @endforelse
                             </div>
 
                             <div>

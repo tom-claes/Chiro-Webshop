@@ -11,6 +11,8 @@ class Hobby extends Model
 
     public $timestamps = false;
 
+    protected $primaryKey = 'hobby';
+
     protected $fillable = [ 
         'hobby',
     ];

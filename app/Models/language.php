@@ -11,6 +11,8 @@ class Language extends Model
 
     public $timestamps = false;
 
+    protected $primaryKey = 'language';
+
     protected $fillable = [ 
         'language',
     ];

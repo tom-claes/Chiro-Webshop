@@ -26,22 +26,22 @@ class User_Info extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function residence()
+    public function residences()
     {
         return $this->belongsToMany(Residence::class, 'pivot_residences', 'user_id', 'residence');
     }
 
-    public function hobby()
+    public function hobbies()
     {
         return $this->belongsToMany(Hobby::class, 'pivot_hobbies', 'user_id', 'hobby');
     }
 
-    public function language()
+    public function languages()
     {
         return $this->belongsToMany(Language::class, 'pivot_languages', 'user_id', 'language');
     }
 
-    public function pet()
+    public function pets()
     {
         return $this->belongsToMany(Pet::class, 'pivot_pets', 'user_id', 'pet');
     }

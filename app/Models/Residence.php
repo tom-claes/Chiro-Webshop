@@ -11,6 +11,8 @@ class Residence extends Model
     
     public $timestamps = false;
 
+    protected $primaryKey = 'residence';
+
     protected $fillable = [ 
         'residence',
     ];

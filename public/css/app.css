@@ -57,3 +57,13 @@ body{
   }
 
   /* END FORM CONTAINER */
+
+  .attribute{
+    display: inline-block;
+    background-color: none;
+    color: #f1f58c;
+    border: 1px #f1f58c solid;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+  }

@@ -11,6 +11,8 @@ class Pet extends Model
     
     public $timestamps = false;
 
+    protected $primaryKey = 'pet';
+
     protected $fillable = [ 
         'pet',
     ];
