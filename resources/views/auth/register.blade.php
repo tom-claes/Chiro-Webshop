@@ -11,20 +11,9 @@
 
         <!--First Name -->
         <div class="mt-4">
-            <x-input-label for="firstname" :value="__('First Name (Child)')" />
-            <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus autocomplete="name" />
+            <x-input-label for="firstname" :value="__('First Name')" />
+            <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus autocomplete="firstname" />
             <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
-        </div>
-
-        <!-- Gender -->
-        <div class="mt-4">
-            <x-input-label for="gender" :value="__('Gender (Child)')" />
-            <x-select-input id="gender" class="block mt-1 w-full" name="gender" required >
-                <option value="" disabled selected hidden>...</option>
-                <option value="boy">Boy</option>
-                <option value="girl">Girl</option>
-            </x-select-input>
-            <x-input-error :messages="$errors->get('gender')" class="mt-2" />
         </div>
 
         <!--Date of Birth-->
