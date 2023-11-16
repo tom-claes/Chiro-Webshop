@@ -16,13 +16,6 @@
             <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
         </div>
 
-        <!--Date of Birth-->
-        <div class="mt-4">
-            <x-input-label for="birthdate" :value="__('Date of Birth (Child)')" />
-            <x-text-input id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" :value="old('birthdate')" required autofocus autocomplete="date" />
-            <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
-        </div>
-
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email (Parent)')" />
