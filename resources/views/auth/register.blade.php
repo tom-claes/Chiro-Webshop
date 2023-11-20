@@ -16,6 +16,20 @@
             <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
         </div>
 
+        <!--Username -->
+        <div class="mt-4">
+            <x-input-label for="username" :value="__('Userame')" />
+            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+        </div>
+
+        <!--Date of Birth -->
+        <div class="mt-4">
+            <x-input-label for="birthdate" :value="__('Date of birth')" />
+            <x-text-input id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" :value="old('birthdate')" required autofocus autocomplete="birthdate" />
+            <x-input-error :messages="$errors->get('birthdate')" class="mt-2" />
+        </div>
+
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />

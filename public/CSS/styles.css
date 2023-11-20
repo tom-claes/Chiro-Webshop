@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Lobster&family=Roboto:ital,wght@1,300&display=swap');
+
+:root{
+    --primary-color: #F9C349;
+    --secondary-color: #FFF;
+    --standard-font: 'Roboto';
+    --homescreen-title-font: 'Agbalumo';
+}
+
+.home_banner{
+    background-image: url('/IMG/cover2.jpg');
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 87vh;
+    
+}
+
+.home_title{
+    color: var(--primary-color);
+    font-size: 500%;
+    font-family: var(--homescreen-title-font);
+    text-align: center;
+}
+
+#title-focus{
+    font-size: 200%;
+    text-align: center;
+}
