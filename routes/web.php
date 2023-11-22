@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -50,10 +51,28 @@ Route::get('/news', function () {
 /* END SUPORT PAGES */
 
 /* ADMIN PAGES */
-Route::prefix('admin')->name('admin')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.login');
-    })->name('login');
+Route::prefix('admin/')->name('admin.')->group(function () {
+    Route::match(['get', 'post'], '/', [AdminController::class, 'login'])->middleware('guest')->name('login');
+
+    Route::get('dashboard', function () {
+        return view('site.admin.dashboard');
+    })->name('dashboard');
+
+    Route::get('bestellingen', function () {
+        return view('site.admin.orders');
+    })->name('orders');
+
+    Route::get('categoriën', function () {
+        return view('site.admin.categories');
+    })->name('categories');
+
+    Route::get('kledingstukken', function () {
+        return view('site.admin.clothingitems');
+    })->name('clothingitems');
+
+    Route::get('contact', function () {
+        return view('site.admin.contact');
+    })->name('contact');
 });
 /* END ADMIN PAGES */
 
