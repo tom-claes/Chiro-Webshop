@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Product_category;
 
 
 class AdminController extends Controller
@@ -30,5 +31,25 @@ class AdminController extends Controller
         }
 
         return redirect()->route('admin.login')->with('error', 'Your credentials are incorrect');
+    }
+
+    public function categories(Request $request)
+    {
+        if ($request->isMethod('get'))
+        {
+            return view('site.admin.categories');
+        }
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        $category = Product_category::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()
+            ->route('admin.categories')
+            ->with('success', `De categorie genaamd "$category->name" werd succesvol aangemaakt!`);
     }
 }

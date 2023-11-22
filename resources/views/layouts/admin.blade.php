@@ -16,6 +16,12 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+
+        @if (session('success'))
+            <div class="flash-success">
+                {{session('success')}}
+            </div>
+        @endif
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.admin_navigation')
 

@@ -62,9 +62,7 @@ Route::prefix('admin/')->name('admin.')->group(function () {
         return view('site.admin.orders');
     })->name('orders');
 
-    Route::get('categoriën', function () {
-        return view('site.admin.categories');
-    })->name('categories');
+    Route::match(['get', 'post'], 'categoriën', [AdminController::class, 'categories'])->name('categories');
 
     Route::get('kledingstukken', function () {
         return view('site.admin.clothingitems');
