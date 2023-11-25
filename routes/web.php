@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,23 +14,24 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-/* SHOP PAGES */
 Route::get('/', function () {
     return view('site.shop.homepage');
 })->name('home');
 
-Route::get('/product+category', function () {
-    return view('site.shop.product_category');
-})->name('product_category');
+/* SHOP PAGES */
+Route::prefix('shop/')->name('shop.')->group(function () {
+    Route::get('/product+category/{category}', function () {
+        return view('site.shop.product_category');
+    })->name('product_category');
 
-Route::get('/product', function () {
-    return view('site.shop.product');
-})->name('product');
+    Route::get('/product', function () {
+        return view('site.shop.product');
+    })->name('product');
 
-Route::get('/basket', function () {
-    return view('site.shop.basket');
-})->name('basket');
+    Route::get('/basket', function () {
+        return view('site.shop.basket');
+    })->name('basket');
+});
 /* END SHOP PAGES */
 
 /* SUPORT PAGES */
@@ -64,9 +67,7 @@ Route::prefix('admin/')->name('admin.')->group(function () {
 
     Route::match(['get', 'post'], 'categoriën', [AdminController::class, 'categories'])->name('categories');
 
-    Route::get('kledingstukken', function () {
-        return view('site.admin.clothingitems');
-    })->name('clothingitems');
+    Route::match(['get', 'post'], 'kledingstukken', [AdminController::class, 'clothingitems'])->name('clothingitems');
 
     Route::get('contact', function () {
         return view('site.admin.contact');
