@@ -20,9 +20,8 @@ Route::get('/', function () {
 
 /* SHOP PAGES */
 Route::prefix('shop/')->name('shop.')->group(function () {
-    Route::get('/product+category/{category}', function () {
-        return view('site.shop.product_category');
-    })->name('product_category');
+
+    Route::get('{categoryId}', [ShopController::class, 'category'])->middleware('guest')->name('category');
 
     Route::get('/product', function () {
         return view('site.shop.product');
@@ -75,10 +74,6 @@ Route::prefix('admin/')->name('admin.')->group(function () {
 });
 /* END ADMIN PAGES */
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 

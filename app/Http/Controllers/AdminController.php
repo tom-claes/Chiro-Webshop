@@ -68,10 +68,12 @@ class AdminController extends Controller
             'description' => ['nullable', 'string'],
             'size_sort' => ['required', 'in:Kinderen,Volwassenen'],
             'category' => ['required', 'exists:product_categories,id'],
+            'price' => ['required', 'numeric'],
             'img' => ['required', 'image', 'mimes:jpeg,png,jpg' ,'max:2048']
         ]);
         
-        $imagePath = $request->file('img')->store('img');
+        $imagePath = $request->file('img')->store('IMG', 'public');
+
 
         Auth::user()->update(['img' => $imagePath]);
     
@@ -80,11 +82,12 @@ class AdminController extends Controller
             'description' => $request->description,
             'size_sort' => $request->size_sort,
             'category' => $request->category,
+            'price' => $request->price,
             'img' => $imagePath,
         ]);
 
         return redirect()
-            ->route('admin.categories')
+            ->route('admin.clothingitems')
             ->with('success', `Het item genaamd "$product->name" werd succesvol aangemaakt!`);
     }
 }
