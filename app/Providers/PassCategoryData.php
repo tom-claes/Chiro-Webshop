@@ -21,7 +21,7 @@ class PassCategoryData extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['site.shop.*', 'site.support.*'], function ($view) {
+        View::composer(['site.shop.*', 'site.support.*', 'profile.edit'], function ($view) {
             $categories = Product_category::all();
             $view->with('categories', $categories);
         });

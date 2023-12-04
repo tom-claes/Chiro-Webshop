@@ -7,6 +7,9 @@ use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
 
 
+// Route::get('', [::class, ''])->name('');
+
+
 //AUTHENTICATION
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -64,9 +67,19 @@ Route::prefix('admin/')->name('admin.')->group(function () {
         return view('site.admin.orders');
     })->name('orders');
 
-    Route::match(['get', 'post'], 'categoriën', [AdminController::class, 'categories'])->name('categories');
+    Route::post('catalogus/categoriën', [AdminController::class, 'categories'])->name('category');
 
-    Route::match(['get', 'post'], 'kledingstukken', [AdminController::class, 'clothingitems'])->name('clothingitems');
+    Route::post('catalogys/kledingsstukken', [AdminController::class, 'clothingitems'])->name('clothingitems');
+
+    Route::get('catalogus', [AdminController::class, 'catalogus'])->name('catalogus');
+
+    Route::get('faq', [AdminController::class, 'faq'])->name('faq');
+
+    Route::post('faq/post/category', [AdminController::class, 'postFaqCategory'])->name('faq.post.category');
+
+    Route::post('faq/post/item', [AdminController::class, 'postFaqItem'])->name('faq.post.item');
+    
+    Route::match(['get', 'post'], 'faq', [AdminController::class, 'faq'])->name('faq');
 
     Route::get('contact', function () {
         return view('site.admin.contact');
