@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('size_sort');
+            $table->float('price');
             $table->string('img');
             $table->unsignedBigInteger('category');
             $table->timestamps();

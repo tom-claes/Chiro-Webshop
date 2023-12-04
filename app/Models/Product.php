@@ -14,6 +14,7 @@ class Product extends Model
         'description',
         'size_sort',
         'category',
+        'price',
         'img'
     ];
 }

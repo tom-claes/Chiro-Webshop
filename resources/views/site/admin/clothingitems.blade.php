@@ -5,6 +5,27 @@
 @section('content')
 
     <div class="admin-create">
+        <p class="admin-form-heading">Voeg een categorie toe aan de catalogus</p>
+
+        <Form method="POST" action="{{ route('admin.category') }}">
+            @csrf
+
+            <div class="form-div">
+                <x-input-label for="name" :value="__('Naam categorie')" />
+                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            </div>
+
+            <x-primary-button class="admin-form-btn">
+                {{ __('Creëer categorie') }}
+            </x-primary-button>
+        </Form>
+
+    </div>
+
+    <br> <br>
+
+    <div class="admin-create">
         <p class="admin-form-heading">Voeg een kledingstuk toe aan de catalogus</p>
 
         <Form method="POST" action="{{ route('admin.clothingitems') }}" enctype="multipart/form-data">
@@ -45,13 +66,19 @@
                 </x-dropdown-form>
                 <x-input-error :messages="$errors->get('category')" class="mt-2" />
             </div>
+
+            <div class="form-div">
+                <x-input-label for="price" :value="__('Prijs')" />
+                <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" :value="old('price')" required autofocus autocomplete="price" />
+                <x-input-error :messages="$errors->get('price')" class="mt-2" />
+            </div>
             
 
             
             <x-file-input id="img" name="img" label="Upload afbeelding" :value="old('img')" required autofocus autocomplete="img" />
 
             <x-primary-button class="admin-form-btn">
-                {{ __('Creëer categorie') }}
+                {{ __('Creëer kledingstuk') }}
             </x-primary-button>
         </Form>
     

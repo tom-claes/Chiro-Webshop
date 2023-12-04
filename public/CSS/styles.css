@@ -54,3 +54,14 @@
 .form-div{
     margin-bottom: 15px;
 }
+
+.category-banner{
+    background-color: var(--primary-color);
+}
+
+.category-title{
+    color: white;
+    font-size: 400%;
+    font-weight: bold;
+    text-align: center;
+}
