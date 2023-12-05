@@ -9,6 +9,7 @@ use App\Models\Faq_category;
 use App\Models\Faq;
 use App\Models\Latest_news;
 use App\Models\Product;
+use App\Models\Contact_form;
 
 
 class AdminController extends Controller
@@ -163,5 +164,14 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.news')
             ->with('success', `Het item genaamd "$news->name" werd succesvol aangemaakt!`);
+    }
+
+    public function contact(Request $request)
+    {
+        if ($request->isMethod('get'))
+        {
+            $contact = Contact_form::latest()->get();
+            return view('site.admin.contact', compact('contact'));
+        }
     }
 }

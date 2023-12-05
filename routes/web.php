@@ -76,9 +76,7 @@ Route::prefix('admin/')->name('admin.')->group(function () {
 
     Route::match(['get', 'post'], 'news', [AdminController::class, 'news'])->name('news');
 
-    Route::get('contact', function () {
-        return view('site.admin.contact');
-    })->name('contact');
+    Route::match(['get', 'post'], 'contact', [AdminController::class, 'contact'])->name('contact');
 });
 /* END ADMIN PAGES */
 
