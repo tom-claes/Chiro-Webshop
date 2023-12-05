@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product_category;
 use App\Models\Faq_category;
 use App\Models\Faq;
+use App\Models\Latest_news;
 use App\Models\Product;
 
 
@@ -106,7 +107,7 @@ class AdminController extends Controller
         ]);
 
         return redirect()
-            ->route('admin.faq_categories')
+            ->route('admin.faq')
             ->with('success', `De categorie genaamd "$category->name" werd succesvol aangemaakt!`);
     }
 
@@ -130,5 +131,34 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.faq_categories')
             ->with('success', `De categorie genaamd "$category->name" werd succesvol aangemaakt!`);
+    }
+
+    public function news(Request $request)
+    {
+        if ($request->isMethod('get'))
+        {
+            return view('site.admin.news');
+        }
+
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['string', 'max:10000'],
+            'img' => ['required', 'image', 'mimes:jpeg,png,jpg' ,'max:2048']
+        ]);
+        
+        $imagePath = $request->file('img')->store('IMG', 'public');
+
+
+        Auth::user()->update(['img' => $imagePath]);
+    
+        $news = Latest_news::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'img' => $imagePath,
+        ]);
+
+        return redirect()
+            ->route('admin.news')
+            ->with('success', `Het item genaamd "$news->name" werd succesvol aangemaakt!`);
     }
 }

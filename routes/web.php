@@ -37,21 +37,30 @@ Route::prefix('shop/')->name('shop.')->group(function () {
 /* END SHOP PAGES */
 
 /* SUPORT PAGES */
-Route::get('/contact', function () {
-    return view('site.support.contact');
-})->name('contact');
-Route::get('/faq+category', function () {
-    return view('site.support.faq_category');
-})->name('faq_category');
-Route::get('/faq', function () {
-    return view('site.support.faq');
-})->name('faq');
-Route::get('/user', function () {
-    return view('site.support.my_userpage');
-})->name('userpage');
-Route::get('/news', function () {
-    return view('site.support.news');
-})->name('news');
+
+Route::prefix('support/')->name('support.')->group(function () {
+    Route::get('/contact', function () {
+        return view('site.support.contact');
+    })->name('contact');
+
+    Route::get('nieuws', [SupportController::class, 'news'])->name('news');
+
+    Route::get('/faq+category', function () {
+        return view('site.support.faq_category');
+    })->name('faq_category');
+
+    Route::get('/faq', function () {
+        return view('site.support.faq');
+    })->name('faq');
+
+    Route::get('/user', function () {
+        return view('site.support.my_userpage');
+    })->name('userpage');
+
+    Route::get('/news', function () {
+        return view('site.support.news');
+    })->name('news');
+});
 
 /* END SUPORT PAGES */
 
@@ -78,8 +87,8 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::post('faq/post/category', [AdminController::class, 'postFaqCategory'])->name('faq.post.category');
 
     Route::post('faq/post/item', [AdminController::class, 'postFaqItem'])->name('faq.post.item');
-    
-    Route::match(['get', 'post'], 'faq', [AdminController::class, 'faq'])->name('faq');
+
+    Route::match(['get', 'post'], 'news', [AdminController::class, 'news'])->name('news');
 
     Route::get('contact', function () {
         return view('site.admin.contact');

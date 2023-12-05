@@ -32,6 +32,8 @@
             <main>
                 @yield('content')
             </main>
+
+            <!--@ include('layouts.bot-navigation')-->
         </div>
     </body>
 </html>
