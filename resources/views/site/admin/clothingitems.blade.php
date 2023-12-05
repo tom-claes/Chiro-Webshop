@@ -83,4 +83,19 @@
         </Form>
     
     </div>
+
+    <div>
+        @foreach($categories as $category)
+            <h2>{{ $category->name }}</h2>
+            
+            @foreach($category->products as $product)
+                <p>{{ $product->img }}</p>
+                <p>{{ $product->name }}</p>
+                <p>{{ $product->description }}</p>
+                <p>{{ $product->size_sort }}</p>
+                <p>{{ $product->price }}</p>
+                
+            @endforeach
+        @endforeach
+    </div>
 @endsection

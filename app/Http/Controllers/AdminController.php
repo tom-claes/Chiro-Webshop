@@ -37,9 +37,10 @@ class AdminController extends Controller
         return redirect()->route('admin.login')->with('error', 'Your credentials are incorrect');
     }
 
+
     public function catalogus(){
-        $categories = Product_category::orderBy('name')->get();
-    
+        $categories = Product_category::with('products')->get();
+
         return view('site.admin.clothingitems', compact('categories'));
     }
 
@@ -88,9 +89,10 @@ class AdminController extends Controller
             ->with('success', `Het item genaamd "$product->name" werd succesvol aangemaakt!`);
     }
 
+
     public function faq()
     {
-        $categories = Faq_category::all();
+        $categories = Faq_category::with('faq')->get();
 
         return view('site.admin.faq', compact('categories'));
     }
@@ -137,7 +139,8 @@ class AdminController extends Controller
     {
         if ($request->isMethod('get'))
         {
-            return view('site.admin.news');
+            $news = Latest_news::latest()->get();
+            return view('site.admin.news', compact('news'));
         }
 
         $request->validate([

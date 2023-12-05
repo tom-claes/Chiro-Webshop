@@ -17,9 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/', function () {
-    return view('site.shop.homepage');
-})->name('home');
+Route::get('/', function () { return view('site.shop.homepage');})->name('home');
 
 /* SHOP PAGES */
 Route::prefix('shop/')->name('shop.')->group(function () {
@@ -37,31 +35,19 @@ Route::prefix('shop/')->name('shop.')->group(function () {
 /* END SHOP PAGES */
 
 /* SUPORT PAGES */
-
 Route::prefix('support/')->name('support.')->group(function () {
-    Route::get('/contact', function () {
-        return view('site.support.contact');
-    })->name('contact');
 
     Route::get('nieuws', [SupportController::class, 'news'])->name('news');
 
-    Route::get('/faq+category', function () {
-        return view('site.support.faq_category');
-    })->name('faq_category');
+    Route::get('faq/categoriën', [SupportController::class, 'faqCategory'])->name('faq.category');
 
-    Route::get('/faq', function () {
-        return view('site.support.faq');
-    })->name('faq');
+    Route::get('faq/{itemId}', [SupportController::class, 'faq'])->name('faq');
 
-    Route::get('/user', function () {
-        return view('site.support.my_userpage');
-    })->name('userpage');
+    Route::match(['get', 'post'], 'contact', [SupportController::class, 'contact'])->name('contact');
 
-    Route::get('/news', function () {
-        return view('site.support.news');
-    })->name('news');
+    Route::match(['get', 'post'], 'user/{userId}', [SupportController::class, 'userpage'])->name('userpage');
+    
 });
-
 /* END SUPORT PAGES */
 
 /* ADMIN PAGES */

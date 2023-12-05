@@ -65,4 +65,16 @@
         
     
     </div>
+
+    <div>
+        @foreach($categories as $category)
+            <h2>{{ $category->name }}</h2>
+            
+            @foreach($category->faq as $faq)
+                <p>{{ $faq->question }}</p>
+                <p>{{ $faq->answer }}</p>                
+            @endforeach
+        @endforeach
+    </div>
+
 @endsection

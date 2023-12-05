@@ -31,4 +31,14 @@
         </Form>
     
     </div>
+
+    <div>
+        @forelse ($news as $item)
+            <p>{{ $item->title }}</p>
+            <p>{{ $item->content }}</p>
+            <p>{{ $item->img }}</p>
+        @empty
+            
+        @endforelse
+    </div>
 @endsection
