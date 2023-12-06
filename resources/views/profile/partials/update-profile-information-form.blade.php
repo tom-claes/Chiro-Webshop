@@ -1,11 +1,11 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Profile Information') }}
+            {{ __('Profiel Informatie') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Update your account's profile information and email address.") }}
+            {{ __("Werk de profielgegevens en het e-mailadres van je account bij.") }}
         </p>
     </header>
 
@@ -18,16 +18,36 @@
         @method('patch')
 
         <div>
-            <x-input-label for="name" :value="__('Last Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-input-label for="lastname" :value="__('Achternaam')" />
+            <x-text-input id="lastname" name="lastname" type="text" class="mt-1 block w-full" :value="old('lastname', $user->lastname)" required autofocus autocomplete="lastname" />
+            <x-input-error class="mt-2" :messages="$errors->get('lastname')" />
         </div>
        
         <div>
-            <x-input-label for="firstname" :value="__('First Name')" />
+            <x-input-label for="firstname" :value="__('Voornaam')" />
             <x-text-input id="firstname" name="firstname" type="text" class="mt-1 block w-full" :value="old('firstname', $user->firstname)" required autofocus autocomplete="firstname" />
             <x-input-error class="mt-2" :messages="$errors->get('firstname')" />
         </div>
+
+        <div>
+            <x-input-label for="username" :value="__('Gebruikersnaam')" />
+            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', $user->username)" required autofocus autocomplete="username" />
+            <x-input-error class="mt-2" :messages="$errors->get('username')" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="birthdate" :value="__('Geboortedatum')" />
+            <x-text-input id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" :value="old('birthdate')" required autofocus autocomplete="birthdate" />
+            <x-input-error :messages="$errors->get('birthdate')" class="mt-2" />
+        </div>
+
+        <div class="form-div">
+            <x-input-label for="bio" :value="__('Bio')" />
+            <x-textarea id="bio" class="block mt-1 w-full" name="bio" autofocus autocomplete="bio">{{ old('bio') }}</x-textarea>
+            <x-input-error :messages="$errors->get('bio')" class="mt-2" />
+        </div>
+
+        <x-file-input id="img" name="img" label="Profiel foto" :value="old('img')" required autofocus autocomplete="img" />
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -37,16 +57,16 @@
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
                     <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
-                        {{ __('Your email address is unverified.') }}
+                        {{ __('Je e-mailadres is niet geverifieerd.') }}
 
                         <button form="send-verification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                            {{ __('Click here to re-send the verification email.') }}
+                            {{ __('Klik hier om de verificatiemail opnieuw te versturen.') }}
                         </button>
                     </p>
 
                     @if (session('status') === 'verification-link-sent')
                         <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
-                            {{ __('A new verification link has been sent to your email address.') }}
+                            {{ __('Er is een nieuwe verificatielink naar uw e-mailadres verzonden.') }}
                         </p>
                     @endif
                 </div>
@@ -54,7 +74,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <x-primary-button>{{ __('Opslaan') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p
@@ -63,7 +83,7 @@
                     x-transition
                     x-init="setTimeout(() => show = false, 2000)"
                     class="text-sm text-gray-600 dark:text-gray-400"
-                >{{ __('Saved.') }}</p>
+                >{{ __('Wijzigingen Opgeslaan.') }}</p>
             @endif
         </div>
     </form>

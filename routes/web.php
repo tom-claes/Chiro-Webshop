@@ -22,7 +22,7 @@ Route::get('/', function () { return view('site.shop.homepage');})->name('home')
 /* SHOP PAGES */
 Route::prefix('shop/')->name('shop.')->group(function () {
 
-    Route::get('{categoryId}', [ShopController::class, 'category'])->middleware('guest')->name('category');
+    Route::get('{categoryId}', [ShopController::class, 'category'])->name('category');
 
     Route::get('/product', function () {
         return view('site.shop.product');
