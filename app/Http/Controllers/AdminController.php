@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Product_category;
 use App\Models\Faq_category;
 use App\Models\Faq;
@@ -56,7 +57,7 @@ class AdminController extends Controller
         ]);
 
         return redirect()
-            ->route('admin.category')
+            ->route('admin.catalogus')
             ->with('success', `De categorie genaamd "$category->name" werd succesvol aangemaakt!`);
     }
 
@@ -86,7 +87,7 @@ class AdminController extends Controller
         ]);
 
         return redirect()
-            ->route('admin.clothingitems')
+            ->route('admin.catalogus')
             ->with('success', `Het item genaamd "$product->name" werd succesvol aangemaakt!`);
     }
 
@@ -126,13 +127,13 @@ class AdminController extends Controller
         
 
         $category = Faq::create([
-            'categroy' => $request->category,
+            'category' => $request->category,
             'question' => $request->question,
             'answer' => $request->answer,
         ]);
 
         return redirect()
-            ->route('admin.faq_categories')
+            ->route('admin.faq')
             ->with('success', `De categorie genaamd "$category->name" werd succesvol aangemaakt!`);
     }
 
@@ -172,6 +173,15 @@ class AdminController extends Controller
         {
             $contact = Contact_form::latest()->get();
             return view('site.admin.contact', compact('contact'));
+        }
+    }
+
+    public function users(Request $request)
+    {
+        if ($request->isMethod('get'))
+        {
+            $users = User::orderBy('lastname')->get();
+            return view('site.admin.users', compact('users'));
         }
     }
 }

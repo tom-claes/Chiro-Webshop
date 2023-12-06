@@ -3,6 +3,7 @@
 :root{
     --primary-color: #F9C349;
     --secondary-color: #FFF;
+    --admin-color: #111827;
     --standard-font: 'Roboto';
     --homescreen-title-font: 'Agbalumo';
 }
@@ -68,4 +69,28 @@
 
 .contact-form{
     margin: 0 5%;
+}
+
+.admin-show-table{
+    border: 1px solid var(--admin-color);
+    margin-top: 15px;
+}
+
+.admin-show-item{
+    border-top: 1px solid var(--admin-color);
+}
+
+.admin-show-nav{
+    background-color: var(--admin-color);
+    color: #FFF;
+    padding: 15px;
+}
+
+.admin-show-img{
+    width: 100px;
+}
+
+.admin-inline-items{
+    display: inline;
+    margin: 10px
 }

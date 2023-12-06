@@ -14,7 +14,7 @@
     @forelse ($products as $product)
 
     <div category-item-box>
-        <img src="{{ asset('storage/IMG/' . $product->img) }}" alt="{{ $product->name }}">
+        <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}">
         <p>{{$product->name}}</p>
         <p>{{$product->size_sort}}</p>
         <p>{{"€" . $product->price}}</p>

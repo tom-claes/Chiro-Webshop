@@ -84,17 +84,27 @@
     
     </div>
 
-    <div>
+    <div class="admin-show-table">
+        <div class="admin-show-nav">
+            <p>Afbeelding</p>
+            <p>Naam product</p>
+            <p>Beschrijving</p>
+            <p>Soort maat</p>
+            <p>Prijs</p>
+        </div>
         @foreach($categories as $category)
             <h2>{{ $category->name }}</h2>
             
             @foreach($category->products as $product)
-                <p>{{ $product->img }}</p>
-                <p>{{ $product->name }}</p>
-                <p>{{ $product->description }}</p>
-                <p>{{ $product->size_sort }}</p>
-                <p>{{ $product->price }}</p>
-                
+            <div class="admin-inline-items">
+                <img class="admin-show-img" src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}">
+                <div class="product-details">
+                    <p>{{$product->name}}</p>
+                    <p>{{ $product->description }}</p>
+                    <p>{{ $product->size_sort }}</p>
+                    <p>{{ "€" . $product->price }}</p>
+                <div class="product-details">
+            </div>  
             @endforeach
         @endforeach
     </div>

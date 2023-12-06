@@ -1,1 +1,1 @@
-<img width="125" height="125" style="margin: 0; padding: 0;" src="IMG/zuunman_logo.png" alt="Chiro Zuun Logo" >
+<img width="125" height="125" style="margin: 0; padding: 0;" src="/IMG/zuunman_logo.png" alt="Chiro Zuun Logo" >

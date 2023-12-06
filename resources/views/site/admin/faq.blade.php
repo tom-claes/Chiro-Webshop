@@ -66,7 +66,11 @@
     
     </div>
 
-    <div>
+    <div class="admin-show-table">
+        <div class="admin-show-nav">
+
+        </div>
+        
         @foreach($categories as $category)
             <h2>{{ $category->name }}</h2>
             

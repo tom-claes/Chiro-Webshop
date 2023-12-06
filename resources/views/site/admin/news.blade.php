@@ -32,7 +32,11 @@
     
     </div>
 
-    <div>
+    <div class="admin-show-table">
+        <div class="admin-show-nav">
+
+        </div>
+        
         @forelse ($news as $item)
             <p>{{ $item->title }}</p>
             <p>{{ $item->content }}</p>

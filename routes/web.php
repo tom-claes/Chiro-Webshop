@@ -62,7 +62,7 @@ Route::prefix('admin/')->name('admin.')->group(function () {
         return view('site.admin.orders');
     })->name('orders');
 
-    Route::post('catalogus/categoriën', [AdminController::class, 'categories'])->name('category');
+    Route::post('catalogus/categorien', [AdminController::class, 'categories'])->name('category');
 
     Route::post('catalogys/kledingsstukken', [AdminController::class, 'clothingitems'])->name('clothingitems');
 
@@ -77,6 +77,8 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::match(['get', 'post'], 'news', [AdminController::class, 'news'])->name('news');
 
     Route::match(['get', 'post'], 'contact', [AdminController::class, 'contact'])->name('contact');
+
+    Route::match(['get', 'post'], 'users', [AdminController::class, 'users'])->name('users');
 });
 /* END ADMIN PAGES */
 
