@@ -5,5 +5,11 @@
 @section('header', 'Homepage')
 
 @section('content')
-    
+    <div class="item-box">
+        <img class="item-img" src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}">
+        <p class="item-name">{{$product->name}}</p>
+        <p class="">{{$product->description}}</p>
+        <p class="item-size">{{$product->size_sort}}</p>
+        <p class="item-price">{{"€" . $product->price}}</p>
+    </div>
 @endsection

@@ -67,6 +67,68 @@
     text-align: center;
 }
 
+.category-item-box{
+    background-color: lightgray;
+    padding: 15px;
+    margin: 0;
+    border-radius: 5%;
+    width: 280px;
+}
+
+.category-item-box:hover{
+    cursor: pointer;
+}
+
+.category-item-img{
+    width: 250px;
+    height: 250px;
+}
+
+.category-item-name{
+    text-align: center;
+    font-weight: bold;
+}
+
+.category-item-size{
+    text-align: center;
+}
+
+.category-item-price{
+    text-align: center;
+}
+
+.item-box{
+    display: grid;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+.item-img{
+    width: 500px;
+    height: ;
+}
+
+.item-name{
+
+}
+
+.item-description{
+
+}
+
+.item-size{
+
+}
+
+.item-price{
+
+}
+
+.item-btn{
+
+}
+
 .contact-form{
     margin: 0 5%;
 }
@@ -94,3 +156,13 @@
     display: inline;
     margin: 10px
 }
+
+.profile-picture{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    align-self: center;
+}
+
+

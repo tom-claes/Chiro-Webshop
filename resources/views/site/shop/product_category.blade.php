@@ -12,13 +12,16 @@
 
 <div>
     @forelse ($products as $product)
+    <a href="{{ route('shop.product', ['productId' => $product->id]) }}">
 
-    <div category-item-box>
-        <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}">
-        <p>{{$product->name}}</p>
-        <p>{{$product->size_sort}}</p>
-        <p>{{"€" . $product->price}}</p>
-    </div>
+        <div class="category-item-box">
+            <img class="category-item-img" src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}">
+            <p class="category-item-name">{{$product->name}}</p>
+            <p class="category-item-size">{{$product->size_sort}}</p>
+            <p class="category-item-price">{{"€" . $product->price}}</p>
+        </div>
+
+    </a>
 
     @empty
         <p>Er zijn momenteel geen producten die tot deze categorie behoren</p>

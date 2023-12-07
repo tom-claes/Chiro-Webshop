@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use App\Models\User;
 use App\Models\Product_category;
 use App\Models\Faq_category;
@@ -72,10 +74,22 @@ class AdminController extends Controller
             'img' => ['required', 'image', 'mimes:jpeg,png,jpg' ,'max:2048']
         ]);
         
-        $imagePath = $request->file('img')->store('IMG', 'public');
+        $originalImagePath = $request->file('img')->store('IMG', 'public');
 
+        // img laden
+        $img = Image::make(Storage::get($originalImagePath));
 
-        Auth::user()->update(['img' => $imagePath]);
+        // ophalen minimum dimensies img
+        $minDimension = min($img->width(), $img->height());
+
+        // snijd img in vierkant
+        $img->crop($minDimension, $minDimension);
+
+        // sla bijgesneden afbeelding op
+        $croppedImagePath = storage_path('app/public/IMG/cropped_' . basename($originalImagePath));
+        $img->save($croppedImagePath);
+
+        Auth::user()->update(['img' => 'IMG/cropped_' . basename($originalImagePath)]);
     
         $product = Product::create([
             'name' => $request->name,
@@ -83,7 +97,7 @@ class AdminController extends Controller
             'size_sort' => $request->size_sort,
             'category' => $request->category,
             'price' => $request->price,
-            'img' => $imagePath,
+            'img' => 'IMG/cropped_' . basename($originalImagePath),
         ]);
 
         return redirect()
