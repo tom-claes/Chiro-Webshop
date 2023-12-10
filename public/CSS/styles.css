@@ -99,30 +99,48 @@
 
 .item-box{
     display: grid;
-    padding: 20px;
-    border-radius: 10px;
-
+    grid-template-columns: 40% auto ;
+    padding: 2%;
 }
 
 .item-img{
     width: 500px;
-    height: ;
+    grid-column: 1/2;
+    margin: 0 auto;
+}
+
+.item-right-side{
+    grid-column: 2/3;
+    display: grid;
+    grid-template-rows: 15% 10% 40% 10% 10% auto;
+    
+    padding: 0 3% 3% 3%;
 }
 
 .item-name{
-
+    grid-row: 1/2;
+    font-size: 400%;
+    font-weight: bold;
 }
 
 .item-description{
-
+    grid-row: 3/4;
+    font-size: 150%;
 }
 
 .item-size{
+    grid-row: 2/3;
 
 }
 
 .item-price{
+    grid-row: 4/5;
+    font-weight: bold;
 
+}
+
+.item-btn{
+    grid-row: 5/6;
 }
 
 .item-btn{

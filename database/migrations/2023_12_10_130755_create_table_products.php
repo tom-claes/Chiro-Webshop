@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('size_sort');
+            $table->unsignedBigInteger('size_sort');
             $table->float('price');
             $table->string('img');
             $table->unsignedBigInteger('category');
             $table->timestamps();
 
             $table->foreign('category')->references('id')->on('product_categories')->onDelete('cascade');
+            $table->foreign('size_sort')->references('id')->on('size_sorts')->onDelete('cascade');
         });
     }
 

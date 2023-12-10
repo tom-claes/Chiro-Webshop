@@ -5,9 +5,9 @@
 @section('content')
 
     <div class="admin-create">
-        <p class="admin-form-heading">Voeg een categorie toe aan de catalogus</p>
+        <p class="admin-form-heading">Voeg een maat categorie toe aan de catalogus (bv. Kinderen of Volwassenen)</p>
 
-        <Form method="POST" action="{{ route('admin.category') }}">
+        <Form method="POST" action="{{ route('admin.size.sort') }}">
             @csrf
 
             <div class="form-div">
@@ -26,23 +26,10 @@
     <br> <br>
 
     <div class="admin-create">
-        <p class="admin-form-heading">Voeg een kledingstuk toe aan de catalogus</p>
+        <p class="admin-form-heading">Voeg een maat aan een maat categorie toe</p>
 
-        <Form method="POST" action="{{ route('admin.clothingitems') }}" enctype="multipart/form-data">
+        <Form method="POST" action="{{ route('admin.size.size') }}" enctype="multipart/form-data">
             @csrf
-
-            
-            <div class="form-div">
-                <x-input-label for="name" :value="__('Naam kledingstuk')" />
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-            </div>
-
-            <div class="form-div">
-                <x-input-label for="description" :value="__('Korte beschrijving')" />
-                <x-textarea id="description" class="block mt-1 w-full" name="description" autofocus autocomplete="description">{{ old('description') }}</x-textarea>
-                <x-input-error :messages="$errors->get('description')" class="mt-2" />
-            </div>
             
             <div class="form-div">
                 <x-input-label for="size_sort" :value="__('Behoort tot maat categorie')" />
@@ -57,29 +44,13 @@
             </div>
 
             <div class="form-div">
-                <x-input-label for="category" :value="__('Behoort tot categorie')" />
-                <x-dropdown-form id="category" name="category" class="block mt-1 w-full" required autofocus autocomplete="category">
-                    <option disabled selected></option>
-            
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </x-dropdown-form>
-                <x-input-error :messages="$errors->get('category')" class="mt-2" />
+                <x-input-label for="size" :value="__('Naam maat')" />
+                <x-text-input id="size" class="block mt-1 w-full" type="text" name="size" :value="old('size')" required autofocus autocomplete="size" />
+                <x-input-error :messages="$errors->get('size')" class="mt-2" />
             </div>
-
-            <div class="form-div">
-                <x-input-label for="price" :value="__('Prijs')" />
-                <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" :value="old('price')" required autofocus autocomplete="price" />
-                <x-input-error :messages="$errors->get('price')" class="mt-2" />
-            </div>
-            
-
-            
-            <x-file-input id="img" name="img" label="Upload afbeelding" :value="old('img')" required autofocus autocomplete="img" />
 
             <x-primary-button class="admin-form-btn">
-                {{ __('Creëer kledingstuk') }}
+                {{ __('Creëer Maat') }}
             </x-primary-button>
         </Form>
     

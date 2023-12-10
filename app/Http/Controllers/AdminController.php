@@ -13,6 +13,8 @@ use App\Models\Faq;
 use App\Models\Latest_news;
 use App\Models\Product;
 use App\Models\Contact_form;
+use App\Models\Size;
+use App\Models\Size_sort;
 
 
 class AdminController extends Controller
@@ -44,8 +46,9 @@ class AdminController extends Controller
 
     public function catalogus(){
         $categories = Product_category::with('products')->get();
+        $size_sorts = Size_sort::all();
 
-        return view('site.admin.clothingitems', compact('categories'));
+        return view('site.admin.clothingitems', compact('categories'), compact('size_sorts'));
     }
 
     public function categories(Request $request)
@@ -68,28 +71,16 @@ class AdminController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'size_sort' => ['required', 'in:Kinderen,Volwassenen'],
+            'size_sort' => ['required', 'exists:size_sorts,id'],
             'category' => ['required', 'exists:product_categories,id'],
             'price' => ['required', 'numeric'],
             'img' => ['required', 'image', 'mimes:jpeg,png,jpg' ,'max:2048']
         ]);
         
-        $originalImagePath = $request->file('img')->store('IMG', 'public');
+        $imagePath = $request->file('img')->store('IMG', 'public');
 
-        // img laden
-        $img = Image::make(Storage::get($originalImagePath));
 
-        // ophalen minimum dimensies img
-        $minDimension = min($img->width(), $img->height());
-
-        // snijd img in vierkant
-        $img->crop($minDimension, $minDimension);
-
-        // sla bijgesneden afbeelding op
-        $croppedImagePath = storage_path('app/public/IMG/cropped_' . basename($originalImagePath));
-        $img->save($croppedImagePath);
-
-        Auth::user()->update(['img' => 'IMG/cropped_' . basename($originalImagePath)]);
+        Auth::user()->update(['img' => $imagePath]);
     
         $product = Product::create([
             'name' => $request->name,
@@ -97,7 +88,7 @@ class AdminController extends Controller
             'size_sort' => $request->size_sort,
             'category' => $request->category,
             'price' => $request->price,
-            'img' => 'IMG/cropped_' . basename($originalImagePath),
+            'img' => $imagePath,
         ]);
 
         return redirect()
@@ -197,5 +188,44 @@ class AdminController extends Controller
             $users = User::orderBy('lastname')->get();
             return view('site.admin.users', compact('users'));
         }
+    }
+
+    public function size()
+    {
+        $size_sorts = Size_sort::all();
+
+        return view ('site.admin.size', compact('size_sorts'));
+    }
+
+    public function sizeSort(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+    
+        $size_sort = Size_sort::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()
+            ->route('admin.size')
+            ->with('success', `De maat categorie: $size_sort->name is aangemaakt`);
+    }
+
+    public function sizeSize(Request $request)
+    {
+        $request->validate([
+            'size_sort' => ['required', 'exists:size_sorts,id'],
+            'size' => ['required', 'string', 'max:255'],
+        ]);
+    
+        $size = Size::create([
+            'size_sort' => $request->size_sort,
+            'size' => $request->size,
+        ]);
+
+        return redirect()
+            ->route('admin.size')
+            ->with('success', `De maat: $size->size is aangemaakt`);
     }
 }

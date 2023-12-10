@@ -4,28 +4,28 @@
 
         <!--Last Name -->
         <div>
-            <x-input-label for="lastname" :value="__('Last Name')" />
+            <x-input-label for="lastname" :value="__('Achternaam')" />
             <x-text-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required autofocus autocomplete="lastname" />
             <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
         </div>
 
         <!--First Name -->
         <div class="mt-4">
-            <x-input-label for="firstname" :value="__('First Name')" />
+            <x-input-label for="firstname" :value="__('Voornaam')" />
             <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus autocomplete="firstname" />
             <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
         </div>
 
         <!--Username -->
         <div class="mt-4">
-            <x-input-label for="username" :value="__('Username')" />
+            <x-input-label for="username" :value="__('Gebruikersnaam')" />
             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
         </div>
 
         <!--Date of Birth -->
         <div class="mt-4">
-            <x-input-label for="birthdate" :value="__('Date of birth')" />
+            <x-input-label for="birthdate" :value="__('Geboorte datum')" />
             <x-text-input id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" :value="old('birthdate')" required autofocus autocomplete="birthdate" />
             <x-input-error :messages="$errors->get('birthdate')" class="mt-2" />
         </div>
@@ -39,7 +39,7 @@
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('Wachtwoord')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
@@ -51,7 +51,7 @@
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" :value="__('Bevestig wachtwoord')" />
 
             <x-text-input id="password_confirmation" class="block mt-1 w-full"
                             type="password"
@@ -62,11 +62,11 @@
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+                {{ __('Al geregistreerd?') }}
             </a>
 
             <x-primary-button class="ml-4">
-                {{ __('Register') }}
+                {{ __('Registreer') }}
             </x-primary-button>
         </div>
     </form>

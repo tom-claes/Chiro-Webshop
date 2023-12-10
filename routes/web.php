@@ -77,6 +77,12 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::match(['get', 'post'], 'contact', [AdminController::class, 'contact'])->name('contact');
 
     Route::match(['get', 'post'], 'users', [AdminController::class, 'users'])->name('users');
+
+    Route::get('size', [AdminController::class, 'size'])->name('size');
+
+    Route::post('size/sort', [AdminController::class, 'sizeSort'])->name('size.sort');
+
+    Route::post('size/size', [AdminController::class, 'sizeSize'])->name('size.size');
 });
 /* END ADMIN PAGES */
 
