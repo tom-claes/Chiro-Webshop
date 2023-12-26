@@ -68,17 +68,26 @@
 
     <div class="admin-show-table">
         <div class="admin-show-nav">
-
+            <p>Vraag</p>
+            <p>Antwoord</p>
         </div>
-        
-        @foreach($categories as $category)
+
+        @forelse ($categories as $category)
             <h2>{{ $category->name }}</h2>
-            
-            @foreach($category->faq as $faq)
-                <p>{{ $faq->question }}</p>
-                <p>{{ $faq->answer }}</p>                
-            @endforeach
-        @endforeach
+
+            @forelse ($category->faq as $faq)
+                <div class="admin-inline-items">
+                    <div class="product-details">
+                        <p>{{ $faq->question }}</p>
+                        <p>{{ $faq->answer }}</p>
+                    </div>
+                </div>
+            @empty
+                <p>Geen Faq item</p>
+            @endforelse
+        @empty
+            <p>Geen faq categorie</p>
+        @endforelse
     </div>
 
 @endsection

@@ -83,6 +83,8 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::post('size/sort', [AdminController::class, 'sizeSort'])->name('size.sort');
 
     Route::post('size/size', [AdminController::class, 'sizeSize'])->name('size.size');
+
+    Route::match(['get', 'post'], 'stock', [AdminController::class, 'stock'])->name('stock');
 });
 /* END ADMIN PAGES */
 

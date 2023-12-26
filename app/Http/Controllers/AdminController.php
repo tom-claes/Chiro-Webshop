@@ -228,4 +228,13 @@ class AdminController extends Controller
             ->route('admin.size')
             ->with('success', `De maat: $size->size is aangemaakt`);
     }
+
+    public function stock(Request $request)
+    {
+        if ($request->isMethod('get'))
+        {
+
+            return view('site.admin.stock');
+        }
+    }
 }
