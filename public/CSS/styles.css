@@ -183,4 +183,23 @@
     align-self: center;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; 
+}
 
+th, td {
+    border: 1px solid var(--admin-color);
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    color: #FFF;
+    background-color: var(--admin-color);
+}
+
+tr:nth-child(even) {
+    background-color: #e0dede;
+}

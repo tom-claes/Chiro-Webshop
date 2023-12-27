@@ -229,12 +229,34 @@ class AdminController extends Controller
             ->with('success', `De maat: $size->size is aangemaakt`);
     }
 
-    public function stock(Request $request)
+    public function stocks()
     {
-        if ($request->isMethod('get'))
-        {
+        $products = Product::with('sizes', 'sizeSort')->get();
+            
+        return view('site.admin.stocks', compact('products'));
+    }
 
-            return view('site.admin.stock');
-        }
+    public function stock(Request $request, $productId)
+    {  
+        $product = Product::where('id', $productId)->with('sizes', 'sizeSort')->first();
+            
+        return view('site.admin.stock', compact('product'));
+    }
+
+    public function updateStock(Request $request, $productId, $sizeId)
+    {  
+        // Validate the request data
+        $validatedData = $request->validate([
+            'stock' => 'required|integer|min:0',
+        ]);
+
+        // Get the product with the given id
+        $product = Product::find($productId);
+
+        // Update the stock in the pivot table
+        $product->sizes()->updateExistingPivot($sizeId, ['stock' => $request->stock]);
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Stock updated successfully');
     }
 }

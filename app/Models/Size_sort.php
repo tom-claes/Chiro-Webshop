@@ -10,4 +10,9 @@ class Size_sort extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'size_sort', 'id');
+    }
 }

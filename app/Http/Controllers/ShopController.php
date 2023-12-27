@@ -11,7 +11,7 @@ class ShopController extends Controller
     public function category(Request $request, $categoryId)
     {
         //haalt alle kledingstukken op die in de categorie zitten van de pagina die je hebt gekozen
-        $products = Product::where('category', $categoryId)->get();
+        $products = Product::where('category', $categoryId)->with('sizeSort')->get();
         $category = Product_category::where('id', $categoryId)->first();
         
         return view('site.shop.product_category', ['category' => $category, 'products' => $products]);
@@ -19,7 +19,7 @@ class ShopController extends Controller
 
     public function product(Request $request, $productId)
     {
-        $product = Product::where('id', $productId)->first();
+        $product = Product::where('id', $productId)->with('sizeSort')->first();
         
         return view('site.shop.product', compact('product'));
     }

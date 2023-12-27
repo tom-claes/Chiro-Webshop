@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
+use App\Models\Size_sort;
 
 class Size extends Model
 {
@@ -15,6 +16,11 @@ class Size extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'product_size_pivot')->withPivot('stock');
+    }
+
+    public function sizeSort()
+    {
+        return $this->belongsTo(Size_sort::class);
     }
 
     // The `boot` method is called when the model is being booted.

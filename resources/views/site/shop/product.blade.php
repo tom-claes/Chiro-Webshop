@@ -10,7 +10,7 @@
         <div class="item-right-side">
             <p class="item-name">{{$product->name}}</p>
             <p class="item-description">{{$product->description}}</p>
-            <p class="item-size">{{$product->size_sort}}</p>
+            <p class="item-size">{{$product->sizeSort->name}}</p>
             <p class="item-price">{{"€" . $product->price}}</p>
 
             <form action="">

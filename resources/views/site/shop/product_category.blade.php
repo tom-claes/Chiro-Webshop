@@ -17,7 +17,7 @@
         <div class="category-item-box">
             <img class="category-item-img" src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}">
             <p class="category-item-name">{{$product->name}}</p>
-            <p class="category-item-size">{{$product->size_sort}}</p>
+            <p class="category-item-size">{{$product->sizeSort->name}}</p>
             <p class="category-item-price">{{"€" . $product->price}}</p>
         </div>
 
