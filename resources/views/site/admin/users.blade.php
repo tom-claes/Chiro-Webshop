@@ -20,7 +20,7 @@
         <tbody>
             @forelse ($users as $user)
                 <tr>
-                    <td><img class="admin-show-img" src="{{ asset('storage/' . $user->img) }}" alt="Profiel foto"></td>
+                    <td><img class="admin-show-img" src="{{ asset($user->img) }}" alt="Profiel foto"></td>
                     <td>{{ $user->lastname . " " . $user->firstname}}</td>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->email }}</td>
@@ -32,7 +32,7 @@
 
                     <td>
                         <a href="{{route('admin.view.user', $user->id)}}" style="display: flex; align-items: center;">
-                            Pas stock aan
+                            Bekijk profiel
                             <img style="vertical-align: middle; margin-left: 6px;" width="13.75px" src="{{ asset('IMG\link.svg') }}" alt="Your SVG File">
                         </a>
                     </td>

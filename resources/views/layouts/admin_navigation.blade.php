@@ -80,7 +80,7 @@
         </div>
 
 
-        <<div>
+        <div>
             <form method="POST" action="{{ route('logout') }}" id="logout-form">
                 @csrf
         

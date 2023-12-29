@@ -37,6 +37,12 @@
                             {{session('success')}}
                         </div>
                     @endif
+                        
+                    @if (session('remove'))
+                        <div class="flash-remove">
+                            {{session('remove')}}
+                        </div>
+                    @endif
                     
                     @yield('content')
                 </div>

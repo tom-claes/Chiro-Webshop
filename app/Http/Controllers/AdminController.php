@@ -269,4 +269,22 @@ class AdminController extends Controller
 
         return view('site.admin.view_user', compact('user'));
     }
+
+    public function make_admin(Request $request, $userId)
+    {
+        $user = User::where('id', $userId)->first();
+
+        $user->update(['admin' => true]);
+
+        return redirect()->back()->with('success', $user->firstname . ' ' . $user->lastname . ' is nu een Admin');
+    }
+
+    public function remove_admin(Request $request, $userId)
+    {
+        $user = User::where('id', $userId)->first();
+
+        $user->update(['admin' => false]);
+
+        return redirect()->back()->with('remove', $user->firstname . ' ' . $user->lastname . ' is geen Admin meer');
+    }
 }

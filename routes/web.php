@@ -95,6 +95,10 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::get('/stock/{id}', [AdminController::class, 'show'])->name('stock.show');
 
     Route::match(['get', 'post'], 'view+user/{userId}', [AdminController::class, 'view_user'])->name('view.user');
+
+    Route::put('make+admin/{userId}', [AdminController::class, 'make_admin'])->name('make.admin');
+
+    Route::put('remove+admin/{userId}', [AdminController::class, 'remove_admin'])->name('remove.admin');
 });
 /* END ADMIN PAGES */
 
