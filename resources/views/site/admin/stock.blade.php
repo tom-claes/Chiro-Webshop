@@ -3,32 +3,34 @@
 @section('title', 'Chiro Zuun Webshop')
 
 @section('content')
-<div class="admin-create">
-    <div class="admin-show-table">
-        <div class="admin-show-nav">
 
-                <p>{{ $product->name }}</p>
-                <p>{{ $product->sizeSort->name }}</p>
-                @forelse ($product->sizes as $size)
-                    <form method="POST" action="{{route('admin.update.stock', ['productId' => $product->id, 'sizeId' => $size->id])}}">
+    <p class="stock-product-name">{{ $product->name }}</p>
+    <p class="stock-product-size-sort">{{ $product->sizeSort->name }}</p>
+
+
+    <div class="stock-page">
+
+        <img class="stock-img" src="{{ asset('storage/' . $product->img) }}" alt="Profiel foto">
+
+       <div class="stock-sizes">
+           @forelse ($product->sizes as $size)
+               <div class="stock-size">
+                   <form method="POST" action="{{route('admin.update.stock', ['productId' => $product->id, 'sizeId' => $size->id])}}">
                         @csrf
                         @method('PUT')
-                        <div class="form-div">
-                            <x-input-label for="stock" style="color: #FFF;" :value="__($size->size)" />
-                            <x-text-input id="stock" style="color:black;" class="block mt-1 w-full" type="number" name="stock" :value="$size->pivot->stock" autofocus autocomplete="stock" />
+                        <div class="stock-form-input">
+                            <x-input-label for="stock" :value="__('Maat: ' . $size->size)" />
+                            <x-text-input id="stock" style="color:black;" class="block mt-1 w-full" type="number" name="stock" :value="$size->pivot->stock ? $size->pivot->stock  : 0 " autofocus autocomplete="stock" />
                             <x-input-error :messages="$errors->get('stock')" class="mt-2" />
                         </div>
-                        <x-primary-button class="admin-form-btn">
-                            {{ __('Update stock') }}
-                        </x-primary-button>
-                    </form>
-
-                @empty
-                @endforelse
-
-            
-        </div>
-        
+                        <x-primary-button class="stock-form-btn">
+                            {{ __('Update') }}
+                        </x-primary-button> 
+                   </form>
+               </div>
+           @empty
+           
+           @endforelse
+       </div>
     </div>
-</div>
 @endsection
