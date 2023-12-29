@@ -12,18 +12,18 @@
 
             
             <div class="form-div">
-                <x-input-label for="title" :value="__('Title')" />
+                <x-input-label for="title" :value="__('Titel')" />
                 <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus autocomplete="title" />
                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
             </div>
 
             <div class="form-div">
-                <x-input-label for="content" :value="__('Content')" />
+                <x-input-label for="content" :value="__('Bericht')" />
                 <x-textarea id="content" class="block mt-1 w-full" name="content" autofocus autocomplete="content">{{ old('content') }}</x-textarea>
                 <x-input-error :messages="$errors->get('content')" class="mt-2" />
             </div>
 
-            <x-file-input id="img" name="img" label="Upload afbeelding" :value="old('img')" required autofocus autocomplete="img" />
+            <x-file-input id="img" name="img" label="Upload afbeelding" :value="old('img')"  autofocus autocomplete="img" />
 
             <x-primary-button class="admin-form-btn">
                 {{ __('Creëer post') }}
@@ -31,18 +31,27 @@
         </Form>
     
     </div>
-
-    <div class="admin-show-table">
-        <div class="admin-show-nav">
-
-        </div>
-        
-        @forelse ($news as $item)
-            <p>{{ $item->title }}</p>
-            <p>{{ $item->content }}</p>
-            <p>{{ $item->img }}</p>
-        @empty
+    
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Afbeelding</th>
+                <th>Titel</th>
+                <th>Bericht</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($news as $item)
+                <tr>
+                    <td><img class="admin-show-img" src="{{ asset('storage/' . $item->img) }}" alt="Afbeelding van: {{ $item->title }}"></td>
+                    <td>{{ $item->title }}</td>
+                    <td>{{ $item->content }}</td>
+                </tr>
+            @empty
             
-        @endforelse
-    </div>
+            @endforelse
+        </tbody>
+    </table>
+    
 @endsection

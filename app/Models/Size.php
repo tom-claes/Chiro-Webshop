@@ -22,6 +22,7 @@ class Size extends Model
     {
         return $this->belongsTo(Size_sort::class);
     }
+    
 
     // The `boot` method is called when the model is being booted.
     protected static function boot()

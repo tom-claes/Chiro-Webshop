@@ -153,11 +153,14 @@ class AdminController extends Controller
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'content' => ['string', 'max:10000'],
-            'img' => ['required', 'image', 'mimes:jpeg,png,jpg' ,'max:2048']
+            'img' => ['image', 'mimes:jpeg,png,jpg' ,'max:2048']
         ]);
         
-        $imagePath = $request->file('img')->store('IMG', 'public');
-
+        if ($request->hasFile('img')) {
+            $imagePath = $request->file('img')->store('IMG', 'public');
+        } else {
+            $imagePath = null;
+        }
 
         Auth::user()->update(['img' => $imagePath]);
     
@@ -258,5 +261,12 @@ class AdminController extends Controller
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Stock updated successfully');
+    }
+
+    public function view_user(Request $request, $userId)
+    {
+        $user = User::where('id', $userId)->first();
+
+        return view('site.admin.view_user', compact('user'));
     }
 }

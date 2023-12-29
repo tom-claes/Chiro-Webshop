@@ -26,6 +26,8 @@ Route::prefix('shop/')->name('shop.')->group(function () {
 
     Route::get('product/{productId}', [ShopController::class, 'product'])->name('product');
 
+    Route::post('add+to+basket/{product}', [ShopController::class, 'addToBasket'])->name('add.toBasket');
+
     Route::get('/basket', function () {
         return view('site.shop.basket');
     })->name('basket');
@@ -89,6 +91,10 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::get('stock/{productId}', [AdminController::class, 'stock'])->name('stock');
 
     Route::put('stock/{productId}/{sizeId}', [AdminController::class, 'updateStock'])->name('update.stock');
+
+    Route::get('/stock/{id}', [AdminController::class, 'show'])->name('stock.show');
+
+    Route::match(['get', 'post'], 'view+user/{userId}', [AdminController::class, 'view_user'])->name('view.user');
 });
 /* END ADMIN PAGES */
 

@@ -203,3 +203,13 @@ th {
 tr:nth-child(even) {
     background-color: #e0dede;
 }
+
+.table-subtitle{
+    font-size: 150%;
+    font-weight: bold;
+    color: #FFF;
+}
+
+.table-subtitle-row{
+    background-color: var(--primary-color);
+}

@@ -85,28 +85,33 @@
     
     </div>
 
-    <div class="admin-show-table">
-        <div class="admin-show-nav">
-            <p>Afbeelding</p>
-            <p>Naam product</p>
-            <p>Beschrijving</p>
-            <p>Soort maat</p>
-            <p>Prijs</p>
-        </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Afbeelding</th>
+                <th>Naam product</th>
+                <th>Beschrijving</th>
+                <th>Soort maat</th>
+                <th>Prijs</th>
+            </tr>
+        </thead>
+        
         @foreach($categories as $category)
-            <h2>{{ $category->name }}</h2>
+            <tr>
+                <td colspan="5" class="table-subtitle-row">
+                    <p class="table-subtitle">Categorie: {{ $category->name }}</p>
+                </td>
+            </tr>
             
             @foreach($category->products as $product)
-            <div class="admin-inline-items">
-                <img class="admin-show-img" src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}">
-                <div class="product-details">
-                    <p>{{$product->name}}</p>
-                    <p>{{ $product->description }}</p>
-                    <p>{{ $product->size_sort }}</p>
-                    <p>{{ "€" . $product->price }}</p>
-                <div class="product-details">
-            </div>  
+                <tr>
+                    <td><img class="admin-show-img" src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}"></td>    
+                    <td>{{$product->name}}</td>
+                    <td>{{ $product->description }}</td>
+                    <td>{{ $product->size_sort }}</td>
+                    <td>{{ "€" . $product->price }}</td>
+                </tr>
             @endforeach
         @endforeach
-    </div>
+    </table>
 @endsection

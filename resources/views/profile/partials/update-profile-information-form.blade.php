@@ -18,7 +18,7 @@
         @method('patch')
 
         <div class="profile-picture-container">
-            <img class="profile-picture" src="{{ asset('storage/' . $user->img) }}" alt="Profiel foto">
+            <img class="profile-picture" src="{{asset($user->img)}}" alt="Profiel foto">
             <x-file-input class="profile-picture-btn" id="img" name="img" label="" autofocus autocomplete="img" />
         </div>
 
@@ -42,13 +42,13 @@
 
         <div class="mt-4">
             <x-input-label for="birthdate" :value="__('Geboortedatum')" />
-            <x-text-input id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" :value="old('birthdate')" autofocus autocomplete="birthdate" /> <!-- required -->
+            <x-text-input id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" :value="old('birthdate', $user->birthdate)" autofocus autocomplete="birthdate" /> <!-- required -->
             <x-input-error :messages="$errors->get('birthdate')" class="mt-2" />
         </div>
 
         <div class="form-div">
             <x-input-label for="bio" :value="__('Bio')" />
-            <x-textarea id="bio" class="block mt-1 w-full" name="bio" autofocus autocomplete="bio">{{ old('bio') }}</x-textarea>
+            <x-textarea id="bio" class="block mt-1 w-full" name="bio" :value="old('bio', $user->bio ?? '')" autofocus autocomplete="bio"></x-textarea>
             <x-input-error :messages="$errors->get('bio')" class="mt-2" />
         </div>
 

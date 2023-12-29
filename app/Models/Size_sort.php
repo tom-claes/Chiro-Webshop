@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
+use App\Models\Size;
 
 class Size_sort extends Model
 {
@@ -14,5 +16,10 @@ class Size_sort extends Model
     public function products()
     {
         return $this->hasMany(Product::class, 'size_sort', 'id');
+    }
+
+    public function sizes()
+    {
+        return $this->hasMany(Size::class, 'size_sort', 'id');
     }
 }

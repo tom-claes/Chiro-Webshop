@@ -13,9 +13,36 @@
             <p class="item-size">{{$product->sizeSort->name}}</p>
             <p class="item-price">{{"€" . $product->price}}</p>
 
-            <form action="">
+            <form method="POST" action="{{route('shop.add.toBasket', $product->id)}}">
+
+                <div class="form-div">
+                    <x-input-label  for="size" :value="__('Maat')" />
+                    <x-dropdown-form id="size" name="size" class="block mt-1 w-full" required autofocus autocomplete="size">
+                        <option disabled selected></option>
+                
+                        @foreach($product->sizes as $size)
+                            <option {{ $size->pivot->stock == 0 ? 'disabled' : '' }} value="{{ $size->id }}">{{ $size->size }}</option>             <!-- Zorgt ervoor dat je een maat dat niet in stock is niet in de winkelmand kan zetten-->
+                        @endforeach
+                    </x-dropdown-form>
+                    <x-input-error :messages="$errors->get('size')" class="mt-2" />
+                    <p id="stock"></p>
+                </div>
+
                 <x-primary-button>In winkelmandje</x-primary-button>
             </form>
         </div>
     </div>
-@endsection;
+@endsection
+
+@section('scripts')
+    <script>
+        document.getElementById('size').addEventListener('change', function() {
+            var sizeId = this.value;
+            fetch('/stock/' + sizeId)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('stock').innerText = 'Stock: ' + data.stock;
+                });
+        });
+    </script>
+@endsection

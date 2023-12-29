@@ -3,32 +3,44 @@
 @section('title', 'Chiro Zuun Webshop')
 
 @section('content')
-<div class="admin-create">
-    <p class="admin-form-heading">Users</p>
+<p class="admin-form-heading">Users</p>
     
-    <div class="admin-show-table">
-        <div class="admin-show-nav">
 
-        </div>
-        
-        @forelse ($users as $user)
-            <p>{{ $user->lastname . " " . $user->firstname}}</p>
-            <p>{{ $user->email }}</p>
-            <p>{{ $user->admin }}</p>
-            @if( $user->admin == 1)
-                <p>Ja</p>
-            @else
-                <p>Nee</p>
-            @endif
-            
-            <p>{{ $user->username }}</p>
-            <p>{{ $user->birthdate }}</p>
-            <img class="admin-show-img" src="{{ asset('storage/' . $user->img) }}" alt="Profiel foto">
-            <p>{{ $user->bio }}</p>
-        @empty
-            
-        @endforelse
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Afbeelding</th>
+                <th>Naam</th>
+                <th>Gebruikersnaam</th>
+                <th>Email</th>
+                <th>Admin</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($users as $user)
+                <tr>
+                    <td><img class="admin-show-img" src="{{ asset('storage/' . $user->img) }}" alt="Profiel foto"></td>
+                    <td>{{ $user->lastname . " " . $user->firstname}}</td>
+                    <td>{{ $user->username }}</td>
+                    <td>{{ $user->email }}</td>
+                    @if( $user->admin == 1)
+                        <td>Ja</td>
+                    @else
+                        <td>Nee</td>
+                    @endif
 
-</div>
+                    <td>
+                        <a href="{{route('admin.view.user', $user->id)}}" style="display: flex; align-items: center;">
+                            Pas stock aan
+                            <img style="vertical-align: middle; margin-left: 6px;" width="13.75px" src="{{ asset('IMG\link.svg') }}" alt="Your SVG File">
+                        </a>
+                    </td>
+                </tr>
+            @empty
+            
+            @endforelse
+        </tbody>
+    </table>
+
 @endsection
