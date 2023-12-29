@@ -31,35 +31,43 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        $request->validate([
+        
+        $rules = [
             'lastname' => ['required', 'string', 'max:255'],
             'firstname' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
             'bio' => ['string', 'max:10000'],
             'birthdate' => ['required', 'date'],
-            'img' => ['nullable', 'image', 'mimes:jpeg,png,jpg' ,'max:2048'],
             'email' => ['required', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-        ]);
-
+        ];
+        
         if ($request->hasFile('img')) {
-            $imagePath = 'storage/' . $request->file('img')->store('IMG', 'public');
-        } else {
-            $imagePath = 'IMG\default-profile-picture.png';
+            $file = $request->file('img');
+            $extension = strtolower($file->guessExtension());
+            if (in_array($extension, ['jpeg', 'JPEG', 'png', 'PNG', 'jpg', 'JPG'])) {
+                $rules['img'] = ['nullable', 'image', 'max:2048'];
+            } else {
+                return back()->withErrors(['img' => 'The img field must be a file of type: jpeg, png, jpg.']);
+            }
         }
 
-        Auth::user()->update(['img' => $imagePath]);
+        $updateData = [
+            'lastname' => $request->lastname,
+            'firstname' => $request->firstname,
+            'username' => $request->username,
+            'bio' => $request->bio,
+            'birthdate' => $request->birthdate,
+            'email' => $request->email,
+        ];
+    
+        if ($request->hasFile('img')) {
+            $imagePath = 'storage/' . $request->file('img')->store('IMG', 'public');
+            $updateData['img'] = $imagePath;
+        }
+    
+        $user->update($updateData);
 
-        $user->update([
-            'lastname' => $request->input('lastname'),
-            'firstname' => $request->input('firstname'),
-            'username' => $request->input('username'),
-            'bio' => $request->input('bio'),
-            'birthdate' => $request->input('birthdate'),
-            'img' => $imagePath,
-            'email' => $request->input('email'),
-        ]);
-
-
+        
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
