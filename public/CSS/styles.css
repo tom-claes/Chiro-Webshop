@@ -155,8 +155,8 @@
 
 }
 
-.contact-form{
-    margin: 0 5%;
+.support-page{
+    margin: 20px;
 }
 
 .admin-show-table{
@@ -316,3 +316,19 @@ tr:nth-child(even) {
     color: #919191;
 }
 
+.arrow {
+    border: solid var(--admin-color);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}

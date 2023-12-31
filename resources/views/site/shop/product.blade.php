@@ -13,8 +13,8 @@
             <p class="item-size">{{$product->sizeSort->name}}</p>
             <p class="item-price">{{"€" . $product->price}}</p>
 
-            <form method="POST" action="{{route('shop.add.toBasket', $product->id)}}">
-
+            <form method="POST" action="{{route('shop.add.toCart', ['productId' => $product->id])}}">
+                @csrf
                 <div class="form-div">
                     <x-input-label  for="size" :value="__('Maat')" />
                     <x-dropdown-form id="size" name="size" class="block mt-1 w-full" required autofocus autocomplete="size">

@@ -4,17 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact_form;
+use App\Models\News;
+use App\Models\Faq;
+use App\Models\Faq_category;
+
+
 
 class SupportController extends Controller
 {
     public function faqCategory()
     {
-        return view('site.support.faq_category');
+        $faqCategories = Faq_category::orderBy('name')->get();
+
+        return view('site.support.faq_category', compact('faqCategories'));
     }
 
-    public function faq()
+    public function faq($faqCategoryId)
     {
-        return view('site.support.faq');
+        $faqs = Faq::where('category', $faqCategoryId)->orderBy('created_at', 'desc')->get();
+
+        return view('site.support.faq', compact('faqs'));
     }
 
     public function news()
@@ -47,7 +56,7 @@ class SupportController extends Controller
 
         return redirect()
             ->route('support.contact')
-            ->with('success', `Uw contactformulier is verzonden`);
+            ->with('success', 'Uw contactformulier met onderwerp "' . $contact->subject . '" is verzonden');
     }
 
     public function userpage(Request $request)

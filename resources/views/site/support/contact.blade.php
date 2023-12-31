@@ -5,8 +5,7 @@
 @section('header', 'Homepage')
 
 @section('content')
-    @if(!auth()->check())
-        <div class="contact-form">
+        <div class="support-page">
             <p class="admin-form-heading">Neem contact op met Chiro Zuun</p>
 
             <Form method="POST" action="{{ route('support.contact') }}" enctype="multipart/form-data">
@@ -49,7 +48,7 @@
                 </x-primary-button>
             </Form>
         </div>
-    @endif
+    
 
 
 @endsection

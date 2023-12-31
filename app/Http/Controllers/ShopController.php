@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Product_category;
 use App\Models\Size;
+use App\Models\Size_sort;
+use App\Models\Cart_item;
 
 class ShopController extends Controller
 {
@@ -25,32 +28,42 @@ class ShopController extends Controller
         return view('site.shop.product', compact('product'));
     }
 
-    public function addToBasket(Request $request, Product $product)
+    public function addToCart(Request $request, $productId)
     {
-        // Validate the request
         $request->validate([
-            'size' => 'required|exists:sizes,id',
+            'size' => ['required', 'string', 'max:255'],
         ]);
-
-        // Get the size from the request
-        $size = Size::find($request->size);
-
-        // Check if the size is in stock
-        if ($size->pivot->stock > 0) {
-            // Add the product to the basket
-            // This depends on how you're handling the basket. 
-            // For example, if you're using sessions to store the basket:
-            $basket = session()->get('basket', []);
-            $basket[] = ['product_id' => $product->id, 'size_id' => $size->id];
-            session()->put('basket', $basket);
-
-            // Decrease the stock
-            $size->pivot->stock--;
-            $size->pivot->save();
-
-            return redirect()->back()->with('success', 'Product added to basket');
+        if (Auth::check()) {
+            // User is logged in, store in database
+            $item = Cart_item::create([
+                'product_id' => $productId,
+                'size_id' => $request->size,
+                'quantity' => 1,
+                'user_id' => auth()->user()->id,
+            ]);
         } else {
-            return redirect()->back()->with('error', 'This size is out of stock');
+            // User is not logged in, store in session
+            $cart = $request->session()->get('cart', []);
+            $item = [
+                'product_id' => $productId,
+                'size_id' => $request->size,
+                'quantity' => 1,
+            ];
+            $cart[] = $item;
+            $request->session()->put('cart', $cart);
         }
+        return back()->with('success', 'Het item is toegevoegd aan uw winkelwagen');
+ 
+    }
+
+    public function RemoveFromCart(Request $request)
+    {
+        
+    }
+
+    public function cart(Request $request)
+    {
+        
+        return view('site.shop.cart');
     }
 }

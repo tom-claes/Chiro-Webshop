@@ -26,11 +26,11 @@ Route::prefix('shop/')->name('shop.')->group(function () {
 
     Route::get('product/{productId}', [ShopController::class, 'product'])->name('product');
 
-    Route::post('add+to+basket/{product}', [ShopController::class, 'addToBasket'])->name('add.toBasket');
+    Route::post('add+to+basket/{productId}', [ShopController::class, 'addToCart'])->name('add.toCart');
 
-    Route::get('/basket', function () {
-        return view('site.shop.basket');
-    })->name('basket');
+    Route::post('remove+from+basket/{productId}', [ShopController::class, 'removeFromCart'])->name('remove.fromCart');
+
+    Route::get('cart', [ShopController::class, 'cart'])->name('cart');
 });
 /* END SHOP PAGES */
 
@@ -41,7 +41,7 @@ Route::prefix('support/')->name('support.')->group(function () {
 
     Route::get('faq/categoriën', [SupportController::class, 'faqCategory'])->name('faq.category');
 
-    Route::get('faq/{itemId}', [SupportController::class, 'faq'])->name('faq');
+    Route::get('faq/{faqCategoryId}', [SupportController::class, 'faq'])->name('faq');
 
     Route::match(['get', 'post'], 'contact', [SupportController::class, 'contact'])->name('contact');
 

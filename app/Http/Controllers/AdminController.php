@@ -99,9 +99,9 @@ class AdminController extends Controller
 
     public function faq()
     {
-        $categories = Faq_category::with('faq')->get();
+        $faqCategories = Faq_category::with('faq')->get();
 
-        return view('site.admin.faq', compact('categories'));
+        return view('site.admin.faq', compact('faqCategories'));
     }
 
 
