@@ -186,11 +186,18 @@ class AdminController extends Controller
 
     public function users(Request $request)
     {
-        if ($request->isMethod('get'))
-        {
-            $users = User::orderBy('lastname')->get();
-            return view('site.admin.users', compact('users'));
+        $search = request()->query('search');
+        $users = collect();
+    
+        if ($search) {
+            $users = User::where('firstname', 'LIKE', "%{$search}%")
+                ->orWhere('lastname', 'LIKE', "%{$search}%")
+                ->orWhere('email', 'LIKE', "%{$search}%")
+                ->orWhere('username', 'LIKE', "%{$search}%")
+                ->get();
         }
+    
+        return view('site.admin.users', ['users' => $users]);
     }
 
     public function size()
