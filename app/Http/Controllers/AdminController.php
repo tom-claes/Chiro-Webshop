@@ -177,11 +177,14 @@ class AdminController extends Controller
 
     public function contact(Request $request)
     {
-        if ($request->isMethod('get'))
-        {
-            $contact = Contact_form::latest()->get();
-            return view('site.admin.contact', compact('contact'));
-        }
+        $search = $request->query('search');
+        $contactForms = Contact_form::when($search, function ($query, $search) {
+            return $query->where('firstname', 'like', "%{$search}%")
+                         ->orWhere('lastname', 'like', "%{$search}%")
+                         ->orWhere('email', 'like', "%{$search}%")
+                         ->orWhere('subject', 'like', "%{$search}%");
+        })->get();
+        return view('site.admin.contact', compact('contactForms'));
     }
 
     public function users(Request $request)

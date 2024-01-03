@@ -76,7 +76,7 @@ Route::prefix('admin/')->name('admin.')->group(function () {
 
     Route::match(['get', 'post'], 'news', [AdminController::class, 'news'])->name('news');
 
-    Route::match(['get', 'post'], 'contact', [AdminController::class, 'contact'])->name('contact');
+    Route::get('contact', [AdminController::class, 'contact'])->name('contact');
 
     Route::match(['get', 'post'], 'users', [AdminController::class, 'users'])->name('users');
 
