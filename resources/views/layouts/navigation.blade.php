@@ -79,14 +79,14 @@
 
     <div style="display: flex; justify-content: flex-end;">
         <div style="margin-right: 35px;">
-            <a href="{{ route('shop.cart') }}"><img width="35px" src="{{ asset('IMG\cart-icon.svg') }}" alt=""></a>
+            <a href="{{ route('shop.view.cart') }}"><img width="35px" src="{{ asset('IMG\cart-icon.svg') }}" alt="Winkelkar icoon"></a>
         </div>
         <div style="margin-right: 50px;">
             @if(auth()->check())
                 <x-dropdown>
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <img width="35px" src="{{ asset('IMG\account-icon.svg') }}" alt="">
+                            <img width="35px" src="{{ asset('IMG\account-icon.svg') }}" alt="Account icoon">
                         </button>
                     </x-slot>
 
@@ -115,7 +115,7 @@
                 <x-dropdown>
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <img width="35px" src="{{ asset('IMG\account-icon.svg') }}" alt="">
+                            <img width="35px" src="{{ asset('IMG\account-icon.svg') }}" alt="Account icoon">
                         </button>
                     </x-slot>
             

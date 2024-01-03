@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,7 +31,7 @@ Route::prefix('shop/')->name('shop.')->group(function () {
 
     Route::post('remove+from+basket/{productId}', [ShopController::class, 'removeFromCart'])->name('remove.fromCart');
 
-    Route::get('cart', [ShopController::class, 'cart'])->name('cart');
+    Route::get('cart', [CartController::class, 'view'])->name('view.cart');
 });
 /* END SHOP PAGES */
 
@@ -99,6 +100,26 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::put('make+admin/{userId}', [AdminController::class, 'make_admin'])->name('make.admin');
 
     Route::put('remove+admin/{userId}', [AdminController::class, 'remove_admin'])->name('remove.admin');
+
+    Route::delete('verwijder+product/{productId}', [AdminController::class, 'deleteProduct'])->name('delete.product');
+
+    Route::delete('verwijder+contactform/{contactFormId}', [AdminController::class, 'deleteContactform'])->name('delete.contactform');
+
+    Route::delete('niews+item/{newsItemId}', [AdminController::class, 'deleteNewsItem'])->name('delete.newsitem');
+
+    //-------------------------------------------------------------
+
+    Route::delete('verwijder+faq+item/{faqItemId}', [AdminController::class, 'deleteFaqItem'])->name('delete.faqitem');
+
+    Route::delete('verwijder+faq+categorie/{faqCategoryId}', [AdminController::class, 'deleteFaqCategory'])->name('delete.faqcategory');
+
+    Route::delete('verwijder+maat/{sizeId}', [AdminController::class, 'deleteSize'])->name('delete.size');
+
+    Route::delete('verwijder+maat+categorie/{sizeSortId}', [AdminController::class, 'deleteSizeSort'])->name('delete.sizesort');
+
+    Route::delete('verwijder+product+categorie/{categoryId}', [AdminController::class, 'deleteProductCategory'])->name('delete.productcategory');
+
+
 });
 /* END ADMIN PAGES */
 

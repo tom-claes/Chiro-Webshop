@@ -18,6 +18,7 @@
             <th>Onderwerp</th>
             <th>Datum</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -27,10 +28,25 @@
                 <td>{{ $form->email }}</td>
                 <td>{{ $form->subject }}</td>
                 <td>{{ $form->created_at }}</td>
-                <td><button class="myButton" data-target="#message-{{ $loop->index }}">Bericht <i class="arrow right"></i></button></td>
+                <td><button class="myButton" data-target="#message-{{ $loop->index }}">Zie Bericht <i class="arrow right"></i></button></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            &#x22EE;
+                        </button>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li><form method="POST" action="{{ route('admin.delete.contactform', $form->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="dropdown-item delete">Verwijder</button>
+                            </form></li>
+                        </ul>
+                    </div>
+                </td>
             </tr>
             <tr id="message-{{ $loop->index }}" style="display: none;">
-                <td colspan="5">{{ $form->message }}</td>
+                <td colspan="6">{{ $form->message }}</td>
             </tr>
         @empty
 

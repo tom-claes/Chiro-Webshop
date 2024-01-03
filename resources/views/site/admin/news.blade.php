@@ -38,6 +38,7 @@
                 <th>Afbeelding</th>
                 <th>Titel</th>
                 <th>Bericht</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -46,6 +47,22 @@
                     <td><img class="admin-show-img" src="{{ asset('storage/' . $item->img) }}" alt="Afbeelding van: {{ $item->title }}"></td>
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->content }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                &#x22EE;
+                            </button>
+                            <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><form method="POST" action="{{ route('admin.delete.newsitem', $item->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="dropdown-item delete">Verwijder</button>
+                                </form></li>
+                            </ul>
+                        </div>
+                    </td>
+
                 </tr>
             @empty
             

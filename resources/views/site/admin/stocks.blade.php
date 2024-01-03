@@ -7,6 +7,7 @@
     <thead>
         <tr>
             <th>Product</th>
+            <th>Product Categorie</th>
             <th>Soort Maat</th>
             <th>Prijs</th>
             <th></th>
@@ -16,6 +17,7 @@
         @forelse ($products as $product)
             <tr>
                 <td>{{ $product->name }}</td>
+                <td>{{ $product->productcategory->name }}</td>
                 <td>{{ $product->sizeSort->name }}</td>
                 <td>{{ '€' . $product->price }}</td>
                 <td>

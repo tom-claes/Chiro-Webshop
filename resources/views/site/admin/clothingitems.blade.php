@@ -91,6 +91,7 @@
                 <th>Beschrijving</th>
                 <th>Soort maat</th>
                 <th>Prijs</th>
+                <th></th>
             </tr>
         </thead>
         
@@ -98,6 +99,23 @@
             <tr>
                 <td colspan="5" class="table-subtitle-row">
                     <p class="table-subtitle">Categorie: {{ $category->name }}</p>
+                </td>
+                <td class="table-subtitle-row">
+                    <div class="dropdown ">
+                        <button class="btn btn-secondary dropdown-toggle dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            &#x22EE;
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('admin.delete.productcategory', $category->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="dropdown-item delete">Verwijder</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </td>
             </tr>
             
@@ -108,6 +126,22 @@
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->size_sort }}</td>
                     <td>{{ "€" . $product->price }}</td>
+
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                &#x22EE;
+                            </button>
+                            <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><form method="POST" action="{{ route('admin.delete.product', $product->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="dropdown-item delete">Verwijder</button>
+                                </form></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
         @endforeach

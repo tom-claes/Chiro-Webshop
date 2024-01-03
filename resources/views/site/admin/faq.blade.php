@@ -72,12 +72,30 @@
             <tr>
                 <th>Vraag</th>   
                 <th>Antwoord</th>
+                <th></th>
             </tr>
         </thead>
         @foreach($faqCategories as $category)
             <tr>
-                <td colspan="5" class="table-subtitle-row">
+                <td colspan="2" class="table-subtitle-row">
                     <p class="table-subtitle">FAQ Categorie: {{ $category->name }}</p>
+                </td>
+                <td class="table-subtitle-row">
+                    <div class="dropdown ">
+                        <button class="btn btn-secondary dropdown-toggle dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            &#x22EE;
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('admin.delete.faqcategory', $category->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="dropdown-item delete">Verwijder</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </td>
             </tr>
             
@@ -85,6 +103,22 @@
                 <tr>
                     <td>{{$faq->question}}</td>
                     <td>{{$faq->answer}}</td>
+
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                &#x22EE;
+                            </button>
+                            <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><form method="POST" action="{{ route('admin.delete.faqitem', $faq->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="dropdown-item delete">Verwijder</button>
+                                </form></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
         @endforeach

@@ -21,7 +21,7 @@ class Product extends Model
         'img'
     ];
 
-    public function category()
+    public function productcategory()
     {
         return $this->belongsTo(Product_category::class, 'category', 'id');
     }

@@ -3,11 +3,11 @@
 @section('title', 'Chiro Zuun Webshop')
 
 @section('content')
-    <p class="admin-form-heading">Users</p>
+    <p class="admin-form-heading">Gebruikers</p>
     
     <form method="GET" action="{{ route('admin.users') }}" class="flex">
-        <x-text-input type="text" name="search" placeholder="Search user" value="{{ request()->query('search') }}"/>
-        <x-primary-button type="submit" class="self-stretch">Search</x-primary-button>
+        <x-text-input type="text" name="search" placeholder="Zoek gebruiker" value="{{ request()->query('search') }}"/>
+        <x-primary-button type="submit" class="self-stretch">Zoek</x-primary-button>
     </form>
 
     @if(request()->query('search'))

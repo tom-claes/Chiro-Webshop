@@ -61,20 +61,53 @@
     <table>
         <thead>
             <tr>
-                <th>Maat per maatsoort</th>   
+                <th>Maat per maatsoort</th>
+                <th></th>   
             </tr>
         </thead>
         
         @foreach($size_sorts as $size_sort)
-            <tr>
-                <td colspan="5" class="table-subtitle-row">
-                    <p class="table-subtitle">Maat Categorie: {{ $size_sort->name }}</p>
-                </td>
-            </tr>
+        <tr>
+            <td class="table-subtitle-row">
+                <p class="table-subtitle">Maat Categorie: {{ $size_sort->name }}</p>
+            </td>
+            <td class="table-subtitle-row">
+                <div class="dropdown ">
+                    <button class="btn btn-secondary dropdown-toggle dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        &#x22EE;
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li>
+                            <form method="POST" action="{{ route('admin.delete.sizesort', $size_sort->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="dropdown-item delete">Verwijder</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
             
             @foreach($size_sort->sizes as $size)
                 <tr>
                     <td>{{$size->size}}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                &#x22EE;
+                            </button>
+                            <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><form method="POST" action="{{ route('admin.delete.size', $size->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="dropdown-item delete">Verwijder</button>
+                                </form></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
         @endforeach

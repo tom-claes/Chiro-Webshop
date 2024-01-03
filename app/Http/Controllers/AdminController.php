@@ -66,6 +66,18 @@ class AdminController extends Controller
             ->with('success', `De categorie genaamd "$category->name" werd succesvol aangemaakt!`);
     }
 
+    public function deleteProductCategory($categoryId)
+    {
+        $category = Product_category::find($categoryId);
+
+        if ($category) {
+            $category->delete();
+            return back()->with('success', 'Product categorie is verwijderd');
+        }
+
+        return back()->with('error', 'Deze actie is mislukt');
+    }
+
     public function clothingitems(Request $request)
     {
         $request->validate([
@@ -94,6 +106,18 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.catalogus')
             ->with('success', `Het item genaamd "$product->name" werd succesvol aangemaakt!`);
+    }
+
+    public function deleteProduct($productId)
+    {
+        $product = Product::find($productId);
+
+        if ($product) {
+            $product->delete();
+            return back()->with('success', 'Product is verwijderd');
+        }
+
+        return back()->with('error', 'Deze actie is mislukt');
     }
 
 
@@ -142,6 +166,30 @@ class AdminController extends Controller
             ->with('success', `De categorie genaamd "$category->name" werd succesvol aangemaakt!`);
     }
 
+    public function deleteFaqItem($faqItemId)
+    {
+        $faqItem = Faq::find($faqItemId);
+
+        if ($faqItem) {
+            $faqItem->delete();
+            return back()->with('success', 'FAQ item is verwijderd');
+        }
+
+        return back()->with('error', 'Deze actie is mislukt');
+    }
+
+    public function deleteFaqCategory($faqCategoryId)
+    {
+        $faqCategory = Faq_category::find($faqCategoryId);
+
+        if ($faqCategory) {
+            $faqCategory->delete();
+            return back()->with('success', 'FAQ categorie is verwijderd');
+        }
+
+        return back()->with('error', 'Deze actie is mislukt');
+    }
+
     public function news(Request $request)
     {
         if ($request->isMethod('get'))
@@ -175,6 +223,18 @@ class AdminController extends Controller
             ->with('success', `Het item genaamd "$news->name" werd succesvol aangemaakt!`);
     }
 
+    public function deleteNewsItem($newsId)
+    {
+        $news = Latest_news::find($newsId);
+
+        if ($news) {
+            $news->delete();
+            return back()->with('success', 'Nieuws item is verwijderd');
+        }
+
+        return back()->with('error', 'Deze actie is mislukt');
+    }
+
     public function contact(Request $request)
     {
         $search = $request->query('search');
@@ -185,6 +245,18 @@ class AdminController extends Controller
                          ->orWhere('subject', 'like', "%{$search}%");
         })->get();
         return view('site.admin.contact', compact('contactForms'));
+    }
+
+    public function deleteContactform($contactFormId)
+    {
+        $contactForm = Contact_form::find($contactFormId);
+
+        if ($contactForm) {
+            $contactForm->delete();
+            return back()->with('success', 'Contactform is verwijderd');
+        }
+
+        return back()->with('error', 'Deze actie is mislukt');
     }
 
     public function users(Request $request)
@@ -210,6 +282,18 @@ class AdminController extends Controller
         return view ('site.admin.size', compact('size_sorts'));
     }
 
+    public function deleteSize($sizeId)
+    {
+        $size = Size::find($sizeId);
+
+        if ($size) {
+            $size->delete();
+            return back()->with('success', 'Maat is verwijderd');
+        }
+
+        return back()->with('error', 'Deze actie is mislukt');
+    }
+
     public function sizeSort(Request $request)
     {
         $request->validate([
@@ -223,6 +307,18 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.size')
             ->with('success', `De maat categorie: $size_sort->name is aangemaakt`);
+    }
+
+    public function deleteSizeSort($sizeSortId)
+    {
+        $size_sort = Size_sort::find($sizeSortId);
+
+        if ($size_sort) {
+            $size_sort->delete();
+            return back()->with('success', 'Maat categorie is verwijderd');
+        }
+
+        return back()->with('error', 'Deze actie is mislukt');
     }
 
     public function sizeSize(Request $request)
@@ -297,4 +393,5 @@ class AdminController extends Controller
 
         return redirect()->back()->with('remove', $user->firstname . ' ' . $user->lastname . ' is geen Admin meer');
     }
+
 }

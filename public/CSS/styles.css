@@ -386,3 +386,18 @@ tr:nth-child(even) {
     margin-bottom: 0;
     padding-bottom: 0;
 }
+
+.delete{
+    color: #F00;
+}
+
+.dropdown{
+    color: #000; 
+    border:none; 
+    font-size:125%; 
+    background-image: none;
+}
+
+.dropdown::after{
+    display: none;
+}
