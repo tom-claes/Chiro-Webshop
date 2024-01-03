@@ -12,15 +12,15 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Homepage') }}
+                    <x-nav-link :href="route('home')">
+                        {{ __('Homepagina') }}
                     </x-nav-link>
                 </div>
 
                 @forelse ($categories as $category)
-                    <x-nav-link :href="route('shop.category', ['categoryId' => $category->id])" :active="request()->routeIs('shop.category', ['categoryId' => $category->id])">
-                        {{ __($category->name) }}
-                    </x-nav-link>
+                <x-nav-link :href="route('shop.category', ['categoryId' => $category->id])">
+                    {{ __($category->name) }}
+                </x-nav-link>
                 @empty
                     <p>Er zijn nog geen tabbladen aangemaakt</p>
                 @endforelse

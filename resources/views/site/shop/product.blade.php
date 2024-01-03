@@ -19,7 +19,7 @@
                         <option disabled selected></option>
                 
                         @foreach($product->sizes as $size)
-                            <option {{ $size->pivot->stock == 0 ? 'disabled' : '' }} value="{{ $size->id }}">{{ $size->size }}</option>             <!-- Zorgt ervoor dat je een maat dat niet in stock is niet in de winkelmand kan zetten-->
+                            <option {{ $size->pivot->stock == 0 ? 'disabled' : '' }} value="{{ $size->id }}">{{ $size->size }} @if($size->pivot->stock == 0) <p>(Niet in stock)</p> @endif </option>             <!-- Zorgt ervoor dat je een maat dat niet in stock is niet in de winkelmand kan zetten-->
                         @endforeach
                     </x-dropdown-form>
                     <x-input-error :messages="$errors->get('size')" class="mt-2" />
