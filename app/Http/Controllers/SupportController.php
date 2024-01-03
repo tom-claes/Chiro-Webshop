@@ -14,16 +14,17 @@ class SupportController extends Controller
 {
     public function faqCategory()
     {
-        $faqCategories = Faq_category::orderBy('name')->get();
+        $faqCategories = Faq_category::orderBy('created_at', 'desc')->get();
 
         return view('site.support.faq_category', compact('faqCategories'));
     }
 
     public function faq($faqCategoryId)
     {
-        $faqs = Faq::where('category', $faqCategoryId)->orderBy('created_at', 'desc')->get();
+        $faqs = Faq::where('category', $faqCategoryId)->orderBy('created_at', 'asc')->get();
+        $faqCategory = Faq_category::where('id', $faqCategoryId)->first()->name;
 
-        return view('site.support.faq', compact('faqs'));
+        return view('site.support.faq', compact('faqs', 'faqCategory'));
     }
 
     public function news()

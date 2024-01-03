@@ -5,6 +5,9 @@
 @section('header', 'Homepage')
 
 @section('content')
+<div class="category-banner">
+    <h2 class="category-title">Contact</h2>
+</div>
         <div class="support-page">
             <p class="admin-form-heading">Neem contact op met Chiro Zuun</p>
 

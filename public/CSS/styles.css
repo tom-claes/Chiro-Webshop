@@ -6,6 +6,7 @@
     --admin-color: #111827;
     --standard-font: 'Roboto';
     --homescreen-title-font: 'Agbalumo';
+    --light-grey: #e0dede;
 }
 
 .home_banner{
@@ -209,7 +210,7 @@ th {
 }
 
 tr:nth-child(even) {
-    background-color: #e0dede;
+    background-color: var(--light-grey);
 }
 
 .table-subtitle{
@@ -331,4 +332,33 @@ tr:nth-child(even) {
 .down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
+}
+
+.faq-category{
+    all:revert;
+    padding: 10px;
+    font-weight: bold;
+    border: 2px solid var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.faq-category:nth-child(even){
+    background-color: var(--primary-color);
+}
+
+.faq-question{
+    all:revert;
+    padding: 10px;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.faq-answer{
+    all:revert;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: var(--light-grey);
+    
 }
