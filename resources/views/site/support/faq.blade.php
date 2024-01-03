@@ -8,7 +8,7 @@
 </div>
     <div class="support-page">
         @forelse ($faqs as $faq)
-            <div class="faq-question">
+            <div class="support-box">
                 <p>{{ $faq->question }}</p>
                 <button class="myButton"><i class="arrow right"></i></button>
                 <div class="myText" style="display: none;">

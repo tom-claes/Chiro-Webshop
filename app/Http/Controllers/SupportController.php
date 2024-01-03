@@ -7,6 +7,7 @@ use App\Models\Contact_form;
 use App\Models\News;
 use App\Models\Faq;
 use App\Models\Faq_category;
+use App\Models\Latest_news;
 
 
 
@@ -29,7 +30,9 @@ class SupportController extends Controller
 
     public function news()
     {
-        return view('site.support.news');
+        $news = Latest_news::orderBy('created_at', 'desc')->get();
+
+        return view('site.support.news', compact('news'));
     }
 
     public function contact(Request $request)
