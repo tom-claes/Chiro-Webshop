@@ -8,6 +8,7 @@ class CartController extends Controller
 {
     public function view(Request $request)
     {
-        return view('site.shop.cart');
+        dd('test');
+        return view('site.shop.basket');
     }
 }

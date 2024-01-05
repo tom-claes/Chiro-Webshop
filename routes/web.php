@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/', function () { return view('site.shop.homepage');})->name('home');
 
+Route::get('/winkelwagen', [ShopController::class, 'cart'])->name('view.cart');
+
 /* SHOP PAGES */
 Route::prefix('shop/')->name('shop.')->group(function () {
 
@@ -31,7 +33,8 @@ Route::prefix('shop/')->name('shop.')->group(function () {
 
     Route::post('remove+from+basket/{productId}', [ShopController::class, 'removeFromCart'])->name('remove.fromCart');
 
-    Route::get('cart', [CartController::class, 'view'])->name('view.cart');
+    Route::get('winkelkar', [ShopController::class, 'cart'])->name('cart');
+
 });
 /* END SHOP PAGES */
 
@@ -69,11 +72,19 @@ Route::prefix('admin/')->name('admin.')->group(function () {
 
     Route::get('catalogus', [AdminController::class, 'catalogus'])->name('catalogus');
 
+    Route::match(['get', 'put'], 'catalogus/edit/categorie/{categoryId}', [AdminController::class, 'editCategories'])->name('edit.category');
+
+    Route::match(['get', 'put'], 'catalogus/edit/kledingstuk/{clothingItemId}', [AdminController::class, 'editClothingitems'])->name('edit.clothingitem');
+
     Route::get('faq', [AdminController::class, 'faq'])->name('faq');
 
     Route::post('faq/post/category', [AdminController::class, 'postFaqCategory'])->name('faq.post.category');
 
     Route::post('faq/post/item', [AdminController::class, 'postFaqItem'])->name('faq.post.item');
+
+    Route::match(['get', 'put'], 'faq/edit/category/{categoryId}', [AdminController::class, 'editFaqCategory'])->name('faq.edit.category');
+
+    Route::match(['get', 'put'], 'faq/edit/item/{faqId}', [AdminController::class, 'editFaqItem'])->name('faq.edit.item');
 
     Route::match(['get', 'post'], 'news', [AdminController::class, 'news'])->name('news');
 
@@ -86,6 +97,10 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::post('size/sort', [AdminController::class, 'sizeSort'])->name('size.sort');
 
     Route::post('size/size', [AdminController::class, 'sizeSize'])->name('size.size');
+
+    Route::match(['get', 'put'], 'size/edit/size/{sizeId}', [AdminController::class, 'editSize'])->name('size.edit.size');
+
+    Route::match(['get', 'put'], 'size/edit/sort/{sizeSortId}', [AdminController::class, 'editSizeSort'])->name('size.edit.sizesort');
 
     Route::get('stocks', [AdminController::class, 'stocks'])->name('stocks');
 

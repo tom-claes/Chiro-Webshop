@@ -63,6 +63,6 @@ class ShopController extends Controller
 
     public function cart(Request $request)
     {
-        return view('site.shop.cart');
+        dd('test');
     }
 }

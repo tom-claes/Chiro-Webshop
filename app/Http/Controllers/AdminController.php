@@ -48,7 +48,7 @@ class AdminController extends Controller
         $categories = Product_category::with('products')->get();
         $size_sorts = Size_sort::all();
 
-        return view('site.admin.clothingitems', compact('categories'), compact('size_sorts'));
+        return view('site.admin.clothingitems', compact('categories','size_sorts'));
     }
 
     public function categories(Request $request)
@@ -64,6 +64,30 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.catalogus')
             ->with('success', `De categorie genaamd "$category->name" werd succesvol aangemaakt!`);
+    }
+
+    public function editCategories(Request $request, $categoryId)
+    {
+        $category = Product_category::find($categoryId);
+
+        if ($request->isMethod('get'))
+        {
+            return view('site.admin.edit.product_category', compact('category'));
+        }
+
+        $currentCategory = $category->name;
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        $category->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()
+            ->route('admin.catalogus')
+            ->with('success', `De categorie genaamd "$currentCategory" werd succesvol aangepast naar "$category->name"!`);
     }
 
     public function deleteProductCategory($categoryId)
@@ -106,6 +130,52 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.catalogus')
             ->with('success', `Het item genaamd "$product->name" werd succesvol aangemaakt!`);
+    }
+
+    public function editClothingitems(Request $request, $clothingItemId)
+    {
+        $product = Product::find($clothingItemId);
+
+        if ($request->isMethod('get'))
+        {
+            $categories = Product_category::with('products')->get();
+            $size_sorts = Size_sort::all();
+
+            return view('site.admin.edit.product', compact('product', 'categories', 'size_sorts'));
+        }
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'size_sort' => ['required', 'exists:size_sorts,id'],
+            'category' => ['required', 'exists:product_categories,id'],
+            'price' => ['required', 'numeric'],
+            'img' => ['nullable', 'image', 'mimes:jpeg,png,jpg' ,'max:2048']
+        ]);
+
+        if ($request->hasFile('img')) {
+            // Delete the previous image if it exists
+            if ($product->img) {
+                Storage::disk('public')->delete($product->img);
+            }
+    
+            $imagePath = $request->file('img')->store('IMG', 'public');
+        } else {
+            $imagePath = $product->img;
+        }
+
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'size_sort' => $request->size_sort,
+            'category' => $request->category,
+            'price' => $request->price,
+            'img' => $imagePath,
+        ]);
+
+        return redirect()
+            ->route('admin.catalogus')
+            ->with('success', 'Het product "' . $product->name . '" is succesvol aangepast');
     }
 
     public function deleteProduct($productId)
@@ -294,6 +364,28 @@ class AdminController extends Controller
         return back()->with('error', 'Deze actie is mislukt');
     }
 
+    public function editSize(Request $request, $sizeId)
+    {
+        $size = Size::find($sizeId);
+
+        if ($request->isMethod('get'))
+        {
+            return view('site.admin.edit.size', compact('size'));
+        }
+
+        $request->validate([
+            'size' => ['required', 'string', 'max:255'],
+        ]);
+
+        $size->update([
+            'size' => $request->size,
+        ]);
+
+        return redirect()
+            ->route('admin.size')
+            ->with('success', 'De maat is succesvol aangepast');
+    }
+
     public function sizeSort(Request $request)
     {
         $request->validate([
@@ -307,6 +399,28 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.size')
             ->with('success', `De maat categorie: $size_sort->name is aangemaakt`);
+    }
+
+    public function editSizeSort(Request $request, $sizeSortId)
+    {
+        $size_sort = Size_sort::find($sizeSortId);
+
+        if ($request->isMethod('get'))
+        {
+            return view('site.admin.edit.size_sort', compact('size_sort'));
+        }
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        $size_sort->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()
+            ->route('admin.size')
+            ->with('success', 'De maat categorie is succesvol aangepast');
     }
 
     public function deleteSizeSort($sizeSortId)

@@ -106,7 +106,7 @@
                             &#x22EE;
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.edit.category', $category->id)}}">Edit</a></li>
                             <li>
                                 <form method="POST" action="{{ route('admin.delete.productcategory', $category->id) }}">
                                     @csrf
@@ -133,7 +133,7 @@
                                 &#x22EE;
                             </button>
                             <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.edit.clothingitem', $product->id)}}">Edit</a></li>
                             <li><form method="POST" action="{{ route('admin.delete.product', $product->id) }}">
                                 @csrf
                                 @method('DELETE')

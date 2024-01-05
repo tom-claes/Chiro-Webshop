@@ -77,7 +77,7 @@
                         &#x22EE;
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.size.edit.sizesort', $size_sort->id)}}">Edit</a></li>
                         <li>
                             <form method="POST" action="{{ route('admin.delete.sizesort', $size_sort->id) }}">
                                 @csrf
@@ -99,7 +99,7 @@
                                 &#x22EE;
                             </button>
                             <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="{{route('admin.size.edit.size', $size->id)}}">Edit</a></li>
                             <li><form method="POST" action="{{ route('admin.delete.size', $size->id) }}">
                                 @csrf
                                 @method('DELETE')
