@@ -236,6 +236,55 @@ class AdminController extends Controller
             ->with('success', `De categorie genaamd "$category->name" werd succesvol aangemaakt!`);
     }
 
+    public function editFaqItem(Request $request, $faqId)
+    {
+        $faqItem = Faq::find($faqId);
+        $faqCategories = Faq_category::with('faq')->get();
+
+        if ($request->isMethod('get'))
+        {
+            return view('site.admin.edit.faq', compact('faqItem', 'faqCategories'));
+        }
+
+        $request->validate([
+            'category' => ['required', 'exists:faq_categories,id'],
+            'question' => ['required', 'string', 'max:255'],
+            'answer' => ['required', 'string', 'max:10000']
+        ]);
+
+        $faqItem->update([
+            'category' => $request->category,
+            'question' => $request->question,
+            'answer' => $request->answer,
+        ]);
+
+        return redirect()
+            ->route('admin.faq')
+            ->with('success', `De faq is succesvol aangepast!`);
+    }
+
+    public function editFaqCategory(Request $request, $faqCategoryId)
+    {
+        $faqCategory = Faq_category::find($faqCategoryId);
+
+        if ($request->isMethod('get'))
+        {
+            return view('site.admin.edit.faq_category', compact('faqCategory'));
+        }
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        $faqCategory->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()
+            ->route('admin.faq')
+            ->with('success', `De categorie genaamd "$faqCategory->name" werd succesvol aangepast!`);
+    }
+
     public function deleteFaqItem($faqItemId)
     {
         $faqItem = Faq::find($faqItemId);
