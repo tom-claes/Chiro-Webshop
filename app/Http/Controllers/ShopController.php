@@ -9,6 +9,7 @@ use App\Models\Product_category;
 use App\Models\Size;
 use App\Models\Size_sort;
 use App\Models\Cart_item;
+use Illuminate\Support\Facades\Log;
 
 class ShopController extends Controller
 {
@@ -30,28 +31,22 @@ class ShopController extends Controller
 
     public function addToCart(Request $request, $productId)
     {
-        $request->validate([
-            'size' => ['required', 'string', 'max:255'],
-        ]);
-        if (Auth::check()) {
-            // User is logged in, store in database
-            $item = Cart_item::create([
-                'product_id' => $productId,
-                'size_id' => $request->size,
-                'quantity' => 1,
-                'user_id' => auth()->user()->id,
-            ]);
-        } else {
-            // User is not logged in, store in session
+        $product = Product::find($productId);
+
+        if ($product) {
             $cart = $request->session()->get('cart', []);
+
             $item = [
                 'product_id' => $productId,
                 'size_id' => $request->size,
+                'price' => $product->price, // Make sure the product has a 'price' attribute
                 'quantity' => 1,
             ];
+
             $cart[] = $item;
             $request->session()->put('cart', $cart);
         }
+
         return back()->with('success', 'Het item is toegevoegd aan uw winkelwagen');
  
     }
@@ -63,6 +58,29 @@ class ShopController extends Controller
 
     public function cart(Request $request)
     {
-        dd('test');
+        $cart = [];
+        $totalPrice = 0;
+
+        if (Auth::check()) {
+            // User is logged in, get cart items from database
+            $cart = Cart_item::where('user_id', auth()->user()->id)->get();
+
+            // Calculate the total price
+            foreach ($cart as $item) {
+                $totalPrice += $item->price * $item->quantity;
+            }
+        } else {
+            // User is not logged in, get cart items from session
+            $cart = $request->session()->get('cart', []);
+
+            // Calculate the total price
+            foreach ($cart as $item) {
+                $totalPrice += $item['price'] * $item['quantity'];
+            }
+        }
+
+        // Pass the cart and the total price to the view
+        return view('site.shop.cart', ['cart' => $cart, 'totalPrice' => $totalPrice]);
+        
     }
 }

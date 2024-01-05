@@ -79,7 +79,7 @@
 
     <div style="display: flex; justify-content: flex-end;">
         <div style="margin-right: 35px;">
-            <a href="{{ route('shop.view.cart') }}"><img width="35px" src="{{ asset('IMG\cart-icon.svg') }}" alt="Winkelkar icoon"></a>
+            <a href="{{ route('view.cart') }}"><img width="35px" src="{{ asset('IMG\cart-icon.svg') }}" alt="Winkelkar icoon"></a>
         </div>
         <div style="margin-right: 50px;">
             @if(auth()->check())
