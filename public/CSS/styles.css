@@ -401,3 +401,48 @@ tr:nth-child(even) {
 .dropdown::after{
     display: none;
 }
+
+.cart-box{
+    border: 1px solid var(--admin-color);
+    border-radius: 5px;
+    background-color: var(--light-grey);
+    padding: 5px;
+}
+
+.cart-item-box{
+    border: 1px solid var(--admin-color);
+    border-radius: 5px;
+    background-color: #FFF;
+    padding: 5px;
+    margin-bottom: 5px;
+    display: grid;
+    grid-template-columns: 5% auto 25% 20% 10% 5%;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.cart-item-img{
+    grid-column: 1/2;
+    margin: auto none;
+}
+
+.cart-item-name{
+    grid-column: 2/3;
+}
+
+.cart-item-size{
+    grid-column: 3/4;
+}
+
+.cart-item-quantity{
+    grid-column: 4/5;
+}
+
+.cart-item-price{
+    grid-column: 5/6;
+}
+
+.cart-remove{
+    grid-column: 6/7;
+}

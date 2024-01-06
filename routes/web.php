@@ -31,7 +31,7 @@ Route::prefix('shop/')->name('shop.')->group(function () {
 
     Route::post('add+to+basket/{productId}', [ShopController::class, 'addToCart'])->name('add.toCart');
 
-    Route::post('remove+from+basket/{productId}', [ShopController::class, 'removeFromCart'])->name('remove.fromCart');
+    Route::delete('remove+from+basket/{productId}', [ShopController::class, 'removeFromCart'])->name('remove.fromCart');
 
     Route::get('winkelkar', [ShopController::class, 'cart'])->name('cart');
 
