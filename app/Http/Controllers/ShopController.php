@@ -31,53 +31,63 @@ class ShopController extends Controller
 
     public function addToCart(Request $request, $productId)
     {
+        // Get the product from the database
         $product = Product::find($productId);
 
-        if ($product) {
-            $cart = $request->session()->get('cart', []);
+        // Get the size from the request
+        $size = $request->input('size');
 
-            // Check if the product is already in the cart
-            foreach ($cart as &$item) {
-                if ($item['product_id'] == $productId && $item['size_id'] == $request->size) {
-                    // Increase the quantity and update the price
-                    $item['quantity']++;
-                    $item['price'] = $product->price * $item['quantity'];
-                    $request->session()->put('cart', $cart);
+        // Create a unique key for this product-size combination
+        $key = $productId . '-' . $size;
 
-                    return back()->with('success', 'Het item is toegevoegd aan uw winkelwagen');
-                }
-            }
-
-            // If the product is not in the cart, add it
-            $item = [
-                'product_id' => $productId,
-                'size_id' => $request->size,
-                'price' => $product->price,
-                'quantity' => 1,
-            ];
-
-            $cart[] = $item;
-            $request->session()->put('cart', $cart);
-        }
-
-        return back()->with('success', 'Het item is toegevoegd aan uw winkelwagen');
-    }
-
-    public function RemoveFromCart(Request $request, $productId)
-    {
         // Get the cart from the session
         $cart = $request->session()->get('cart', []);
 
-        // Filter out the items with the specified product ID
-        $cart = array_values(array_filter($cart, function ($item) use ($productId) {
-            return $item['product_id'] != $productId;
-        }));
+        // Check if the item already exists in the cart
+        if (isset($cart[$key])) {
+            // Increment the quantity
+            $cart[$key]['quantity']++;
+        } else {
+            // Add the product to the cart
+            $cart[$key] = [
+                'product_id' => $productId,
+                'product_img' => $product->img,
+                'product_name' => $product->name,
+                'size_id' => $size,
+                'size_sort' => $product->size_sort,
+                'price' => $product->price,
+                'quantity' => 1,
+                // Add any other product details you need
+            ];
+        }
 
         // Put the updated cart back in the session
         $request->session()->put('cart', $cart);
 
         // Redirect back with a success message
-        return back()->with('success', 'Het item is verwijderd uit uw winkelwagen');
+        return back()->with('success', 'Het product is toegevoegd aan uw winkelwagen');
+    }
+
+    public function RemoveFromCart(Request $request, $productId, $size)
+    {
+         // Create a unique key for this product-size combination
+        $key = $productId . '-' . $size;
+
+        // Get the cart from the session
+        $cart = $request->session()->get('cart', []);
+
+        // Check if the item exists in the cart
+        if (isset($cart[$key])) {
+            // Remove the item from the cart
+            unset($cart[$key]);
+        }
+
+        // Put the updated cart back in the session
+        $request->session()->put('cart', $cart);
+
+        // Redirect back with a success message
+        return back()->with('remove', 'Het item is verwijderd uit uw winkelwagen');
+
     }
 
     public function cart(Request $request)
@@ -111,7 +121,6 @@ class ShopController extends Controller
                 $totalPrice += $item['price'] * $item['quantity'];
             }
         //}
-
         // Pass the cart and the total price to the view
         return view('site.shop.cart', ['cart' => $cart, 'totalPrice' => $totalPrice]);
     }
