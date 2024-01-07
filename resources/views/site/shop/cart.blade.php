@@ -4,14 +4,14 @@
 
 @section('content')
 <div class="category-banner">
-    <h2 class="category-title">Winkelkar</h2>
+    <h2 class="category-title">Winkelwagen</h2>
 </div>
 <div class="support-page">
     <div class="flex-container">
         <div class="cart-box">
             @forelse ($cart as $item)
                 <div class="cart-item-box">
-                    <img class="cart-item-img" src="{{ asset('storage/' . $item['img']) }}" alt="{{$item['product_name']}}">
+                    <img class="cart-item-img" src="{{ asset($item['img']) }}" alt="{{$item['product_name']}}">
                     <p class="cart-item-name">{{$item['product_name']}}</p>
                     <p class="cart-item-size">Maat: {{$item['size_name'] . " (" . $item['size_sort_name'] . ")"}}</p>
                     <p class="cart-item-quantity">Aantal: {{$item['quantity']}}</p>
@@ -28,7 +28,7 @@
         </div>
         <div class="checkout-box">
             <p class="cart-total">Totaal: {{$totalPrice . "€"}}</p>
-            <a class="cart-checkout" href="#">Afrekenen</a>
+            <button class="cart-checkout" href="#">Afrekenen</button>
         </div>
     </div>
 </div>
