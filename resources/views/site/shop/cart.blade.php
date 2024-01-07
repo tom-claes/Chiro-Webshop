@@ -27,7 +27,8 @@
             @endforelse
         </div>
         <div class="checkout-box">
-            <p class="cart-total">Totaal: {{$totalPrice . "€"}}</p>
+            <h2 class="cart-checkout-title">Afrekenen</h2>
+            <p class="cart-total">Totaal: {{ number_format($totalPrice, 2) . "€"}}</p>
             <button class="cart-checkout" href="#">Afrekenen</button>
         </div>
     </div>
