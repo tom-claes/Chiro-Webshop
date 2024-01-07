@@ -51,7 +51,7 @@
                         <option disabled selected></option>
             
                         @foreach($size_sorts as $size_sort)
-                            <option value="{{ $size_sort->id }}">{{ $size_sort->name }}</option>
+                            <option value="{{ $size_sort->id }}">{{ $size_sort->name . " (". $size_sort->type . ")" }}</option>
                         @endforeach
                     </x-dropdown-form>
                     <x-input-error :messages="$errors->get('size_sort')" class="mt-2" />
@@ -121,10 +121,10 @@
             
             @foreach($category->products as $product)
                 <tr>
-                    <td><img class="admin-show-img" src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}"></td>    
+                    <td><img class="admin-show-img" src="{{ asset($product->img) }}" alt="{{ $product->name }}"></td>    
                     <td>{{$product->name}}</td>
                     <td>{{ $product->description }}</td>
-                    <td>{{ $product->size_sort }}</td>
+                    <td>{{ $product->sizeSort->name . " (". $product->sizeSort->type . ")" }}</td>
                     <td>{{ "€" . $product->price }}</td>
 
                     <td>

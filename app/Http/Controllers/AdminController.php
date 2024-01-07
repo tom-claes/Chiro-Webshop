@@ -115,6 +115,8 @@ class AdminController extends Controller
         
         $imagePath = $request->file('img')->store('IMG', 'public');
 
+        $imagePath = 'storage/' . $imagePath;
+
 
         Auth::user()->update(['img' => $imagePath]);
     
@@ -160,6 +162,8 @@ class AdminController extends Controller
             }
     
             $imagePath = $request->file('img')->store('IMG', 'public');
+            $imagePath = 'storage/' . $imagePath;
+
         } else {
             $imagePath = $product->img;
         }
@@ -325,6 +329,7 @@ class AdminController extends Controller
         
         if ($request->hasFile('img')) {
             $imagePath = $request->file('img')->store('IMG', 'public');
+            $imagePath = 'storage/' . $imagePath;
         } else {
             $imagePath = null;
         }
@@ -439,10 +444,12 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'type' => ['required', 'string', 'max:255'],
         ]);
     
         $size_sort = Size_sort::create([
             'name' => $request->name,
+            'type' => $request->type,
         ]);
 
         return redirect()
@@ -461,10 +468,12 @@ class AdminController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'type' => ['required', 'string', 'max:255'],
         ]);
 
         $size_sort->update([
             'name' => $request->name,
+            'type' => $request->type,
         ]);
 
         return redirect()

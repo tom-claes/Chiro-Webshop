@@ -15,7 +15,7 @@
         <button class="myButton"><i class="arrow right"></i></button>
         <div class="myText" style="display: none;">
             <div class="news-dropdown">
-                <img class="news-img" src="{{ asset('storage/' . $item->img) }}" alt="{{ 'Foto: ' . $item->title }}">
+                <img class="news-img" src="{{ asset( $item->img) }}" alt="{{ 'Foto: ' . $item->title }}">
                 <p class="news-content">{{ $item->content }}</p>
             </div>
         </div>

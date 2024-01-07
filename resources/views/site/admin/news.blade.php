@@ -44,7 +44,7 @@
         <tbody>
             @forelse ($news as $item)
                 <tr>
-                    <td><img class="admin-show-img" src="{{ asset('storage/' . $item->img) }}" alt="Afbeelding van: {{ $item->title }}"></td>
+                    <td><img class="admin-show-img" src="{{ asset($item->img) }}" alt="Afbeelding van: {{ $item->title }}"></td>
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->content }}</td>
                     <td>

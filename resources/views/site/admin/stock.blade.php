@@ -10,7 +10,7 @@
 
     <div class="stock-page">
 
-        <img class="stock-img" src="{{ asset('storage/' . $product->img) }}" alt="Profiel foto">
+        <img class="stock-img" src="{{ asset($product->img) }}" alt="Profiel foto">
 
        <div class="stock-sizes">
            @forelse ($product->sizes as $size)

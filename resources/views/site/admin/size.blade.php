@@ -16,6 +16,12 @@
                     <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
+
+                <div class="form-div">
+                    <x-input-label for="type" :value="__('Type maat')" />
+                    <x-text-input id="type" class="block mt-1 w-full" type="text" name="type" :value="old('type')" placeholder="Bv. Broeken, T-shirts, Maten,..." required autofocus autocomplete="type" />
+                    <x-input-error :messages="$errors->get('type')" class="mt-2" />
+                </div>
                 <x-primary-button class="admin-form-btn">
                     {{ __('Creëer categorie') }}
                 </x-primary-button>
@@ -69,7 +75,7 @@
         @foreach($size_sorts as $size_sort)
         <tr>
             <td class="table-subtitle-row">
-                <p class="table-subtitle">Maat Categorie: {{ $size_sort->name }}</p>
+                <p class="table-subtitle">Maat Categorie: {{ $size_sort->name . " (". $size_sort->type . ")"}}</p>
             </td>
             <td class="table-subtitle-row">
                 <div class="dropdown ">

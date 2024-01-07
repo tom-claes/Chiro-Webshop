@@ -11,7 +11,7 @@ class Size_sort extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'type'];
 
     public function products()
     {
