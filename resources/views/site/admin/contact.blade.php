@@ -35,7 +35,6 @@
                             &#x22EE;
                         </button>
                         <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
                         <li><form method="POST" action="{{ route('admin.delete.contactform', $form->id) }}">
                             @csrf
                             @method('DELETE')

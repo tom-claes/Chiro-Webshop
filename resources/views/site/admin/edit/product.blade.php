@@ -51,7 +51,7 @@
         <x-input-error :messages="$errors->get('price')" class="mt-2" />
     </div>
 
-    <img class="admin-show-img" src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}">
+    <img class="admin-show-img" src="{{ asset($product->img) }}" alt="{{ $product->name }}">
     <x-file-input id="img" name="img" label="Afbeelding vervangen" :value="old('img')" autofocus autocomplete="img" />
     <x-primary-button class="admin-form-btn">
         {{ __('Update kledingstuk') }}

@@ -103,6 +103,8 @@ Route::prefix('admin/')->name('admin.')->group(function () {
 
     Route::match(['get', 'post'], 'news', [AdminController::class, 'news'])->name('news');
 
+    Route::match(['get', 'put'], 'news/{newsItemId}', [AdminController::class, 'updateNewsItem'])->name('update.newsitem');
+
     Route::get('contact', [AdminController::class, 'contact'])->name('contact');
 
     Route::match(['get', 'post'], 'users', [AdminController::class, 'users'])->name('users');
@@ -136,8 +138,6 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::delete('verwijder+contactform/{contactFormId}', [AdminController::class, 'deleteContactform'])->name('delete.contactform');
 
     Route::delete('niews+item/{newsItemId}', [AdminController::class, 'deleteNewsItem'])->name('delete.newsitem');
-
-    //-------------------------------------------------------------
 
     Route::delete('verwijder+faq+item/{faqItemId}', [AdminController::class, 'deleteFaqItem'])->name('delete.faqitem');
 

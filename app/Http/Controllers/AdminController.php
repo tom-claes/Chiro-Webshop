@@ -347,6 +347,45 @@ class AdminController extends Controller
             ->with('success', `Het item genaamd "$news->name" werd succesvol aangemaakt!`);
     }
 
+    public function updateNewsItem(Request $request, $newsId)
+    {
+        $news = Latest_news::find($newsId);
+
+        if ($request->isMethod('get'))
+        {
+            return view('site.admin.edit.news', compact('news'));
+        }
+
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['string', 'max:10000'],
+            'img' => ['nullable', 'image', 'mimes:jpeg,png,jpg' ,'max:2048']
+        ]);
+
+        if ($request->hasFile('img')) {
+            // Delete the previous image if it exists
+            if ($news->img) {
+                Storage::disk('public')->delete($news->img);
+            }
+    
+            $imagePath = $request->file('img')->store('IMG', 'public');
+            $imagePath = 'storage/' . $imagePath;
+
+        } else {
+            $imagePath = $news->img;
+        }
+
+        $news->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'img' => $imagePath,
+        ]);
+
+        return redirect()
+            ->route('admin.news')
+            ->with('success', 'Het nieuws item "' . $news->title . '" is succesvol aangepast');
+    }
+
     public function deleteNewsItem($newsId)
     {
         $news = Latest_news::find($newsId);

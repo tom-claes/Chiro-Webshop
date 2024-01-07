@@ -53,7 +53,7 @@
                                 &#x22EE;
                             </button>
                             <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.update.newsitem', $item->id)}}">Edit</a></li>
                             <li><form method="POST" action="{{ route('admin.delete.newsitem', $item->id) }}">
                                 @csrf
                                 @method('DELETE')
