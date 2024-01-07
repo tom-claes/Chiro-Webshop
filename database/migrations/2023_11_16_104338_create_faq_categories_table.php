@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('faq_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->timestamp('pin')->nullable();
             $table->timestamps();
         });
     }

@@ -18,11 +18,11 @@
                 </div>
 
                 @forelse ($categories as $category)
-                <x-nav-link :href="route('shop.category', ['categoryId' => $category->id])">
-                    {{ __($category->name) }}
-                </x-nav-link>
+                    <x-nav-link :href="route('shop.category', ['categoryId' => $category->id])">
+                        {{ __($category->name) }}
+                    </x-nav-link>
                 @empty
-                    <p>Er zijn nog geen tabbladen aangemaakt</p>
+                    <x-nav-link class="not-clickable" style="color: #F00;">Er zijn nog geen product categoriën aangemaakt!</x-nav-link>
                 @endforelse
 
             </div>

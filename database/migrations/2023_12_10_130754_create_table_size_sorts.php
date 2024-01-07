@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('size_sorts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('type');
             $table->timestamps();
+
+            $table->unique(['name', 'type']);
         });
     }
 

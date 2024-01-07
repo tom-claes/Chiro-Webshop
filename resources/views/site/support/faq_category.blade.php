@@ -19,7 +19,7 @@
                         </td>
                     </tr>
                 @empty
-            
+                    <div class="empty">Er zijn nog geen FAQ categoriën beschikbaar!</div>
                 @endforelse
             </tbody>
         </table>

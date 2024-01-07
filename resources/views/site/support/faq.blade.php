@@ -16,7 +16,7 @@
                 </div>
             </div>
         @empty
-            <p>Er zijn nog geen FAQ's aangemaakt</p>
+            <div class="empty">Er zijn nog geen FAQ's beschikbaar!</div>
         @endforelse
     </div>
     

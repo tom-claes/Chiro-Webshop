@@ -478,3 +478,14 @@ tr:nth-child(even) {
     padding: 20px;
     border: 1px solid #ccc; /* Adjust as needed */
 }
+
+.not-clickable {
+    pointer-events: none;
+    color: #ccc; /* Optional: make it look disabled */
+}
+
+.empty{
+    font-size: 150%;
+    font-weight: bold;
+    text-decoration: underline;
+}

@@ -21,7 +21,7 @@
         </div>
     </div>
     @empty
-    
+        <div class="empty">Er zijn nog geen Nieuws items beschikbaar!</div>
     @endforelse
 </div>
     
