@@ -5,37 +5,39 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
 
-// Route::get('', [::class, ''])->name('');
+Route::get('/', function () { return view('site.shop.homepage');})->name('home');
 
 
-//AUTHENTICATION
+/* AUTHENTICATION PAGES */
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+/* END AUTHENTICATION PAGES */
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
- 
-    return redirect('/');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+/* CHECKOUT PAGES */
+Route::prefix('checkout/')->name('checkout.')->group(function () {
 
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
- 
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+    Route::get('/winkelwagen', [CheckoutController::class, 'viewCart'])->name('view.cart');
+
+    Route::get('/gegevens', [CheckoutController::class, 'viewDetails'])->name('view.details');
+
+    Route::match(['get', 'post'],'/afrekenen', [CheckoutController::class, 'checkout'])->name('checkout');
+
+    Route::post('add+to+basket/{productId}', [CheckoutController::class, 'addToCart'])->name('add.toCart');
+
+    Route::delete('remove+from+basket/{productId}/{size}', [CheckoutController::class, 'removeFromCart'])->name('remove.fromCart');
 
 
-Route::get('/', function () { return view('site.shop.homepage');})->name('home');
-
-Route::get('/winkelwagen', [ShopController::class, 'cart'])->name('view.cart');
+});
+/* END CHECKOUT PAGES */
 
 /* SHOP PAGES */
 Route::prefix('shop/')->name('shop.')->group(function () {
@@ -43,13 +45,6 @@ Route::prefix('shop/')->name('shop.')->group(function () {
     Route::get('{categoryId}', [ShopController::class, 'category'])->name('category');
 
     Route::get('product/{productId}', [ShopController::class, 'product'])->name('product');
-
-    Route::post('add+to+basket/{productId}', [ShopController::class, 'addToCart'])->name('add.toCart');
-
-    Route::delete('remove+from+basket/{productId}/{size}', [ShopController::class, 'removeFromCart'])->name('remove.fromCart');
-
-    Route::get('winkelkar', [ShopController::class, 'cart'])->name('cart');
-
 });
 /* END SHOP PAGES */
 
@@ -152,6 +147,20 @@ Route::prefix('admin/')->name('admin.')->middleware('auth', 'admin' )->group(fun
 
 });
 /* END ADMIN PAGES */
+
+/* EMAIL PAGES */
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+ 
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+/* END EMAIL PAGES */
 
 
 require __DIR__.'/auth.php';

@@ -12,7 +12,7 @@
             <p class="item-size">{{ucwords($product->sizeSort->name)}}</p>
             <p class="item-price">{{"€" . $product->price}}</p>
 
-            <form method="POST" action="{{route('shop.add.toCart', ['productId' => $product->id])}}">
+            <form method="POST" action="{{route('checkout.add.toCart', ['productId' => $product->id])}}">
                 @csrf
                 <div class="form-div">
                     <x-input-label  for="size" :value="__('Maat')" />
