@@ -112,13 +112,8 @@ class AdminController extends Controller
             'price' => ['required', 'numeric'],
             'img' => ['required', 'image', 'mimes:jpeg,png,jpg' ,'max:2048']
         ]);
-        
-        $imagePath = $request->file('img')->store('IMG', 'public');
 
-        $imagePath = 'storage/' . $imagePath;
-
-
-        Auth::user()->update(['img' => $imagePath]);
+        $imagePath = $this->addImage($request);
     
         $product = Product::create([
             'name' => $request->name,
@@ -155,18 +150,7 @@ class AdminController extends Controller
             'img' => ['nullable', 'image', 'mimes:jpeg,png,jpg' ,'max:2048']
         ]);
 
-        if ($request->hasFile('img')) {
-            // Delete the previous image if it exists
-            if ($product->img) {
-                Storage::disk('public')->delete($product->img);
-            }
-    
-            $imagePath = $request->file('img')->store('IMG', 'public');
-            $imagePath = 'storage/' . $imagePath;
-
-        } else {
-            $imagePath = $product->img;
-        }
+        $imagePath = $this->updateImage($request, $product);
 
         $product->update([
             'name' => $request->name,
@@ -328,8 +312,7 @@ class AdminController extends Controller
         ]);
         
         if ($request->hasFile('img')) {
-            $imagePath = $request->file('img')->store('IMG', 'public');
-            $imagePath = 'storage/' . $imagePath;
+            $imagePath = $this->addImage($request);
         } else {
             $imagePath = null;
         }
@@ -604,5 +587,40 @@ class AdminController extends Controller
 
         return redirect()->back()->with('remove', $user->firstname . ' ' . $user->lastname . ' is geen Admin meer');
     }
+
+    public function addImage(Request $request)
+    {
+        $imagePath = $request->file('img')->store('IMG', 'public');
+        $imagePath = 'storage/' . $imagePath;
+
+        Auth::user()->update(['img' => $imagePath]);
+
+        return $imagePath;
+    }
+
+    public function updateImage(Request $request, $model)
+    {
+        if ($request->hasFile('img')) {
+            // Delete the previous image if it exists
+            if ($model->img) {
+                $oldImagePath = str_replace('storage/', '', $model->img);
+                Storage::disk('public')->delete($oldImagePath);
+            }
+    
+            $imagePath = $request->file('img')->store('IMG', 'public');
+            $imagePath = 'storage/' . $imagePath;
+    
+        } else {
+            $imagePath = $model->img;
+        }
+    
+        $model->update([
+            'img' => $imagePath,
+        ]);
+    
+        return $imagePath;
+    }
+
+
 
 }
