@@ -15,7 +15,7 @@
                 @forelse ($faqCategories as $category)
                     <tr>
                         <td class="faq-category">
-                            <a href="{{ route('support.faq', $category->id) }}">{{ $category->name }}</a>
+                            <a href="{{ route('support.faq', $category->id) }}">{{ ucwords($category->name) }}</a>
                         </td>
                     </tr>
                 @empty

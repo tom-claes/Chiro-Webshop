@@ -37,7 +37,7 @@ class AdminController extends Controller
             // Authentication successful
             $user = Auth::user();
 
-            return redirect()->route('admin.dashboard')->with('success', 'You are logged in as an admin!');
+            return redirect()->route('admin.orders')->with('success', 'You are logged in as an admin!');
         }
 
         return redirect()->route('admin.login')->with('error', 'Your credentials are incorrect');

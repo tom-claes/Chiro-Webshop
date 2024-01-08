@@ -19,7 +19,7 @@
 
                 @forelse ($categories as $category)
                     <x-nav-link :href="route('shop.category', ['categoryId' => $category->id])">
-                        {{ __($category->name) }}
+                        {{ __(ucfirst($category->name)) }}
                     </x-nav-link>
                 @empty
                     <x-nav-link class="not-clickable" style="color: #F00;">Er zijn nog geen product categoriën aangemaakt!</x-nav-link>
@@ -96,7 +96,7 @@
                         </x-dropdown-link>
 
                         @if(auth()->user()->admin == True)
-                            <x-dropdown-link :href="route('admin.dashboard')">
+                            <x-dropdown-link :href="route('admin.orders')">
                                 {{ __('Admin Dashboard') }}
                             </x-dropdown-link>
                         @endif

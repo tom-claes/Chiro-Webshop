@@ -11,11 +11,11 @@
         <div class="user-page-field-box" style="display: flex; gap:30px;">
             <div style="flex: 1;">
                 <x-input-label :value="__('Achternaam')" />
-                <p class="user-page-field">{{$user->lastname}}</p>
+                <p class="user-page-field">{{ucwords($user->lastname)}}</p>
             </div>
             <div style="flex: 1;">
                 <x-input-label :value="__('Voornaam')" />
-                <p class="user-page-field">{{$user->firstname}}</p>
+                <p class="user-page-field">{{ucwords($user->firstname)}}</p>
             </div>
         </div>
 
@@ -31,7 +31,7 @@
 
         <div class="user-page-field-box">
             <x-input-label :value="__('Bio')" />
-            <p class="user-page-bigfield">{{$user->bio}}</p>
+            <p class="user-page-bigfield">{{ucfirst($user->bio)}}</p>
         </div>
 
         <div class="user-page-field-box">

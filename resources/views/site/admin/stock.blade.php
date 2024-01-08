@@ -4,8 +4,8 @@
 
 @section('content')
 
-    <p class="stock-product-name">{{ $product->name }}</p>
-    <p class="stock-product-size-sort">{{ $product->sizeSort->name }}</p>
+    <p class="stock-product-name">{{ ucwords($product->name) }}</p>
+    <p class="stock-product-size-sort">{{ ucwords($product->sizeSort->name) }}</p>
 
 
     <div class="stock-page">

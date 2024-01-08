@@ -45,8 +45,8 @@
             @forelse ($news as $item)
                 <tr>
                     <td><img class="admin-show-img" src="{{ asset($item->img) }}" alt="Afbeelding van: {{ $item->title }}"></td>
-                    <td>{{ $item->title }}</td>
-                    <td>{{ $item->content }}</td>
+                    <td>{{ ucfirst($item->title) }}</td>
+                    <td>{{ ucfirst($item->content) }}</td>
                     <td>
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">

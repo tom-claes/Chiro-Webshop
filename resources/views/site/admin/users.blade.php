@@ -26,7 +26,7 @@
                 @forelse ($users as $user)
                     <tr>
                         <td><img class="admin-show-img" src="{{ asset($user->img) }}" alt="Profiel foto"></td>
-                        <td>{{ $user->lastname . " " . $user->firstname}}</td>
+                        <td>{{ ucwords($user->lastname) . " " . ucwords($user->firstname)}}</td>
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->email }}</td>
                         @if( $user->admin == 1)

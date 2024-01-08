@@ -41,7 +41,7 @@
                         <option disabled selected></option>
             
                         @foreach($faqCategories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}">{{ ucwords($category->name) }}</option>
                         @endforeach
                     </x-dropdown-form>
                     <x-input-error :messages="$errors->get('category')" class="mt-2" />
@@ -78,7 +78,7 @@
         @foreach($faqCategories as $category)
             <tr>
                 <td colspan="2" class="table-subtitle-row">
-                    <p class="table-subtitle">FAQ Categorie: {{ $category->name }}</p>
+                    <p class="table-subtitle">FAQ Categorie: {{ ucwords($category->name) }}</p>
                 </td>
                 <td class="table-subtitle-row">
                     <div class="dropdown ">
@@ -101,8 +101,8 @@
             
             @foreach($category->faq as $faq)
                 <tr>
-                    <td>{{$faq->question}}</td>
-                    <td>{{$faq->answer}}</td>
+                    <td>{{ucfirst($faq->question)}}</td>
+                    <td>{{ucfirst($faq->answer)}}</td>
 
                     <td>
                         <div class="dropdown">

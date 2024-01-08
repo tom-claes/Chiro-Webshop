@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="category-banner">
-    <h2 class="category-title">{{$category->name}}</h2>
+    <h2 class="category-title">{{ucwords($category->name)}}</h2>
 </div>
 
 <div>
@@ -14,8 +14,8 @@
 
         <div class="category-item-box">
             <img class="category-item-img" src="{{ asset($product->img) }}" alt="{{ $product->name }}">
-            <p class="category-item-name">{{$product->name}}</p>
-            <p class="category-item-size">{{$product->sizeSort->name}}</p>
+            <p class="category-item-name">{{ucwords($product->name)}}</p>
+            <p class="category-item-size">{{ucwords($product->sizeSort->name)}}</p>
             <p class="category-item-price">{{"€" . $product->price}}</p>
         </div>
 

@@ -7,9 +7,9 @@
         <img src="" alt="">
         <img class="item-img" src="{{ asset($product->img) }}" alt="{{ $product->name }}">
         <div class="item-right-side">
-            <p class="item-name">{{$product->name}}</p>
-            <p class="item-description">{{$product->description}}</p>
-            <p class="item-size">{{$product->sizeSort->name}}</p>
+            <p class="item-name">{{ucwords($product->name)}}</p>
+            <p class="item-description">{{ucfirst($product->description)}}</p>
+            <p class="item-size">{{ucwords($product->sizeSort->name)}}</p>
             <p class="item-price">{{"€" . $product->price}}</p>
 
             <form method="POST" action="{{route('shop.add.toCart', ['productId' => $product->id])}}">

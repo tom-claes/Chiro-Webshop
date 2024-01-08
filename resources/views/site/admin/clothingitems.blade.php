@@ -51,7 +51,7 @@
                         <option disabled selected></option>
             
                         @foreach($size_sorts as $size_sort)
-                            <option value="{{ $size_sort->id }}">{{ $size_sort->name . " (". $size_sort->type . ")" }}</option>
+                            <option value="{{ $size_sort->id }}">{{ ucwords($size_sort->name) . " (". ucwords($size_sort->type) . ")" }}</option>
                         @endforeach
                     </x-dropdown-form>
                     <x-input-error :messages="$errors->get('size_sort')" class="mt-2" />
@@ -62,7 +62,7 @@
                         <option disabled selected></option>
             
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}">{{ ucwords($category->name) }}</option>
                         @endforeach
                     </x-dropdown-form>
                     <x-input-error :messages="$errors->get('category')" class="mt-2" />
@@ -98,7 +98,7 @@
         @foreach($categories as $category)
             <tr>
                 <td colspan="5" class="table-subtitle-row">
-                    <p class="table-subtitle">Categorie: {{ $category->name }}</p>
+                    <p class="table-subtitle">Categorie: {{ ucwords($category->name) }}</p>
                 </td>
                 <td class="table-subtitle-row">
                     <div class="dropdown ">
@@ -122,9 +122,9 @@
             @foreach($category->products as $product)
                 <tr>
                     <td><img class="admin-show-img" src="{{ asset($product->img) }}" alt="{{ $product->name }}"></td>    
-                    <td>{{$product->name}}</td>
-                    <td>{{ $product->description }}</td>
-                    <td>{{ $product->sizeSort->name . " (". $product->sizeSort->type . ")" }}</td>
+                    <td>{{ucwords($product->name)}}</td>
+                    <td>{{ ucfirst($product->description) }}</td>
+                    <td>{{ ucwords($product->sizeSort->name) . " (". ucwords($product->sizeSort->type) . ")" }}</td>
                     <td>{{ "€" . $product->price }}</td>
 
                     <td>

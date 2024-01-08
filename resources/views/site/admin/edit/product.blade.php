@@ -11,13 +11,13 @@
 
     <div class="form-div">
         <x-input-label for="name" :value="__('Naam kledingstuk')" />
-        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $product->name)" required autofocus autocomplete="name" />
+        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', ucwords($product->name))" required autofocus autocomplete="name" />
         <x-input-error :messages="$errors->get('name')" class="mt-2" />
     </div>
     
     <div class="form-div">
         <x-input-label for="description" :value="__('Korte beschrijving')" />
-        <x-textarea id="description" class="block mt-1 w-full" name="description" autofocus autocomplete="description" :value="old('description', $product->description)"></x-textarea>
+        <x-textarea id="description" class="block mt-1 w-full" name="description" autofocus autocomplete="description" :value="old('description', ucfirst($product->description))"></x-textarea>
         <x-input-error :messages="$errors->get('description')" class="mt-2" />
     </div>
 
@@ -26,7 +26,7 @@
         <x-dropdown-form id="size_sort" name="size_sort" class="block mt-1 w-full" required autofocus autocomplete="size_sort">
             @foreach($size_sorts as $size_sort)
                 <option value="{{ $size_sort->id }}" {{ $product->sizeSort->id == $size_sort->id ? 'selected' : '' }}>
-                    {{ $size_sort->name }}
+                    {{ ucwords($size_sort->name) . " (". ucwords($size_sort->type) . ")"  }}
                 </option>
             @endforeach
         </x-dropdown-form>
@@ -38,7 +38,7 @@
         <x-dropdown-form id="category" name="category" class="block mt-1 w-full" required autofocus autocomplete="category">
             @foreach($categories as $category)
                 <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
-                    {{ $category->name }}
+                    {{ ucwords($category->name) }}
                 </option>
             @endforeach
         </x-dropdown-form>

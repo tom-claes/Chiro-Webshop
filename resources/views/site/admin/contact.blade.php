@@ -24,9 +24,9 @@
     <tbody>
         @forelse ($contactForms as $form)
             <tr>
-                <td>{{ $form->lastname . " " . $form->firstname }}</td>
+                <td>{{ ucwords($form->lastname) . " " . ucwords($form->firstname) }}</td>
                 <td>{{ $form->email }}</td>
-                <td>{{ $form->subject }}</td>
+                <td>{{ ucfirst($form->subject) }}</td>
                 <td>{{ $form->created_at->format('d-m-Y (H:i)') }}</td>
                 <td><button class="myButton" data-target="#message-{{ $loop->index }}">Zie Bericht <i class="arrow right"></i></button></td>
                 <td>

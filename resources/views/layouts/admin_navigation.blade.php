@@ -59,6 +59,9 @@
 
 
         <div>
+            <div>
+              <a class="mx-4" href="{{route('home')}}">Homepagina Webshop</a>
+            </div>
             <form method="POST" action="{{ route('logout') }}" id="logout-form">
                 @csrf
         

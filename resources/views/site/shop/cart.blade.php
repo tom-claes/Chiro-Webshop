@@ -12,8 +12,8 @@
             @forelse ($cart as $item)
                 <div class="cart-item-box">
                     <img class="cart-item-img" src="{{ asset($item['img']) }}" alt="{{$item['product_name']}}">
-                    <p class="cart-item-name">{{$item['product_name']}}</p>
-                    <p class="cart-item-size">Maat: {{$item['size_name'] . " (" . $item['size_sort_name'] . ")"}}</p>
+                    <p class="cart-item-name">{{ucwords($item['product_name'])}}</p>
+                    <p class="cart-item-size">Maat: {{$item['size_name'] . " (" . ucwords($item['size_sort_name']) . ")"}}</p>
                     <p class="cart-item-quantity">Aantal: {{$item['quantity']}}</p>
                     <p class="cart-item-price">Prijs: {{$item['price'] . "€"}}</p>
                     <form class="cart-remove" action="{{ route('shop.remove.fromCart', ['productId' => $item['product_id'], 'size' => $item['size_id']]) }}" method="POST">

@@ -46,7 +46,7 @@
                         <option disabled selected></option>
             
                         @foreach($size_sorts as $size_sort)
-                            <option value="{{ $size_sort->id }}">{{ $size_sort->name }}</option>
+                            <option value="{{ $size_sort->id }}">{{ ucwords($size_sort->name) }}</option>
                         @endforeach
                     </x-dropdown-form>
                     <x-input-error :messages="$errors->get('size_sort')" class="mt-2" />
@@ -75,7 +75,7 @@
         @foreach($size_sorts as $size_sort)
         <tr>
             <td class="table-subtitle-row">
-                <p class="table-subtitle">Maat Categorie: {{ $size_sort->name . " (". $size_sort->type . ")"}}</p>
+                <p class="table-subtitle">Maat Categorie: {{ ucwords($size_sort->name) . " (". ucwords($size_sort->type) . ")"}}</p>
             </td>
             <td class="table-subtitle-row">
                 <div class="dropdown ">

@@ -10,7 +10,7 @@
     @method('PUT')
     <div class="form-div">
         <x-input-label for="size" :value="__('Naam maat')" />
-        <x-text-input id="size" class="block mt-1 w-full" type="text" name="size" :value="old('size', $size->size)" required autofocus autocomplete="size" />
+        <x-text-input id="size" class="block mt-1 w-full" type="text" name="size" :value="old('size', ucwords($size->size))" required autofocus autocomplete="size" />
         <x-input-error :messages="$errors->get('size')" class="mt-2" />
     </div>
     <x-primary-button class="admin-form-btn">

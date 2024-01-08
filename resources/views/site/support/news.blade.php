@@ -11,12 +11,12 @@
 <div class="support-page">
     @forelse ($news as $item)
     <div class="support-box" >
-        <p class="news-title">{{ $item->title }}</p>
+        <p class="news-title">{{ ucfirst($item->title) }}</p>
         <button class="myButton"><i class="arrow right"></i></button>
         <div class="myText" style="display: none;">
             <div class="news-dropdown">
                 <img class="news-img" src="{{ asset( $item->img) }}" alt="{{ 'Foto: ' . $item->title }}">
-                <p class="news-content">{{ $item->content }}</p>
+                <p class="news-content">{{ ucfirst($item->content) }}</p>
             </div>
         </div>
     </div>

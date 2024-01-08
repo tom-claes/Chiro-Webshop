@@ -10,12 +10,12 @@
     @method('PUT')
     <div class="form-div">
         <x-input-label for="title" :value="__('Titel')" />
-        <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title', $news->title)" required autofocus autocomplete="title" />
+        <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title', ucfirst($news->title))" required autofocus autocomplete="title" />
         <x-input-error :messages="$errors->get('title')" class="mt-2" />
     </div>
     <div class="form-div">
         <x-input-label for="content" :value="__('Bericht')" />
-        <x-textarea id="content" class="block mt-1 w-full" name="content" :value="old('content', $news->content)" autofocus autocomplete="content"></x-textarea>
+        <x-textarea id="content" class="block mt-1 w-full" name="content" :value="old('content', ucfirst($news->content))" autofocus autocomplete="content"></x-textarea>
         <x-input-error :messages="$errors->get('content')" class="mt-2" />
     </div>
 

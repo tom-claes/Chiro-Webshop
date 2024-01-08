@@ -16,9 +16,9 @@
     <tbody>
         @forelse ($products as $product)
             <tr>
-                <td>{{ $product->name }}</td>
-                <td>{{ $product->productcategory->name }}</td>
-                <td>{{ $product->sizeSort->name }}</td>
+                <td>{{ ucwords($product->name) }}</td>
+                <td>{{ ucwords($product->productcategory->name) }}</td>
+                <td>{{ ucwords($product->sizeSort->name) }}</td>
                 <td>{{ '€' . $product->price }}</td>
                 <td>
                     <a href="{{route('admin.stock', $product->id)}}" style="display: flex; align-items: center;">
