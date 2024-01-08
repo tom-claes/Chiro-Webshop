@@ -171,6 +171,7 @@ class AdminController extends Controller
         $product = Product::find($productId);
 
         if ($product) {
+            $this->deleteImage($product);
             $product->delete();
             return back()->with('success', 'Product is verwijderd');
         }
@@ -311,13 +312,7 @@ class AdminController extends Controller
             'img' => ['image', 'mimes:jpeg,png,jpg' ,'max:2048']
         ]);
         
-        if ($request->hasFile('img')) {
-            $imagePath = $this->addImage($request);
-        } else {
-            $imagePath = null;
-        }
-
-        Auth::user()->update(['img' => $imagePath]);
+        $imagePath = $this->addImage($request);
     
         $news = Latest_news::create([
             'title' => $request->title,
@@ -345,18 +340,7 @@ class AdminController extends Controller
             'img' => ['nullable', 'image', 'mimes:jpeg,png,jpg' ,'max:2048']
         ]);
 
-        if ($request->hasFile('img')) {
-            // Delete the previous image if it exists
-            if ($news->img) {
-                Storage::disk('public')->delete($news->img);
-            }
-    
-            $imagePath = $request->file('img')->store('IMG', 'public');
-            $imagePath = 'storage/' . $imagePath;
-
-        } else {
-            $imagePath = $news->img;
-        }
+        $imagePath = $this->updateImage($request, $news);
 
         $news->update([
             'title' => $request->title,
@@ -374,6 +358,7 @@ class AdminController extends Controller
         $news = Latest_news::find($newsId);
 
         if ($news) {
+            $this->deleteImage($news);
             $news->delete();
             return back()->with('success', 'Nieuws item is verwijderd');
         }
@@ -619,6 +604,14 @@ class AdminController extends Controller
         ]);
     
         return $imagePath;
+    }
+
+    public function deleteImage($model)
+    {
+        if ($model->img) {
+            $oldImagePath = str_replace('storage/', '', $model->img);
+            Storage::disk('public')->delete($oldImagePath);
+        }
     }
 
 

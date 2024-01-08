@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProfileController extends Controller
@@ -30,7 +31,6 @@ class ProfileController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $user = $request->user();
-
         
         $rules = [
             'lastname' => ['required', 'string', 'max:255'],
@@ -42,13 +42,17 @@ class ProfileController extends Controller
         ];
         
         if ($request->hasFile('img')) {
-            $file = $request->file('img');
-            $extension = strtolower($file->guessExtension());
-            if (in_array($extension, ['jpeg', 'JPEG', 'png', 'PNG', 'jpg', 'JPG'])) {
-                $rules['img'] = ['nullable', 'image', 'max:2048'];
-            } else {
-                return back()->withErrors(['img' => 'The img field must be a file of type: jpeg, png, jpg.']);
+            // Delete de vorige afbeelding uit de storage als er 1 inzit
+            if ($user->img && !str_starts_with($user->img, 'IMG/')) {
+                $oldImagePath = str_replace('storage/', '', $user->img);
+                Storage::disk('public')->delete($oldImagePath);
             }
+    
+            $imagePath = $request->file('img')->store('IMG', 'public');
+            $imagePath = 'storage/' . $imagePath;
+    
+        } else {
+            $imagePath = $user->img;
         }
 
         $updateData = [
@@ -58,12 +62,9 @@ class ProfileController extends Controller
             'bio' => $request->bio,
             'birthdate' => $request->birthdate,
             'email' => $request->email,
+            'img' => $imagePath,
         ];
     
-        if ($request->hasFile('img')) {
-            $imagePath = 'storage/' . $request->file('img')->store('IMG', 'public');
-            $updateData['img'] = $imagePath;
-        }
     
         $user->update($updateData);
 
@@ -81,6 +82,11 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        if ($user->img && !str_starts_with($user->img, 'IMG/')) {
+            $oldImagePath = str_replace('storage/', '', $user->img);
+            Storage::disk('public')->delete($oldImagePath);
+        }
 
         Auth::logout();
 
