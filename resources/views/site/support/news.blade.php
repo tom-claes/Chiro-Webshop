@@ -17,6 +17,7 @@
             <div class="news-dropdown">
                 <img class="news-img" src="{{ asset( $item->img) }}" alt="{{ 'Foto: ' . $item->title }}">
                 <p class="news-content">{{ ucfirst($item->content) }}</p>
+                <p>{{'Gepubliceerd: ' . $item->created_at->format('d/m/Y')}}</p>
             </div>
         </div>
     </div>
