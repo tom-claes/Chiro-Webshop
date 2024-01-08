@@ -37,7 +37,7 @@
         <x-input-label for="category" :value="__('Behoort tot categorie')" />
         <x-dropdown-form id="category" name="category" class="block mt-1 w-full" required autofocus autocomplete="category">
             @foreach($categories as $category)
-                <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                <option value="{{ $category->id }}" {{ $product->category == $category->id ? 'selected' : '' }}>
                     {{ ucwords($category->name) }}
                 </option>
             @endforeach
