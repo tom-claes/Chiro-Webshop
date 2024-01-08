@@ -20,6 +20,34 @@ class CheckoutController extends Controller
             return view('site.shop.view_details');
         }
 
+        $request->validate([
+            'lastname' => ['required', 'string', 'max:255'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'phone' => ['required', 'digits:10','regex:/^([0-9\s\-\+\(\)]*)$/'],
+            'street' => ['required', 'string', 'max:255'],
+            'streetnr' => ['required', 'numeric', 'digits_between:1,10'],
+            'zip' => ['required', 'numeric',  'digits:4'],
+            'city' => ['required', 'string', 'max:255'],
+        ]);
+
+        do {
+            $ordernr = Str::random(10);
+        } while (Order::where('ordernr', $ordernr)->exists());
+    
+        $order = Order::create([
+            'ordernr' => $ordernr,
+            'lastname' => $request->lastname,
+            'firstname' => $request->firstname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'street' => $request->street,
+            'streetnr' => $request->streetnr,
+            'zip' => $request->zip,
+            'city' => $request->city,
+        ]);
+            
+
     }
 
     public function viewCart(Request $request)
