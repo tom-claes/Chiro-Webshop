@@ -9,6 +9,12 @@
     --light-grey: #e0dede;
 }
 
+.admin-heading{
+    font-size: 200%;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 .home_banner{
     background-image: url('/IMG/cover2.jpg');
     background-size: cover;
@@ -56,7 +62,7 @@
 }
   
 .admin-form-heading{
-    font-size: 175%;
+    font-size: 150%;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -534,4 +540,9 @@ tr:nth-child(even) {
     font-size: 150%;
     font-weight: bold;
     text-decoration: underline;
+}
+
+.required{
+    color: #F00;
+    font-size: 120%;
 }

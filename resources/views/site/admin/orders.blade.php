@@ -3,5 +3,5 @@
 @section('title', 'Chiro Zuun Webshop')
 
 @section('content')
-<p>Dit is de bestellingen pagina</p>
+<p class="admin-heading">Bestellingen</p>
 @endsection

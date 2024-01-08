@@ -16,37 +16,37 @@
                 <span class="mx-4">Bestellingen</span>
               </a>
 
-              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring" {{ request()->is('admin/stocks*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.stocks') }}">
-                <img src="{{asset('IMG\admin-icons\stock.svg')}}" alt="">
-                <span class="mx-4">Stock</span>
-              </a>
-  
-              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring" {{ request()->is('admin/catalogus*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.catalogus') }}">
-                <img src="{{asset('IMG\admin-icons\catalogue.svg')}}" alt="">
-                <span class="mx-4">Catalogus</span>
-              </a>
-
-              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring" {{ request()->is('size*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.size') }}">
-                <img src="{{asset('IMG\admin-icons\sizes.svg')}}" alt="">
-                <span class="mx-4">Maten</span>
-              </a>
-
-              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring" {{ request()->is('admin/faq*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.faq') }}">
-                <img src="{{asset('IMG\admin-icons\faq.svg')}}" alt="">
-                <span class="mx-4">FAQ's</span>
-              </a>
-
-              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring" {{ request()->is('admin/news*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.news') }}">
-                <img src="{{asset('IMG\admin-icons\news.svg')}}" alt="">
-                <span class="mx-4">Niews</span>
-              </a>
-
-              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring" {{ request()->is('admin/contact*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.contact') }}">
+              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring {{ request()->is('admin/contact*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.contact') }}">
                 <img src="{{asset('IMG\admin-icons\contact.svg')}}" alt="">
                 <span class="mx-4">Contact</span>    
               </a>
 
-              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring" {{ request()->is('admin/users*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.users') }}">
+              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring {{ request()->is('admin/stocks*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.stocks') }}">
+                <img src="{{asset('IMG\admin-icons\stock.svg')}}" alt="">
+                <span class="mx-4">Stock</span>
+              </a>
+
+              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring {{ request()->is('admin/size*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.size') }}">
+                <img src="{{asset('IMG\admin-icons\sizes.svg')}}" alt="">
+                <span class="mx-4">Maten</span>
+              </a>
+  
+              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring {{ request()->is('admin/catalogus*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.catalogus') }}">
+                <img src="{{asset('IMG\admin-icons\catalogue.svg')}}" alt="">
+                <span class="mx-4">Catalogus</span>
+              </a>
+
+              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring {{ request()->is('admin/news*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.news') }}">
+                <img src="{{asset('IMG\admin-icons\news.svg')}}" alt="">
+                <span class="mx-4">Niews</span>
+              </a>
+
+              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring {{ request()->is('admin/faq*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.faq') }}">
+                <img src="{{asset('IMG\admin-icons\faq.svg')}}" alt="">
+                <span class="mx-4">FAQ's</span>
+              </a>
+
+              <a class="flex items-center px-4 py-3 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-400 focus:outline-none focus:ring {{ request()->is('admin/users*') ? 'bg-gray-800' : '' }}" href="{{ route('admin.users') }}">
                 <img src="{{asset('IMG\admin-icons\users.svg')}}" alt="">
                 <span class="mx-4">Gebruikers</span>    
               </a>

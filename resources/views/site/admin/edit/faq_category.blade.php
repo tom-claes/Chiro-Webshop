@@ -3,13 +3,13 @@
 @section('title', 'Chiro Zuun Webshop')
 
 @section('content')
-<p class="admin-form-heading">Edit FAQ categorie</p>
+<p class="admin-heading">Edit FAQ categorie</p>
 
 <Form method="POST" action="{{ route('admin.faq.edit.category', $faqCategory->id) }}">
     @csrf
     @method('PUT')
     <div class="form-div">
-        <x-input-label for="name" :value="__('Naam categorie')" />
+        <x-input-label for="name" :value="__('Naam categorie') . '<span class=\'required\'>*</span>'" />
         <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', ucwords($faqCategory->name))" required autofocus autocomplete="name" />
         <x-input-error :messages="$errors->get('name')" class="mt-2" />
     </div>

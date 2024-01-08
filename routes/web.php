@@ -70,7 +70,7 @@ Route::prefix('support/')->name('support.')->group(function () {
 /* END SUPORT PAGES */
 
 /* ADMIN PAGES */
-Route::prefix('admin/')->name('admin.')->group(function () {
+Route::prefix('admin/')->name('admin.')->middleware('auth', 'admin' )->group(function () {
     Route::match(['get', 'post'], '/', [AdminController::class, 'login'])->middleware('guest')->name('login');
 
     Route::get('dashboard', function () {

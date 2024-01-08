@@ -18,11 +18,24 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'lastname' => 'Chiro',
             'firstname' => 'Zuun',
-            'username' => 'admin',
+            'username' => 'chirozuun',
             'birthdate' => Carbon::create(1948, 9, 1),
             'bio' => 'Dit is het admin account van de organisatie Chiro Zuun',
             'email' => 'chirozuun@gmail.com',
             'password' => Hash::make('wachtwoord'),
+            'admin' => true,
+            'created_at' => now(),
+            'email_verified_at' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'lastname' => 'Doe',
+            'firstname' => 'John',
+            'username' => 'admin',
+            'birthdate' => now(),
+            'bio' => 'Dit is het admin account gemaakt voor de EhB',
+            'email' => 'admin@ehb.be',
+            'password' => Hash::make('Password!321'),
             'admin' => true,
             'created_at' => now(),
             'email_verified_at' => now(),

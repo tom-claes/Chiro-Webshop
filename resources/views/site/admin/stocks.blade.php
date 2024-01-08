@@ -3,6 +3,7 @@
 @section('title', 'Chiro Zuun Webshop')
 
 @section('content')
+<p class="admin-heading">Stock</p>
 <table>
     <thead>
         <tr>

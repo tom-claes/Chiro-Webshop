@@ -13,3 +13,5 @@ storage linken aan public = 'php artisan storage:link'
 Een database "chiro-webshop" aanmaken
 migreren = 'php artisan migrate'
 seeders initialiseren = 'php artisan db:seed'
+
+alle gebruikers hebben als wachtwoord: "wachtwoord"

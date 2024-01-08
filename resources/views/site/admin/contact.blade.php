@@ -3,7 +3,7 @@
 @section('title', 'Chiro Zuun Webshop')
 
 @section('content')
-<p class="admin-form-heading">Contact</p>
+<p class="admin-heading">Contact</p>
 
 <form method="GET" action="{{ route('admin.contact') }}" class="flex">
     <x-text-input type="text" name="search" placeholder="Zoek contactformulier" value="{{ request()->query('search') }}"/>

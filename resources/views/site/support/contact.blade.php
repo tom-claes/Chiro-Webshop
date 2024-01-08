@@ -15,32 +15,32 @@
 
                 <div style="display: flex; justify-content: space-between; width: 100%;">
                     <div class="form-div" style="width: 48%;">
-                        <x-input-label for="firstname" :value="__('Voornaam')" />
+                        <x-input-label for="firstname" :value="__('Voornaam') . '<span class=\'required\'>*</span>'" />
                         <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" required autofocus autocomplete="firstname" />
                         <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
                     </div>
                     
                     <div class="form-div" style="width: 48%;">
-                        <x-input-label for="lastname" :value="__('Acthernaam')" />
+                        <x-input-label for="lastname" :value="__('Acthernaam') . '<span class=\'required\'>*</span>'" />
                         <x-text-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required autofocus autocomplete="lastname" />
                         <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
                     </div>
                 </div>
 
                 <div class="form-div">
-                    <x-input-label for="email" :value="__('E-mail')" />
+                    <x-input-label for="email" :value="__('E-mail') . '<span class=\'required\'>*</span>'" />
                     <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="email" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
                 <div class="form-div">
-                    <x-input-label for="subject" :value="__('Onderwerp')" />
+                    <x-input-label for="subject" :value="__('Onderwerp') . '<span class=\'required\'>*</span>'" />
                     <x-text-input id="subject" class="block mt-1 w-full" type="text" name="subject" :value="old('subject')" required autofocus autocomplete="subject" />
                     <x-input-error :messages="$errors->get('subject')" class="mt-2" />
                 </div>
 
                 <div class="form-div">
-                    <x-input-label for="message" :value="__('Bericht')" />
+                    <x-input-label for="message" :value="__('Bericht') . '<span class=\'required\'>*</span>'" />
                     <x-textarea id="message" class="block mt-1 w-full" name="message" autofocus autocomplete="message">{{ old('message') }}</x-textarea>
                     <x-input-error :messages="$errors->get('message')" class="mt-2" />
                 </div>

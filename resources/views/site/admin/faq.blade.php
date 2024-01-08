@@ -3,6 +3,7 @@
 @section('title', 'Chiro Zuun Admin')
 
 @section('content')
+<p class="admin-heading">FAQ's</p>
 
     <div class="admin-create">
         <p class="admin-form-heading">Maak een nieuwe FAQ categorie aan</p>
@@ -12,7 +13,7 @@
             <Form method="POST" action="{{ route('admin.faq.post.category') }}">
                 @csrf
                 <div class="form-div">
-                    <x-input-label for="name" :value="__('Naam categorie')" />
+                    <x-input-label for="name" :value="__('Naam categorie') . '<span class=\'required\'>*</span>'" />
                     <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
@@ -36,7 +37,7 @@
             <Form method="POST" action="{{ route('admin.faq.post.item') }}">
                 @csrf
                 <div class="form-div">
-                    <x-input-label for="category" :value="__('Behoort tot categorie')" />
+                    <x-input-label for="category" :value="__('Behoort tot categorie') . '<span class=\'required\'>*</span>'" />
                     <x-dropdown-form id="category" name="category" class="block mt-1 w-full" required autofocus autocomplete="category">
                         <option disabled selected></option>
             
@@ -47,13 +48,13 @@
                     <x-input-error :messages="$errors->get('category')" class="mt-2" />
                 </div>
                 <div class="form-div">
-                    <x-input-label for="question" :value="__('Vraag')" />
+                    <x-input-label for="question" :value="__('Vraag') . '<span class=\'required\'>*</span>'" />
                     <x-textarea id="question" class="block mt-1 w-full" name="question" required autofocus autocomplete="question">{{ old('question') }}</x-textarea>
                     <x-input-error :messages="$errors->get('question')" class="mt-2" />
                 </div>
             
                 <div class="form-div">
-                    <x-input-label for="answer" :value="__('Antwoord')" />
+                    <x-input-label for="answer" :value="__('Antwoord') . '<span class=\'required\'>*</span>'" />
                     <x-textarea id="answer" class="block mt-1 w-full" name="answer" required autofocus autocomplete="answer">{{ old('answer') }}</x-textarea>
                     <x-input-error :messages="$errors->get('answer')" class="mt-2" />
                 </div>

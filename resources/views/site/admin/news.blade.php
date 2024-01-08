@@ -3,6 +3,7 @@
 @section('title', 'Chiro Zuun Webshop')
 
 @section('content')
+<p class="admin-heading">Nieuws</p>
 
     <div class="admin-create">
         <p class="admin-form-heading">Maak een Nieuws post aan</p>
@@ -13,16 +14,19 @@
                 @csrf
             
                 <div class="form-div">
-                    <x-input-label for="title" :value="__('Titel')" />
+                    <x-input-label for="title" :value="__('Titel') . '<span class=\'required\'>*</span>'" />
                     <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus autocomplete="title" />
                     <x-input-error :messages="$errors->get('title')" class="mt-2" />
                 </div>
                 <div class="form-div">
-                    <x-input-label for="content" :value="__('Bericht')" />
+                    <x-input-label for="content" :value="__('Bericht') . '<span class=\'required\'>*</span>'" />
                     <x-textarea id="content" class="block mt-1 w-full" name="content" autofocus autocomplete="content">{{ old('content') }}</x-textarea>
                     <x-input-error :messages="$errors->get('content')" class="mt-2" />
                 </div>
-                <x-file-input id="img" name="img" label="Upload afbeelding" :value="old('img')"  autofocus autocomplete="img" />
+                <div class="form-div">
+                    <x-input-label for="img" :value="__('Upload afbeelding') . '<span class=\'required\'>*</span>'" />
+                    <x-file-input id="img" name="img" :value="old('img')"  autofocus autocomplete="img" />
+                </div>
                 <x-primary-button class="admin-form-btn">
                     {{ __('Creëer post') }}
                 </x-primary-button>

@@ -3,6 +3,7 @@
 @section('title', 'Chiro Zuun Webshop')
 
 @section('content')
+<p class="admin-heading">Catalogus</p>
 
     <div class="admin-create">
         <p class="admin-form-heading">Voeg een categorie toe aan de catalogus</p>
@@ -12,7 +13,7 @@
             <Form method="POST" action="{{ route('admin.category') }}">
                 @csrf
                 <div class="form-div">
-                    <x-input-label for="name" :value="__('Naam categorie')" />
+                    <x-input-label for="name" :value="__('Naam categorie') . '<span class=\'required\'>*</span>'" />
                     <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
@@ -35,18 +36,18 @@
                 @csrf
             
                 <div class="form-div">
-                    <x-input-label for="name" :value="__('Naam kledingstuk')" />
+                    <x-input-label for="name" :value="__('Naam kledingstuk') . '<span class=\'required\'>*</span>'" />
                     <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
                 <div class="form-div">
-                    <x-input-label for="description" :value="__('Korte beschrijving')" />
+                    <x-input-label for="description" :value="__('Korte beschrijving') . '<span class=\'required\'>*</span>'" />
                     <x-textarea id="description" class="block mt-1 w-full" name="description" autofocus autocomplete="description">{{ old('description') }}</x-textarea>
                     <x-input-error :messages="$errors->get('description')" class="mt-2" />
                 </div>
             
                 <div class="form-div">
-                    <x-input-label for="size_sort" :value="__('Behoort tot maat categorie')" />
+                    <x-input-label for="size_sort" :value="__('Behoort tot maat categorie') . '<span class=\'required\'>*</span>'" />
                     <x-dropdown-form id="size_sort" name="size_sort" class="block mt-1 w-full" required autofocus autocomplete="size_sort">
                         <option disabled selected></option>
             
@@ -57,7 +58,7 @@
                     <x-input-error :messages="$errors->get('size_sort')" class="mt-2" />
                 </div>
                 <div class="form-div">
-                    <x-input-label for="category" :value="__('Behoort tot categorie')" />
+                    <x-input-label for="category" :value="__('Behoort tot categorie') . '<span class=\'required\'>*</span>'" />
                     <x-dropdown-form id="category" name="category" class="block mt-1 w-full" required autofocus autocomplete="category">
                         <option disabled selected></option>
             
@@ -68,13 +69,16 @@
                     <x-input-error :messages="$errors->get('category')" class="mt-2" />
                 </div>
                 <div class="form-div">
-                    <x-input-label for="price" :value="__('Prijs')" />
+                    <x-input-label for="price" :value="__('Prijs') . '<span class=\'required\'>*</span>'" />
                     <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" :value="old('price')" required autofocus autocomplete="price" />
                     <x-input-error :messages="$errors->get('price')" class="mt-2" />
                 </div>
             
             
-                <x-file-input id="img" name="img" label="Upload afbeelding" :value="old('img')" required autofocus autocomplete="img" />
+                <div class="form-div">
+                    <x-input-label for="img" :value="__('Upload afbeelding') . '<span class=\'required\'>*</span>'" />
+                    <x-file-input id="img" name="img" :value="old('img')" required autofocus autocomplete="img" />
+                </div>
                 <x-primary-button class="admin-form-btn">
                     {{ __('Creëer kledingstuk') }}
                 </x-primary-button>
