@@ -27,9 +27,11 @@ Route::prefix('checkout/')->name('checkout.')->group(function () {
 
     Route::get('/winkelwagen', [CheckoutController::class, 'viewCart'])->name('view.cart');
 
-    Route::get('/gegevens', [CheckoutController::class, 'viewDetails'])->name('view.details');
+    Route::match(['get', 'post'],'/gegevens', [CheckoutController::class, 'viewDetails'])->name('view.details');
 
-    Route::match(['get', 'post'],'/afrekenen', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::get('/afrekenen', [CheckoutController::class, 'checkout'])->name('checkout');
+
+    Route::get('bestelling+geplaatst/{order_nr}', [CheckoutController::class, 'orderPlaced'])->name('order.placed');
 
     Route::post('add+to+basket/{productId}', [CheckoutController::class, 'addToCart'])->name('add.toCart');
 

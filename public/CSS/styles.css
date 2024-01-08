@@ -558,3 +558,25 @@ tr:nth-child(even) {
     color: #F00;
     font-size: 120%;
 }
+
+.ordered-title{
+    font-size: 300%;
+    font-weight: bold;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    text-align: center;
+}
+
+.ordered-notice{
+    font-size: 125%;
+    margin-bottom: 20px;
+    padding-bottom: 0;
+    text-align: center;
+}
+
+.ordered-order{
+    font-size: 200%;
+    font-weight: bold;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}

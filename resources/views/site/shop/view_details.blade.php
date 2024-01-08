@@ -7,18 +7,20 @@
     <h2 class="category-title">Checkout</h2>
 </div>
 <div class="support-page">
-    <form action="">
+    <form method="POST" action="{{ route('checkout.view.details') }}">
+        @csrf
+
         <div style="display: flex; justify-content: space-between; width: 100%;">
-            <div class="form-div" style="width: 48%;">
-                <x-input-label for="firstname" :value="__('Voornaam') . '<span class=\'required\'>*</span>'" />
-                <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" placeholder="Bv. John" required autofocus autocomplete="firstname" />
-                <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
-            </div>
-            
             <div class="form-div" style="width: 48%;">
                 <x-input-label for="lastname" :value="__('Acthernaam') . '<span class=\'required\'>*</span>'" />
                 <x-text-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" placeholder="Bv. Doe" required autofocus autocomplete="lastname" />
                 <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
+            </div>
+            
+            <div class="form-div" style="width: 48%;">
+                <x-input-label for="firstname" :value="__('Voornaam') . '<span class=\'required\'>*</span>'" />
+                <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname" :value="old('firstname')" placeholder="Bv. John" required autofocus autocomplete="firstname" />
+                <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
             </div>
         </div>
 
