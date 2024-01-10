@@ -15,6 +15,7 @@ use App\Models\Product;
 use App\Models\Contact_form;
 use App\Models\Size;
 use App\Models\Size_sort;
+use App\Models\Order;
 
 
 class AdminController extends Controller
@@ -41,6 +42,19 @@ class AdminController extends Controller
         }
 
         return redirect()->route('admin.login')->with('error', 'Your credentials are incorrect');
+    }
+
+    public function orders(Request $request)
+    {
+        $search = $request->query('search');
+        $orders = Order::with('products')->when($search, function ($query, $search) {
+            return $query->where('order_nr', 'like', "%{$search}%")
+                         ->orWhere('firstname', 'like', "%{$search}%")
+                         ->orWhere('lastname', 'like', "%{$search}%")
+                         ->orWhere('email', 'like', "%{$search}%");
+        })->get();
+        $test = Order::with('products')->get();
+        return view('site.admin.orders', compact('orders', 'test'));
     }
 
 

@@ -43,9 +43,30 @@ class CheckoutController extends Controller
         // haalt de cart data uit de session storage om deze te gebruiken in de order_products tabel
         $cart = $request->session()->get('cart', []);
 
+            // Check if the quantity of each item is not higher than the stock
+        foreach ($cart as $item) {
+            // haalt de stock op van het product in de database
+            $pivot = DB::table('product_size_pivot')
+                        ->where('product_id', $item['product_id'])
+                        ->where('size_id', $item['size_id'])
+                        ->first();
+
+            // If the quantity exceeds the stock, redirect back to the cart
+            if ($item['quantity'] > $pivot->stock) {
+                return redirect()->route('checkout.view.cart')->with('error', 'De hoeveelheid van een bepaald product is is niet meer in stock!');
+            }
+        }
+
+        // berekent totale prijs van alle items
+        $totalPrice = 0;
+        foreach ($cart as $item) {
+            $totalPrice += $item['price'] * $item['quantity'];
+        }
+
         // maak een order aan met de gegevens van de koper
         $order = Order::create([
             'order_nr' => $ordernr,
+            'total_price' => $totalPrice,
             'lastname' => $request->lastname,
             'firstname' => $request->firstname,
             'email' => $request->email,
@@ -92,16 +113,11 @@ class CheckoutController extends Controller
     {
         $order = Order::with('products')->where('order_nr', $request->order_nr)->first();
 
-        $totalPrice = 0;
-        foreach ($order->products as $product) {
-            $totalPrice += $product->price; // replace 'price' with the actual field name for the product price
-        }
-
         $order_products = DB::table('order_products')
                             ->where('order_nr', $request->order_nr)
                             ->get();
 
-        return view('site.shop.order_placed', ['order' => $order, 'order_products' => $order_products, 'totalPrice' => $totalPrice]);
+        return view('site.shop.order_placed', ['order' => $order, 'order_products' => $order_products]);
     }
 
     public function viewCart(Request $request)
@@ -109,32 +125,43 @@ class CheckoutController extends Controller
         $cart = [];
         $totalPrice = 0;
 
-        /*if (Auth::check()) {
-            // User is logged in, get cart items from database
-            $cart = Cart_item::where('user_id', auth()->user()->id)->get();
+        $cart = $request->session()->get('cart', []);
 
-            // Calculate the total price
-            foreach ($cart as $item) {
-                $totalPrice += $item->price * $item->quantity;
+        // Fetch product names, size names, size sorts and calculate the total price
+        foreach ($cart as $key => &$item) {
+            $product = Product::find($item['product_id']);
+            $size = Size::find($item['size_id']);
+            $size_sort = Size_sort::find($size ? $size->size_sort : null);
+
+            $item['product_name'] = $product ? $product->name : 'Product niet gevonden';
+            $item['size_name'] = $size ? $size->size : 'Maat niet gevonden';
+            $item['size_sort_name'] = $size_sort ? $size_sort->name : 'Maat soort niet gevonden';
+            $item['img'] = $product ? $product->img : 'Geen afbeelding gevonden';
+
+            // Fetch the stock for the product and size from the pivot table
+            $stock = $product->sizes()->where('size_id', $size->id)->first()->pivot->stock;
+
+            // Check if the quantity is smaller or the same as the stock
+            if ($item['quantity'] > $stock) {
+                // Set the quantity to the stock
+                $item['quantity'] = $stock;
+
+                // If the quantity is 0, remove the item from the cart
+            if ($item['quantity'] == 0) {
+                unset($cart[$key]);
+                continue;
             }
-        } else {*/
-            // User is not logged in, get cart items from session
-            $cart = $request->session()->get('cart', []);
 
-            // Fetch product names, size names, size sorts and calculate the total price
-            foreach ($cart as &$item) {
-                $product = Product::find($item['product_id']);
-                $size = Size::find($item['size_id']);
-                $size_sort = Size_sort::find($size ? $size->size_sort : null);
-
-                $item['product_name'] = $product ? $product->name : 'Product not found';
-                $item['size_name'] = $size ? $size->size : 'Size not found';
-                $item['size_sort_name'] = $size_sort ? $size_sort->name : 'Size sort not found';
-                $item['img'] = $product ? $product->img : 'Geen afbeelding gevonden';
-
-                $totalPrice += $item['price'] * $item['quantity'];
+                // Flash an error message to the session
+                $request->session()->flash('error', 'Het aantal van sommige items is aangepast door veranderingen in stock!');
             }
-        //}
+
+            $totalPrice += $item['price'] * $item['quantity'];
+        }
+
+        // Put the updated cart back in the session
+        $request->session()->put('cart', $cart);
+
         // Pass the cart and the total price to the view
         return view('site.shop.cart', ['cart' => $cart, 'totalPrice' => $totalPrice]);
     }
@@ -147,6 +174,9 @@ class CheckoutController extends Controller
         // Get the size from the request
         $size = $request->input('size');
 
+        // Fetch the stock for the product and size from the pivot table
+        $stock = $product->sizes()->where('size_id', $size)->first()->pivot->stock;
+
         // Create a unique key for this product-size combination
         $key = $productId . '-' . $size;
 
@@ -155,9 +185,21 @@ class CheckoutController extends Controller
 
         // Check if the item already exists in the cart
         if (isset($cart[$key])) {
+            // Check if the quantity is smaller or the same as the stock
+            if ($cart[$key]['quantity'] + 1 > $stock) {
+                // Redirect back with an error message
+                return back()->with('error', 'Er zijn niet genoeg stuks in stock om dit toe te voegen!');
+            }
+
             // Increment the quantity
             $cart[$key]['quantity']++;
         } else {
+            // Check if the stock is at least 1
+            if ($stock < 1) {
+                // Redirect back with an error message
+                return back()->with('error', 'Het product is niet meer in stock!');
+            }
+
             // Add the product to the cart
             $cart[$key] = [
                 'product_id' => $productId,

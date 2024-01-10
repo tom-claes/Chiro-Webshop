@@ -34,6 +34,7 @@
         <p>{{"Email: " . $order->email}}</p>
         <p>{{"Telefoonnummer: " . $order->phone}}</p>
         <p>{{"Adres: " . $order->street . " " . $order->streetnr . ", " . $order->zip . " " . $order->city}}</p>
+        <p>{{"Totaal: €" . number_format($order->total_price, 2)}}</p>
     
     </div>
 </div>

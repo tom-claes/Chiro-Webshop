@@ -76,9 +76,7 @@ Route::prefix('admin/')->name('admin.')->middleware('auth', 'admin' )->group(fun
         return view('site.admin.dashboard');
     })->name('dashboard');
 
-    Route::get('bestellingen', function () {
-        return view('site.admin.orders');
-    })->name('orders');
+    Route::get('bestellingen', [AdminController::class, 'orders'])->name('orders');
 
     Route::post('catalogus/categorien', [AdminController::class, 'categories'])->name('category');
 
