@@ -92,11 +92,16 @@ class CheckoutController extends Controller
     {
         $order = Order::with('products')->where('order_nr', $request->order_nr)->first();
 
+        $totalPrice = 0;
+        foreach ($order->products as $product) {
+            $totalPrice += $product->price; // replace 'price' with the actual field name for the product price
+        }
+
         $order_products = DB::table('order_products')
                             ->where('order_nr', $request->order_nr)
                             ->get();
 
-        return view('site.shop.order_placed', ['order' => $order, 'order_products' => $order_products]);
+        return view('site.shop.order_placed', ['order' => $order, 'order_products' => $order_products, 'totalPrice' => $totalPrice]);
     }
 
     public function viewCart(Request $request)

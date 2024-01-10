@@ -580,3 +580,56 @@ tr:nth-child(even) {
     margin-bottom: 0;
     padding-bottom: 0;
 }
+
+.ordered-box{
+    box-shadow: var(--light-grey) 2px 2px 10px;
+    width: 500px;
+    height: 220px;
+    display: grid;
+    grid-template-columns: 40% auto;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.ordered-img{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    grid-column: 1/2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ordered-info{
+    grid-column: 2/3;
+    padding: 10px;
+}
+
+.ordered-name{
+    font-size: 150%;
+    font-weight: bold;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.order-info-box{
+    box-shadow: var(--light-grey) 2px 2px 10px;
+    width: 500px;
+    height: 150px;
+    padding: 10px;
+    grid-column: 2/3;
+}
+
+.ordered-page{
+    display: grid;
+    grid-template-columns: 60% auto;
+    grid-gap: 10px;
+    margin: 0 5%;
+    height: 500px;
+}
+
+.ordered-left{
+    grid-column: 1/2;
+}
+
