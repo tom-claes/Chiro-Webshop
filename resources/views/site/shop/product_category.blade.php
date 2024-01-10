@@ -8,7 +8,7 @@
     <h2 class="category-title">{{ucwords($category->name)}}</h2>
 </div>
 
-<div>
+<div class="products-container">
     @forelse ($products as $product)
     <a href="{{ route('shop.product', ['productId' => $product->id]) }}">
 

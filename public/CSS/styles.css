@@ -82,10 +82,15 @@
     text-align: center;
 }
 
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .category-item-box{
-    background-color: lightgray;
+    box-shadow: var(--light-grey) 2px 2px 10px;
     padding: 15px;
-    margin: 0;
+    margin: 10px;
     border-radius: 5%;
     width: 280px;
 }
