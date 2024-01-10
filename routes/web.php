@@ -62,6 +62,8 @@ Route::prefix('support/')->name('support.')->group(function () {
     Route::match(['get', 'post'], 'contact', [SupportController::class, 'contact'])->name('contact');
 
     Route::match(['get', 'post'], 'user/{userId}', [SupportController::class, 'userpage'])->name('userpage');
+
+    Route::get('about', [SupportController::class, 'about'])->name('about');
     
 });
 /* END SUPORT PAGES */

@@ -70,4 +70,9 @@ class SupportController extends Controller
             return view('site.support.userpage');
         }
     }
+
+    public function about()
+    {
+        return view('site.support.about');
+    }
 }

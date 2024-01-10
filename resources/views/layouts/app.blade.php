@@ -40,7 +40,8 @@
         <footer style="background-color: #F9C349; color: #FFF; padding: 20px; width: 100%; text-align: left;">
             <a href="{{route('support.contact')}}" style="margin-right: 20px;">Contact</a>
             <a href="{{route('support.faq.category')}}" style="margin-right: 20px;">FAQ's</a>
-            <a href="{{route('support.news')}}">Nieuws</a>
+            <a href="{{route('support.news')}}" style="margin-right: 20px;">Nieuws</a>
+            <a href="{{route('support.about')}}">About</a>
         </footer>
     </body>
 </html>

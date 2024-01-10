@@ -425,7 +425,7 @@ tr:nth-child(even) {
 }
 
 .cart-item-box{
-    border: 1px solid var(--admin-color);
+    box-shadow: var(--light-grey) 2px 2px 10px;
     border-radius: 5px;
     background-color: #FFF;
     padding: 5px;
