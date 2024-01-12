@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             Faq_categoriesSeeder::class,
             FaqSeeder::class,
             Contact_formSeeder::class,
+            OrderSeeder::class,
+            Order_productsSeeder::class,
         ]);
     }
 }

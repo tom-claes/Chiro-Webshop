@@ -164,10 +164,6 @@
     grid-row: 5/6;
 }
 
-.item-btn{
-
-}
-
 .support-page{
     margin: 20px;
 }
@@ -638,3 +634,28 @@ tr:nth-child(even) {
     grid-column: 1/2;
 }
 
+.bold{
+    font-weight: bold;
+}
+
+.about-subtitle{
+    font-size: 125%;
+    font-weight: bold;
+}
+
+.link{
+    color: #3366CC;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+.centered{
+    text-align: center;
+}
+
+.h2{
+    font-size: 400%;
+    font-weight: bold;
+}

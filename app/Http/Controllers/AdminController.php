@@ -47,14 +47,26 @@ class AdminController extends Controller
     public function orders(Request $request)
     {
         $search = $request->query('search');
-        $orders = Order::with('products')->when($search, function ($query, $search) {
+        $orders = Order::when($search, function ($query, $search) {
             return $query->where('order_nr', 'like', "%{$search}%")
                          ->orWhere('firstname', 'like', "%{$search}%")
                          ->orWhere('lastname', 'like', "%{$search}%")
                          ->orWhere('email', 'like', "%{$search}%");
         })->get();
-        $test = Order::with('products')->get();
-        return view('site.admin.orders', compact('orders', 'test'));
+        
+        return view('site.admin.orders', compact('orders'));
+    }
+
+    public function deleteOrder($orderId)
+    {
+        $order = Order::where('id', $orderId)->first();
+    
+        if ($order) {
+            $order->delete();
+            return back()->with('success', 'Order is verwijderd');
+        }
+
+        return back()->with('error', 'Deze actie is mislukt');
     }
 
 

@@ -78,6 +78,8 @@ Route::prefix('admin/')->name('admin.')->middleware('auth', 'admin' )->group(fun
 
     Route::get('bestellingen', [AdminController::class, 'orders'])->name('orders');
 
+    Route::delete('bestelling/{orderNr}', [AdminController::class, 'deleteOrder'])->name('delete.order');
+
     Route::post('catalogus/categorien', [AdminController::class, 'categories'])->name('category');
 
     Route::post('catalogys/kledingsstukken', [AdminController::class, 'clothingitems'])->name('clothingitems');

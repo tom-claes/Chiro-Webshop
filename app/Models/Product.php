@@ -31,6 +31,12 @@ class Product extends Model
         return $this->belongsToMany(Size::class, 'product_size_pivot')->withPivot('stock');
     }
 
+    // voor bestellingen te zien waar stock niet nodig is
+    public function size()
+    {
+        return $this->belongsTo(Size::class, 'size_id');
+    }
+
     public function sizeSort()
     {
         return $this->belongsTo(Size_sort::class, 'size_sort');
