@@ -47,7 +47,7 @@ class CheckoutController extends Controller
         // haalt de cart data uit de session storage om deze te gebruiken in de order_products tabel
         $cart = $request->session()->get('cart', []);
 
-            // Check if the quantity of each item is not higher than the stock
+        // controleert of de hoeveelheid van een product niet groter is dan de stock
         foreach ($cart as $item) {
             // haalt de stock op van het product in de database
             $pivot = DB::table('product_size_pivot')
@@ -55,7 +55,7 @@ class CheckoutController extends Controller
                         ->where('size_id', $item['size_id'])
                         ->first();
 
-            // If the quantity exceeds the stock, redirect back to the cart
+            // Als de hoeveelheid van een product groter is dan de stock, redirect naar de cart pagina met een error message
             if ($item['quantity'] > $pivot->stock) {
                 return redirect()->route('checkout.view.cart')->with('error', 'De hoeveelheid van een bepaald product is is niet meer in stock!');
             }
@@ -106,6 +106,7 @@ class CheckoutController extends Controller
             ]);
         } 
 
+        // maakt een array aan met de gegevens van de bestelling om te gebruiken in de mail
         $details = [
             'Bestel Nummer' => $ordernr,
             'Totaal' => $totalPrice,
@@ -125,6 +126,7 @@ class CheckoutController extends Controller
             ];
         }
         
+        // stuurt een mail naar de koper met de gegevens van de bestelling
         try {
             Notification::route('mail', $request->email)->notify(new PurchaseConfirmation($details));
         } catch (\Exception $e) {
@@ -138,6 +140,7 @@ class CheckoutController extends Controller
 
     }
 
+    // pagina waar je de geplaatste bestelling ziet
     public function orderPlaced(Request $request, $order_nr)
     {
         $order = Order::with('products')->where('order_nr', $request->order_nr)->first();
@@ -156,7 +159,7 @@ class CheckoutController extends Controller
 
         $cart = $request->session()->get('cart', []);
 
-        // Fetch product names, size names, size sorts and calculate the total price
+        // haalt op voor elk item in de cart de product naam, size naam, size sort naam en afbeelding en berekent de totale prijs van alle items
         foreach ($cart as $key => &$item) {
             $product = Product::find($item['product_id']);
             $size = Size::find($item['size_id']);
@@ -167,69 +170,70 @@ class CheckoutController extends Controller
             $item['size_sort_name'] = $size_sort ? $size_sort->name : 'Maat soort niet gevonden';
             $item['img'] = $product ? $product->img : 'Geen afbeelding gevonden';
 
-            // Fetch the stock for the product and size from the pivot table
+            // haalt stock op van het product en de maat in de database
             $stock = $product->sizes()->where('size_id', $size->id)->first()->pivot->stock;
 
-            // Check if the quantity is smaller or the same as the stock
+            // controleert of de hoeveelheid van een product niet groter is dan de stock
             if ($item['quantity'] > $stock) {
-                // Set the quantity to the stock
+                // zet de hoeveelheid van het item gelijk aan de stock
                 $item['quantity'] = $stock;
 
-                // If the quantity is 0, remove the item from the cart
+                // als de hoeveelheid 0 is, verwijder het item uit de cart
             if ($item['quantity'] == 0) {
                 unset($cart[$key]);
                 continue;
             }
 
-                // Flash an error message to the session
+                // flash een error message
                 $request->session()->flash('error', 'Het aantal van sommige items is aangepast door veranderingen in stock!');
             }
 
+            // berekent de totale prijs van alle items
             $totalPrice += $item['price'] * $item['quantity'];
         }
 
-        // Put the updated cart back in the session
+        // plaatst de geupdated cart data terug in de session storage
         $request->session()->put('cart', $cart);
 
-        // Pass the cart and the total price to the view
+        // return de cart pagina met de cart data en de totale prijs
         return view('site.shop.cart', ['cart' => $cart, 'totalPrice' => $totalPrice]);
     }
 
     public function addToCart(Request $request, $productId)
     {
-        // Get the product from the database
+        // haalt het product op uit de database
         $product = Product::find($productId);
 
-        // Get the size from the request
+        // haalt de size op uit de request
         $size = $request->input('size');
 
-        // Fetch the stock for the product and size from the pivot table
+        // haalt de stock op van het product en de maat in de database
         $stock = $product->sizes()->where('size_id', $size)->first()->pivot->stock;
 
-        // Create a unique key for this product-size combination
+        // maak een unieke key aan voor dit product-size combinatie
         $key = $productId . '-' . $size;
 
-        // Get the cart from the session
+        // haalt de cart data op uit de session storage
         $cart = $request->session()->get('cart', []);
 
-        // Check if the item already exists in the cart
+        // controleert of het item al bestaat in de cart
         if (isset($cart[$key])) {
-            // Check if the quantity is smaller or the same as the stock
+            // controleert of de hoeveelheid van een product niet groter is dan de stock
             if ($cart[$key]['quantity'] + 1 > $stock) {
-                // Redirect back with an error message
+                // redirect terug met een error message
                 return back()->with('error', 'Er zijn niet genoeg stuks in stock om dit toe te voegen!');
             }
 
-            // Increment the quantity
+            // verhoog de hoeveelheid van het item met 1
             $cart[$key]['quantity']++;
         } else {
-            // Check if the stock is at least 1
+            // controleert of stock kleiner is dan 1
             if ($stock < 1) {
-                // Redirect back with an error message
+                // redirect terug met een error message
                 return back()->with('error', 'Het product is niet meer in stock!');
             }
 
-            // Add the product to the cart
+            // voeg het item toe aan de cart
             $cart[$key] = [
                 'product_id' => $productId,
                 'product_img' => $product->img,
@@ -238,35 +242,34 @@ class CheckoutController extends Controller
                 'size_sort' => $product->size_sort,
                 'price' => $product->price,
                 'quantity' => 1,
-                // Add any other product details you need
             ];
         }
 
-        // Put the updated cart back in the session
+        // plaatst de geupdate cart data terug in de session storage
         $request->session()->put('cart', $cart);
 
-        // Redirect back with a success message
+        // redirect terug naar de cart pagina met een success message
         return back()->with('success', 'Het product is toegevoegd aan uw winkelwagen');
     }
 
     public function RemoveFromCart(Request $request, $productId, $size)
     {
-         // Create a unique key for this product-size combination
+         // maak een unieke key aan voor dit product-size combinatie
         $key = $productId . '-' . $size;
 
-        // Get the cart from the session
+        // haalt de cart data op uit de session storage
         $cart = $request->session()->get('cart', []);
 
-        // Check if the item exists in the cart
+        // controleert of het item bestaat in de cart
         if (isset($cart[$key])) {
-            // Remove the item from the cart
+            // verwijderd het item uit de cart
             unset($cart[$key]);
         }
 
-        // Put the updated cart back in the session
+        // plaatst de cart data terug in de session storage
         $request->session()->put('cart', $cart);
 
-        // Redirect back with a success message
+        // redirect terug naar de cart pagina met een success message
         return back()->with('remove', 'Het item is verwijderd uit uw winkelwagen');
 
     }
