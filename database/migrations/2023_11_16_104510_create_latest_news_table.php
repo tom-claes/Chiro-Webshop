@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title'); // niet uniek want recurerende evenementen bv. varken aan't spit,... die elk jaar opnieuw plaats vinden
             $table->text('content');
-            $table->string('img')->nullable();
+            $table->string('img');
             $table->timestamps();
         });
     }

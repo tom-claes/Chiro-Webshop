@@ -70,11 +70,6 @@ Route::prefix('support/')->name('support.')->group(function () {
 
 /* ADMIN PAGES */
 Route::prefix('admin/')->name('admin.')->middleware('auth', 'admin' )->group(function () {
-    Route::match(['get', 'post'], '/', [AdminController::class, 'login'])->middleware('guest')->name('login');
-
-    Route::get('dashboard', function () {
-        return view('site.admin.dashboard');
-    })->name('dashboard');
 
     Route::get('bestellingen', [AdminController::class, 'orders'])->name('orders');
 

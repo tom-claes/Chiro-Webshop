@@ -20,12 +20,12 @@
                 </div>
                 <div class="form-div">
                     <x-input-label for="content" :value="__('Bericht') . '<span class=\'required\'>*</span>'" />
-                    <x-textarea id="content" class="block mt-1 w-full" name="content" autofocus autocomplete="content">{{ old('content') }}</x-textarea>
+                    <x-textarea id="content" class="block mt-1 w-full" name="content" required autofocus autocomplete="content">{{ old('content') }}</x-textarea>
                     <x-input-error :messages="$errors->get('content')" class="mt-2" />
                 </div>
                 <div class="form-div">
                     <x-input-label for="img" :value="__('Upload afbeelding') . '<span class=\'required\'>*</span>'" />
-                    <x-file-input id="img" name="img" :value="old('img')"  autofocus autocomplete="img" />
+                    <x-file-input id="img" name="img" :value="old('img')" required  autofocus autocomplete="img" />
                 </div>
                 <x-primary-button class="admin-form-btn">
                     {{ __('Creëer post') }}

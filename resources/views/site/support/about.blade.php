@@ -42,6 +42,7 @@
     <br>
     
     <p id="initialiseren" class="about-subtitle">Hoe dit project initialiseren:</p>
+    <p>*Aangezien dit niet een publiek project is en de .env file belangrijk is voor de emails heb ik de .env file beschikbaar gemaakt op Github. Het email adres is een tijdelijk email adres gemaakt voor IT Project.</p>
     <p>1. Instaleer composer door in de terminal van het project het commando: '<span class="underline delete">composer i</span>' uit te voeren.</p>
     <p>2. Instaleer npm door in de terminal van het project het commando: '<span class="underline delete">npm i</span>' uit te voeren.</p>
     <p>3. Maak een database genaamd "chiro-webshop" aan.</p>
