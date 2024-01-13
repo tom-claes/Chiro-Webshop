@@ -48,6 +48,8 @@
     <p>3. Maak een database genaamd "chiro-webshop" aan.</p>
     <p>4. Voer in de terminal van het project het commando: '<span class="underline delete">php artisan migrate:fresh --seed</span>' uit.</p>
     <p>5. Link de storage aan de public directory door in de terminal het commando: '<span class="underline delete">php artisan storage:link</span>' uit te voeren.</p>
+    <p>6. Om de applicatie locaal te hosten moet je het commando: '<span class="underline delete">php artisan serve</span>' uitvoeren in de terminal van het project.</p>
+    <p>7. En dan ten slotte ook het commando : '<span class="underline delete">npm run dev</span>' uitvoeren in een andere terminal dan die van punt 6.</p>
     
     <br>
     
