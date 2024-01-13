@@ -16,6 +16,9 @@ use App\Models\Contact_form;
 use App\Models\Size;
 use App\Models\Size_sort;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
+use Exception;
+
 
 
 class AdminController extends Controller
@@ -116,6 +119,17 @@ class AdminController extends Controller
         // haalt de categorie op die verwijderd moet worden
         $category = Product_category::find($categoryId);
 
+        // Kijkt of er nog een bestelling is dat dit product heeft
+        $productExists = DB::table('order_products')
+            ->join('products', 'order_products.product_id', '=', 'products.id')
+            ->where('products.category', $categoryId)
+            ->exists();
+
+
+        if ($productExists) {
+            throw new Exception('Deze product categorie kan niet verwijderd worden zolang er nog een bestelling is dat een product van deze categorie heeft!');
+        }
+
         // als de categorie bestaat verwijder deze dan
         if ($category) {
             $category->delete();
@@ -207,6 +221,14 @@ class AdminController extends Controller
     {
         // haalt het kledingsstuk op dat verwijderd moet worden
         $product = Product::find($productId);
+
+        $orderExists = DB::table('order_products')
+            ->where('product_id', $productId)
+            ->exists();
+
+        if ($orderExists) {
+            throw new \Exception('Dit product kan niet verwijderd worden zolang er nog een bestelling is dat dit product heeft!');
+        }
 
         // als het kledingsstuk bestaat verwijder deze dan
         if ($product) {
@@ -457,7 +479,7 @@ class AdminController extends Controller
                          ->orWhere('lastname', 'like', "%{$search}%")
                          ->orWhere('email', 'like', "%{$search}%")
                          ->orWhere('subject', 'like', "%{$search}%");
-        })->get();
+        })->orderBy('created_at', 'desc')->get();
         return view('site.admin.contact', compact('contactForms'));
     }
 

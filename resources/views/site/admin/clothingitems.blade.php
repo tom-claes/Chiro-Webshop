@@ -14,7 +14,7 @@
                 @csrf
                 <div class="form-div">
                     <x-input-label for="name" :value="__('Naam categorie') . '<span class=\'required\'>*</span>'" />
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="Bv. T-shirts, Truien, Bermuda's,..." required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
                 <x-primary-button class="admin-form-btn">
@@ -37,7 +37,7 @@
             
                 <div class="form-div">
                     <x-input-label for="name" :value="__('Naam kledingstuk') . '<span class=\'required\'>*</span>'" />
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="Gele Zuunman T-shirt, Chiro Short,..." required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
                 <div class="form-div">
