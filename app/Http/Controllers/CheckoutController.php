@@ -12,10 +12,14 @@ use App\Models\Cart_item;
 use App\Models\Order;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\PurchaseConfirmation;
+
 
 
 class CheckoutController extends Controller
 {
+    // pagina waar je details van aankoop invult en waar je de aankoop plaatst en de mail met de aankoop verzend
     public function viewDetails(Request $request)
     {
         if ($request->isMethod('get'))
@@ -24,7 +28,7 @@ class CheckoutController extends Controller
         }
 
         // valideer de user input van de koper gegevens
-        $request->validate([
+        $validatedData = $request->validate([
             'lastname' => ['required', 'string', 'max:255'],
             'firstname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
@@ -102,6 +106,31 @@ class CheckoutController extends Controller
             ]);
         } 
 
+        $details = [
+            'Bestel Nummer' => $ordernr,
+            'Totaal' => $totalPrice,
+        ];
+        
+        $cart = $request->session()->get('cart');
+        
+        foreach ($cart as $item) {
+            $product = Product::find($item['product_id']);
+            $size = Size::find($item['size_id']);
+        
+            $details['Producten'][] = [
+                'Afbeelding' => $product->img,
+                'Naam' => $product->name,
+                'Aantal' => $item['quantity'],
+                'Maat' => $size->size . ' (' . $product->sizeSort->name . ')',
+            ];
+        }
+        
+        try {
+            Notification::route('mail', $request->email)->notify(new PurchaseConfirmation($details));
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+        
         // verwijderd de cart data uit de session storage
         $request->session()->forget('cart');
 
