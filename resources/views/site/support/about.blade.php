@@ -44,11 +44,9 @@
     <p id="initialiseren" class="about-subtitle">Hoe dit project initialiseren:</p>
     <p>1. Instaleer composer door in de terminal van het project het commando: '<span class="underline delete">composer i</span>' uit te voeren.</p>
     <p>2. Instaleer npm door in de terminal van het project het commando: '<span class="underline delete">npm i</span>' uit te voeren.</p>
-    <p>3. Maak een nieuwe file aan in de root folder van het project genaamd ".env".</p>
-    <p>4. Kopieer de code van env.txt en paste dit in de ".env" file.</p>
-    <p>5. Maak een database genaamd "chiro-webshop" aan.</p>
-    <p>6. Voer in de terminal van het project het commando: '<span class="underline delete">php artisan migrate:fresh --seed</span>' uit.</p>
-    <p>7. Link de storage aan de public directory door in de terminal het commando: '<span class="underline delete">php artisan storage:link</span>' uit te voeren.</p>
+    <p>3. Maak een database genaamd "chiro-webshop" aan.</p>
+    <p>4. Voer in de terminal van het project het commando: '<span class="underline delete">php artisan migrate:fresh --seed</span>' uit.</p>
+    <p>5. Link de storage aan de public directory door in de terminal het commando: '<span class="underline delete">php artisan storage:link</span>' uit te voeren.</p>
     
     <br>
     
