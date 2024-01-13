@@ -12,9 +12,11 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_nr', 'total_price' , 'lastname', 'firstname', 'email', 'phone', 'street', 'streetnr', 'zip', 'city'];
-
     protected $primaryKey = 'order_nr';
+
+    public $incrementing = false;
+
+    protected $fillable = ['order_nr', 'total_price' , 'lastname', 'firstname', 'email', 'phone', 'street', 'streetnr', 'zip', 'city'];
 
     public function products()
     {
