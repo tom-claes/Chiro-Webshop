@@ -52,7 +52,7 @@ class AdminController extends Controller
                          ->orWhere('firstname', 'like', "%{$search}%")
                          ->orWhere('lastname', 'like', "%{$search}%")
                          ->orWhere('email', 'like', "%{$search}%");
-        })->get();
+        })->orderBy('created_at', 'desc')->get();
         
         return view('site.admin.orders', compact('orders'));
     }

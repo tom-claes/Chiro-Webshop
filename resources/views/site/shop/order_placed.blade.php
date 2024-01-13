@@ -30,11 +30,11 @@
     </div>
     
     <div class="order-info-box">
-        <p>{{"Naam: " . $order->lastname . " " . $order->firstname}}</p>
-        <p>{{"Email: " . $order->email}}</p>
-        <p>{{"Telefoonnummer: " . $order->phone}}</p>
-        <p>{{"Adres: " . $order->street . " " . $order->streetnr . ", " . $order->zip . " " . $order->city}}</p>
-        <p>{{"Totaal: €" . number_format($order->total_price, 2)}}</p>
+        <p><span class="bold">Naam: </span>{{ $order->lastname . " " . $order->firstname}}</p>
+        <p><span class="bold">Email: </span>{{ $order->email}}</p>
+        <p><span class="bold">Telefoonnummer: </span>{{ $order->phone}}</p>
+        <p><span class="bold">Adres: </span>{{ $order->street . " " . $order->streetnr . ", " . $order->zip . " " . $order->city}}</p>
+        <p><span class="bold">Totaal: </span>{{ "€" . number_format($order->total_price, 2)}}</p>
     
     </div>
 </div>
