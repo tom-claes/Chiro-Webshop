@@ -6,7 +6,7 @@
 <p class="admin-heading">Maten</p>
 
     <div class="admin-create">
-        <p class="admin-form-heading">Voeg een maat categorie toe aan de catalogus (bv. Kinderen of Volwassenen)</p>
+        <p class="admin-form-heading">Voeg een maat categorie toe aan de catalogus</p>
         <button class="myButton"><i class="arrow right"></i></button>
 
         <div class="myText" style="display: none;">
@@ -14,7 +14,7 @@
                 @csrf
                 <div class="form-div">
                     <x-input-label for="name" :value="__('Naam categorie') . '<span class=\'required\'>*</span>'" />
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="Bv. Kinderen, Volwassenen" required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
@@ -47,14 +47,14 @@
                         <option disabled selected></option>
             
                         @foreach($size_sorts as $size_sort)
-                            <option value="{{ $size_sort->id }}">{{ ucwords($size_sort->name) }}</option>
+                            <option value="{{ $size_sort->id }}">{{ ucwords($size_sort->name) . " (" . ucwords($size_sort->type) . ")"}}</option>
                         @endforeach
                     </x-dropdown-form>
                     <x-input-error :messages="$errors->get('size_sort')" class="mt-2" />
                 </div>
                 <div class="form-div">
                     <x-input-label for="size" :value="__('Naam maat') . '<span class=\'required\'>*</span>'" />
-                    <x-text-input id="size" class="block mt-1 w-full" type="text" name="size" :value="old('size')" required autofocus autocomplete="size" />
+                    <x-text-input id="size" class="block mt-1 w-full" type="text" name="size" :value="old('size')" placeholder="Bv. XS, S, M, L, XL,..." required autofocus autocomplete="size" />
                     <x-input-error :messages="$errors->get('size')" class="mt-2" />
                 </div>
                 <x-primary-button class="admin-form-btn">
