@@ -57,9 +57,9 @@ class AdminController extends Controller
         return view('site.admin.orders', compact('orders'));
     }
 
-    public function deleteOrder($orderId)
+    public function deleteOrder($orderNr)
     {
-        $order = Order::where('id', $orderId)->first();
+        $order = Order::where('order_nr', $orderNr)->first();
     
         if ($order) {
             $order->delete();
